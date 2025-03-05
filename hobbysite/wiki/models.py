@@ -7,7 +7,7 @@ class ArticleCategory(models.Model):
     description = models.TextField(null=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['name']  # Sort categories by name in ascending order
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Article(models.Model):
     category = models.ForeignKey(ArticleCategory,
                                 on_delete=models.SET_NULL,
                                 null=True,
-                                related_name = 'category'
+                                related_name = 'articles'
     )
     entry = models.TextField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)  # Set only once on creation
@@ -30,5 +30,5 @@ class Article(models.Model):
     def __str__(self):
         return self.title
     
-    def get_absoulute_url(self):
+    def get_absolute_url(self):
         return reverse('wiki:article_detail', args=[self.pk])
