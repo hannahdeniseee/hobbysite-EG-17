@@ -15,7 +15,7 @@ class ArticleCategory(models.Model):
 
     def get_absolute_url(self):
         """Returns the URL to access the detail view of this ingredient."""
-        return reverse('blog:category_detail', args=[str(self.pk)])
+        return reverse('blog:article_detail', args=[str(self.pk)])
 
 class Article(models.Model):
     """Model for an article with a title, category, entry, and creation and update dates."""
@@ -24,13 +24,14 @@ class Article(models.Model):
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
+        related_name='article'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return str(self.name)
+        return str(self.title)
 
     def get_absolute_url(self):
         """Returns the URL to access the detail view of this recipe."""
