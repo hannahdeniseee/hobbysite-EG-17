@@ -1,5 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
-def index(request):
-    return HttpResponse('Hello World! This came from the index view')
+from .models import Product, ProductType
+
+class MerchListView(ListView):
+    model = Product
+    template_name = 'merch_list.html' 
+    context_object_name = "products"
+
+class MerchDetailView(DetailView):
+    model = Product
+    template_name = 'merch_detail.html' 
