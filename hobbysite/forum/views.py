@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Post, PostCategory
 
+
 def threads_list(request):
     ctx = {
         "posts": Post.objects.all(),
