@@ -1,18 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ post.title }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
     </head>
     <body>
-        <h1>[{{ post.category }}] {{ post.title }}</h1>
-        <h5>
-            Created on: {{ post.created_on }} | Updated on: {{ post.updated_on }}
-        </h5>
-        <p>
-            {{ post.entry }}
-        </p>
-
+        <div class="cardslayout">
+            <div class="detail-box">
+                <h1 class="header-strip">[{{ post.category.name }}] {{ post.title }}</h1>
+                <h3 style="text-align: center;">
+                    Created on: {{ post.created_on }} | Updated on: {{ post.updated_on }}
+                </h3>
+                <p>
+                    {{ post.entry }}
+                </p>
+            </div>
+        </div>
     </body>
 </html>
