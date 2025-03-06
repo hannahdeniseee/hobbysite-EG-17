@@ -8,9 +8,15 @@
 </head>
 <body>
     <div class="header-strip"></div>
+
     <h2 class="article-title">{{ article.title }}</h2>
     <h3 style="text-align: center">{{ article.category }}</h3>
-    <h4 style="text-align: center">Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}</h4>
+    <h4 style="text-align: center">
+        Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}
+    </h4>
+
     <p class="article-entry">{{ article.entry|linebreaksbr }}</p>
+
+    <h3 style="text-align: center"><a href="{% url 'blog:article_list' %}">Back to List View</a></h3>
 </body>
 </html>

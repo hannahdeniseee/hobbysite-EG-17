@@ -8,7 +8,9 @@
 </head>
 <body>
     <div class="header-strip"></div>
-    <img src="{% static 'blog/images/blog.png' %}" alt="Forum Header" class="header-image">
+    
+    <img src="{% static 'blog/images/blog.png' %}" alt="Blog Header" class="header-image">
+    
     <h1 class="header-strip">CATEGORIES</h1>
     <div class="cardslayout">
         {% for category in categories %}
@@ -18,15 +20,18 @@
             </div>
         {% endfor %}
     </div>
+    
     <h1 class="header-strip">ARTICLES</h1>
     <div class="cardslayout">
         {% for article in articles %}
-        <div class="thread-card">
-            <a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
-            <h3>{{ article.category }}</h3>
-            <p>Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}</p>
-        </div>
-    {% endfor %}
+            <div class="thread-card">
+                <a href="{{ article.get_absolute_url }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+                <h3>{{ article.category }}</h3>
+                <p>Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}</p>
+            </div>
+        {% endfor %}
     </div>
 </body>
 </html>

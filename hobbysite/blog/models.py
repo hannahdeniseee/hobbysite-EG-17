@@ -25,11 +25,10 @@ class Article(models.Model):
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return str(self.title)
 
     def get_absolute_url(self):
-        """Returns the URL to access the detail view of this recipe."""
+        """Returns the URL to access the detail view of each article."""
         return reverse('blog:article_detail', args=[str(self.pk)])
-    

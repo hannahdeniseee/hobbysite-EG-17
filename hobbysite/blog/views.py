@@ -1,9 +1,13 @@
+"""
+Django views for handling article-related pages.
+"""
+
 from django.shortcuts import render
 from .models import Article, ArticleCategory
 
 def article_list(request):
     """
-    View function for displaying a list of recipes.
+    View function for displaying the list view of blog.
     """
     articles = Article.objects.all().order_by('-created_on')
     categories = ArticleCategory.objects.all().order_by('name')
@@ -16,9 +20,9 @@ def article_list(request):
 
 def article_detail(request, id):
     """
-    View function for displaying the details of a recipe.
+    View function for displaying the detail view of each article.
     """
-    ctx = { 
+    ctx = {
         'article': Article.objects.get(id=id) 
     }
     return render(request, 'article_detail.html', ctx)
