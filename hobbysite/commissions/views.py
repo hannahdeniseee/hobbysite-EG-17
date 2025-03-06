@@ -4,14 +4,18 @@ from .models import Commission, Comment
 
 
 def commissions_list(request):
+    commissions = Commission.objects.all()
     ctx = {
-        "commissions": Commission.objects.all()
+        "commissions": commissions
     }
-    return render(request, 'commissions/commissions_list.html', ctx)
+    return render(request, 'commissions_list.html', ctx)
 
 
-def commission_detail(request, pk):
+def commissions_detail(request, pk):
+    commission = Commission.objects.get(pk=pk)
+    comments = commission.comments.all()
     ctx = {
-        "commission": Commission.objects.get(pk=pk),
+        "commission": commission,
+        "comments": comments
     }
-    return render(request, 'commissions/commissions_detail.html', ctx)
+    return render(request, 'commissions_detail.html', ctx)
