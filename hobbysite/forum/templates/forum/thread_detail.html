@@ -14,6 +14,9 @@
                 <h3 style="text-align: center;">Created on: {{ post.created_on }} | Updated on: {{ post.updated_on }}</h3>
                 <p>{{ post.entry }}</p>
             </div>
+            <a href="{% url 'forum:threads-list' %}" class="button">
+                <p>Back to Threads List</p>
+            </a>
         </div>
     </body>
 </html>
