@@ -5,7 +5,7 @@
   <ul>
     {% for product in products %}
       <li>
-        <a href="{% url 'merch-detail' product.pk %}">{{ product.name }}</a> - ${{ product.price }}
+        <a href="{% url 'merchstore:merch-detail' product.pk %}">{{ product.name }}</a>
       </li>
     {% empty %}
       <li>No products available.</li>

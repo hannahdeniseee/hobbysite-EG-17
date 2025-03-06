@@ -5,14 +5,16 @@ from .models import Product, ProductType
 
 class MerchListView(ListView):
     model = Product
-    template_name = 'merch_list.html' 
+    template_name = 'merch_list.html'
     context_object_name = "products"
 
 class MerchDetailView(DetailView):
     model = Product
-    template_name = 'merch_detail.html' 
+    template_name = 'merch_detail.html'
+    context_object_name = "product"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["product_type"] = self.object.product_type 
-        return context
+        #context["product_type"] = self.object.product_type
+        context["product_type"] = self.object.product_type
+        return context  
