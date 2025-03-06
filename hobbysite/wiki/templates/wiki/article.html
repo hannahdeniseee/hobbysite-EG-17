@@ -1,7 +1,69 @@
-{% extends 'base.html' %}
-{% block title %}{{ name }}{% endblock %}
-{% block content %}
-    <h2>{{ article.title }}</h2>
-    <p>{{ article.entry }} </p>
+{% extends 'wiki\base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block styles%}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Permanent+Marker&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+        .article-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .article-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            font-size: 12px;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .article-image-box {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            padding: 10px;
+            background-color: #ffe9d4;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+
+        .article-entry {
+            font-size: 18px;
+            text-align: left;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="article-container">
+
+    <h1 class="article-title">{{ article.title }}</h1>
+    <p class="article-meta">Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
+
+    <div class="article-image-box">
+        <img src="https://picsum.photos/500/300" alt="{{ article.title }}" class="article-image">
+    </div>
+
+    <div class="article-entry">
+        {{ article.entry }}  
+    </div>
+</div>
 {% endblock %}
