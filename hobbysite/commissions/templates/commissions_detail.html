@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ commission.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ commission.title }}</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                {{ comment.entry }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
