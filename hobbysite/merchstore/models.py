@@ -11,9 +11,6 @@ class ProductType(models.Model):
 
     def __str__(self):
         return self.name
-    
-    #def get_absolute_url(self):
-    #    return reverse('merchstore:merch-list', args=[str(self.id)])
 
 
 class Product(models.Model): 
@@ -25,14 +22,12 @@ class Product(models.Model):
             on_delete=models.SET_NULL, 
             null=True,
             related_name='products')
-    
+
     class Meta:
         ordering = ['name']
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse('merchstore:merch-detail', args=[str(self.id)])
-    
-    

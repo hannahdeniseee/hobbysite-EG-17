@@ -1,7 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-  <h1>{{ product.name }}</h1>
-  <p><strong>Description:</strong> {{ product.description }}</p>
-  <p><strong>Price:</strong> ${{ product.price }}</p>
-  <p><strong>Product Type:</strong> {{ product_type|default:"No product type available" }}</p>
-  <a href="{% url 'merchstore:merch-list' %}">Back to Products</a>
+<h1 class="header-strip">{{ product.name }} Details</h1>
+<div class = "detail-container">
+    <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+    alt="{{ product.name }}" 
+    class="detail-image">
+    <div class = "detail-info">
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p><strong>Product Type:</strong> {{ product.product_type.name|default:"No product type available" }}</p> 
+    </div>
+</div>  
+<div class="back-button-container">
+    <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
+</div>
+
 {% endblock %}
