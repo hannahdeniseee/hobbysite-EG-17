@@ -2,16 +2,17 @@
 {% block title %}Articles{% endblock %}
 {% block styles%}
     <style>
-
-        h1 a {
-            text-decoration: none;
-            color: white;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Permanent+Marker&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
         img {
             width: 100%;
             height: auto;
-            display: block;
+        }
+
+        h2 {
+            font-family: 'Noto Serif';
+            font-size: 30px;
+            margin: 0.5%;
         }
 
         .boxdiv {
@@ -50,17 +51,18 @@
             height: 50px;
             object-fit: cover; 
             border-radius: 50%; 
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .name {
+            color: rgb(67, 13, 13);
             font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 8px;
         }
 
         .description {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
         }
 
