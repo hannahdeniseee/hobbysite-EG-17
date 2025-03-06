@@ -13,10 +13,6 @@ class ArticleCategory(models.Model):
     def __str__(self):
         return str(self.name)
 
-    def get_absolute_url(self):
-        """Returns the URL to access the detail view of this ingredient."""
-        return reverse('blog:article_detail', args=[str(self.pk)])
-
 class Article(models.Model):
     """Model for an article with a title, category, entry, and creation and update dates."""
     title = models.CharField(max_length=255)
