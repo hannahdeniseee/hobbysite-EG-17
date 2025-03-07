@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('wiki/', include('wiki.urls', namespace= 'wiki')),
     path('admin/', admin.site.urls),
+    path('merchstore/', include('merchstore.urls', namespace="merchstore"))
 ]
