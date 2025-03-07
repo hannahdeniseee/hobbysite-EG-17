@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="header-strip"></div>
+<img src="{% static 'merchstore/merchstore.png' %}" alt="Merch Header" class="header-image">
+<h1 class="header-strip">Merchandise List</h1>
+<div class="cardslayout"> 
+    {% for product in products %}
+        <div class="card">
+            <a href="{% url 'merchstore:merch-detail' product.pk %}">
+            <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+            alt="{{ product.name }}" 
+            class="product-image">
+            <p>{{ product.name }}</p>
+            </a>
+        </div>
+    {% empty %}
+        <li>No products available.</li>
+    {% endfor %}
+</div>
+{% endblock %}

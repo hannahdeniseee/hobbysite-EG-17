@@ -1,0 +1,107 @@
+body, html {
+    background-color: #f1ece6;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin: 0;
+    padding: 0;
+}
+*{
+    box-sizing: border-box;
+}
+.header-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.header-strip {
+    background-color: #37499e;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-weight: 100;
+    color: #f1ece6;
+    margin: 0;
+}
+.thread-card {
+    display: block;
+    background-color: #f1ece6;
+    color: #37499e;
+    padding: 2%;
+    text-decoration: none;
+    width: 89%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #37499e;
+    margin-top: 3%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+.thread-card:hover {
+    background-color: #37499e;
+    color: #f1ece6;
+}
+.card {
+    color: #37499e;
+    padding: 1%;
+    text-align: center;
+    width: 20%;
+    display: block;
+    border-radius: 20px;
+    border-color: #37499e;
+    border-style: solid;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    margin-top: 3%;
+}
+.cardslayout {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 3%;
+}
+.detail-box {
+    display: block;
+    background-color: #f1ece6;
+    color: #37499e;
+    padding: 2%;
+    width: 89%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #37499e;
+    margin-top: 3%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+.beige-strip {
+    background-color: #f1ece6;
+    padding-top: .5%;
+    padding-bottom: .5%;
+    border-color: #37499e;
+    border-bottom-style: solid;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-weight: 100;
+    color: #37499e;
+    margin: 0;
+}
+.button {
+    display: block;
+    background-color: #f1ece6;
+    color: #37499e;
+    padding: .5%;
+    text-decoration: none;
+    text-align: center;
+    width: 15%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #37499e;
+    margin-top: 3%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+.button:hover {
+    background-color: #37499e;
+    color: #f1ece6;
+}

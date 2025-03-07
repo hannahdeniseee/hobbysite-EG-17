@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('wiki/', include('wiki.urls', namespace='wiki')),
+    path('forum/', include('forum.urls', namespace='forum')),
+    path('merchstore/', include('merchstore.urls', namespace="merchstore")),
+    path('blog/', include('blog.urls', namespace="blog")),
     path('admin/', admin.site.urls),
     path('', include('commissions.urls', namespace='commissions'))
 ]
