@@ -8,6 +8,7 @@ class ArticleCategory(models.Model):
 
     class Meta:
         ordering = ['name']  # Sort categories by name in ascending order
+        verbose_name_plural = "Article Categories"
 
     def __str__(self):
         return self.name
