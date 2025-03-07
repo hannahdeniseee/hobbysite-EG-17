@@ -19,7 +19,8 @@ class ArticleCategory(models.Model):
 
 
 class Article(models.Model):
-    """Model for an article with a title, category, entry, and creation and update dates."""
+    """Model for an article with a title, category, entry,
+    and creation and update dates."""
     title = models.CharField(max_length=255)
     category = models.ForeignKey(
         ArticleCategory,
