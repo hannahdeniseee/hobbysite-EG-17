@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Commissions List{% endblock %}
 {% block content %}
-    <ul>
-        {% for commission in commissions %}
-            <li>
-                <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="header-strip"></div>
+<img src="{% static 'commissions/commissions.png' %}" alt="Commissions Header" class="header-image">
+<h1 class="header-strip">Commission List</h1>
+<div class="cardslayout">
+    {% for commission in commissions %}
+    <a href="{{ commission.get_absolute_url }}" class="card">
+        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
+        <h2>{{ commission.title }}</h2>
+        <div class="card-info">
+            <p>People Required : {{ commission.people_required }}</p>
+            <p>{{ commission.description }}</p>
+            <p>{{ commission.created_on }}</p>
+        </div>
+    </a>
+    {% empty %}
+        <li>No commissions available.</li>
+    {% endfor %}
+</div>
 {% endblock %}
