@@ -13,8 +13,8 @@ class Commission(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('commissions:commission-detail', args=[str(self.pk)])
-
+        return reverse('commissions:commission-detail', 
+                       args=[str(self.pk)])
 
 
 class Comment(models.Model):
@@ -31,5 +31,4 @@ class Comment(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
-
+        return self.entry
