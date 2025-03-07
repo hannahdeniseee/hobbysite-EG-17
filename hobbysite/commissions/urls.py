@@ -3,8 +3,10 @@ from .views import commissions_list, commissions_detail
 
 
 urlpatterns = [
-    path('commissions/list/', commissions_list, name='commissions-list'),
-    path('commissions/detail/<int:pk>/', commissions_detail, name='commission-detail')
+    path('commissions/list/', 
+         commissions_list, name='commissions-list'),
+    path('commissions/detail/<int:pk>/', 
+         commissions_detail, name='commission-detail')
 ]
 
 
