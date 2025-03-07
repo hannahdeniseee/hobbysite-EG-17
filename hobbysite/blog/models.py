@@ -5,6 +5,7 @@ Defines ArticleCategory and Article models.
 from django.db import models
 from django.urls import reverse
 
+
 class ArticleCategory(models.Model):
     """Model for an article category with name and description."""
     name = models.CharField(max_length=255)
@@ -15,6 +16,7 @@ class ArticleCategory(models.Model):
 
     def __str__(self):
         return str(self.name)
+
 
 class Article(models.Model):
     """Model for an article with a title, category, entry, and creation and update dates."""
