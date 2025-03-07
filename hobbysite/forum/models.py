@@ -2,26 +2,26 @@ from django.db import models
 from django.urls import reverse
 
 
-class ArticleCategory(models.Model):
+class PostCategory(models.Model):
     name = models.CharField(max_length=255)
-    description = models.TextField(null=True)
+    description = models.TextField()
 
     class Meta:
-        ordering = ['name']  # Sort categories by name in ascending order
+        ordering = ['name']
+        verbose_name_plural = "Post Categories"
 
     def __str__(self):
         return self.name
 
 
-class Article(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(
-        ArticleCategory,
+        PostCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='articles'
     )
-    entry = models.TextField(null=True)
+    entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -32,4 +32,4 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('wiki:article_detail', args=[self.pk])
+        return reverse('forum:thread-detail', args=[str(self.pk)])

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forum</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
+    </head>
+    <body>
+        <div class="header-strip"></div>
+        <img src="{% static 'forum/images/forum.png' %}" alt="Forum Header" class="header-image">
+        <h1 class="header-strip">CATEGORIES</h1>
+        <div class="cardslayout"> 
+            {% for postcategory in postcategories %}
+                <div class="card">
+                    <h2>{{ postcategory.name }}</h2>
+                    <p>{{ postcategory.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <h1 class="header-strip">THREADS</h1>
+            <p class="beige-strip">BROWSE THROUGH OUR LATEST THREADS</p>
+        <div class="cardslayout">
+            {% for post in posts %}
+                <a href="{{ post.get_absolute_url }}" class="thread-card">
+                    <h3>{{ post.title }}</h3>
+                    <p>Category: {{ post.category.name }} | Created on: {{ post.created_on }} | Updated on: {{ post.updated_on }}</p>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="header-strip">
+        </div>
+    </body>
+</html>
