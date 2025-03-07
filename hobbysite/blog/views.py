@@ -9,8 +9,8 @@ def article_list(request):
     """
     View function for displaying the list view of blog.
     """
-    articles = Article.objects.all().order_by('-created_on')
-    categories = ArticleCategory.objects.all().order_by('name')
+    articles = Article.objects.all()
+    categories = ArticleCategory.objects.all()
 
     ctx = {
         'articles': articles,
