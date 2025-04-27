@@ -1,23 +1,29 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 
-class PostCategory(models.Model):
+class ThreadCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     class Meta:
         ordering = ['name']
-        verbose_name_plural = "Post Categories"
+        verbose_name_plural = "Thread Categories"
 
     def __str__(self):
         return self.name
 
 
-class Post(models.Model):
+class Thread(models.Model):
     title = models.CharField(max_length=255)
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     category = models.ForeignKey(
-        PostCategory,
+        ThreadCategory,
         on_delete=models.SET_NULL,
         null=True,
     )

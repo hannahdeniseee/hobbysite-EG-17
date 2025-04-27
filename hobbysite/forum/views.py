@@ -1,17 +1,17 @@
-from django.shortcuts import render
-from .models import Post, PostCategory
+from .models import Thread, ThreadCategory
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 
-def threads_list(request):
-    ctx = {
-        "posts": Post.objects.all(),
-        "postcategories": PostCategory.objects.all()
+class ThreadListView(ListView):
+    model = Thread
+    template_name = 'forum/threads_list.html'
+    context_object_name = 'threads'
+    extra_context = {
+        "threadcategories": ThreadCategory.objects.all()
     }
-    return render(request, 'forum/threads_list.html', ctx)
 
 
-def thread_detail(request, pk):
-    ctx = {
-        "post": Post.objects.get(pk=pk),
-    }
-    return render(request, 'forum/thread_detail.html', ctx)
+class ThreadDetailView(DetailView):
+    model = Thread
+    template_name = 'forum/thread_detail.html'
