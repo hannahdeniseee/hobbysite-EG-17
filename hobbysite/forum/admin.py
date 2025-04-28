@@ -12,16 +12,26 @@ class CommentInline(admin.TabularInline):
 
 class ThreadCategoryAdmin(admin.ModelAdmin):
     model = ThreadCategory
-    list_display = ('name', 'description')
-    inlines = [ThreadInline, ]
+    list_display = ('name', 'description',)
+    inlines = [ThreadInline,]
 
 
 class ThreadAdmin(admin.ModelAdmin):
     model = Thread
-    search_fields = ('title', 'category')
-    list_display = ('title', 'category', 'created_on', 'updated_on')
-    list_filter = ('category', 'created_on', 'updated_on')
-    inlines = [CommentInline, ]
+    search_fields = ('title', )
+    list_display = ('title',
+                    'author',
+                    'category',
+                    'image',
+                    'created_on',
+                    'updated_on',
+                    )
+    list_filter = ('author',
+                   'category',
+                   'created_on',
+                   'updated_on',
+                   )
+    inlines = [CommentInline,]
 
 
 admin.site.register(ThreadCategory, ThreadCategoryAdmin)
