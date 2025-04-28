@@ -7,9 +7,7 @@ class ThreadListView(ListView):
     model = Thread
     template_name = 'forum/threads_list.html'
     context_object_name = 'threads'
-    extra_context = {
-        "threadcategories": ThreadCategory.objects.all()
-    }
+    extra_context = {"threadcategories": ThreadCategory.objects.all()}
 
 
 class ThreadDetailView(DetailView):
