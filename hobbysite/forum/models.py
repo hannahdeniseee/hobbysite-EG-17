@@ -1,31 +1,25 @@
-"""
-Defines ArticleCategory and Article models.
-"""
-
 from django.db import models
 from django.urls import reverse
 
 
-class ArticleCategory(models.Model):
-    """Model for an article category with name and description."""
+class PostCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     class Meta:
         ordering = ['name']
+        verbose_name_plural = "Post Categories"
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
 
-class Article(models.Model):
-    """Model for an article."""
+class Post(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(
-        ArticleCategory,
+        PostCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='article'
     )
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -35,8 +29,7 @@ class Article(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return str(self.title)
+        return self.title
 
     def get_absolute_url(self):
-        """Returns the URL to access the detail view of each article."""
-        return reverse('blog:article_detail', args=[str(self.pk)])
+        return reverse('forum:thread-detail', args=[str(self.pk)])

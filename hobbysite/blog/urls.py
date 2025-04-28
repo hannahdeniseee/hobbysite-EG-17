@@ -1,5 +1,5 @@
 '''
-URL configuration for the blog app. 
+URL configuration for the blog app.
 '''
 
 from django.urls import path
