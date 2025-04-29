@@ -8,15 +8,47 @@
         <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
     </head>
     <body>
-        <div class="cards-layout">
+        <div class="layout-personal">
             <div class="detail-box">
                 <h1 class="header-strip">[{{ thread.category.name }}] {{ thread.title }}</h1>
-                <h3 style="text-align: center;">Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
-                <p>{{ thread.entry }}</p>
+                <h3 style="text-align: center;">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
+                {% if thread.image %}
+                    <img src="{{ thread.image.url }}" alt="{{ thread.title }} image" style="max-width: 50%; max-height: 500px">
+                {% endif %}
+                    <p>{{ thread.entry }}</p>
+                {% if request.user.is_authenticated %}
+                    <div class="edit-button">Edit Thread</div>
+                {% endif %}
+                <hr class="line">
+                <h3>Comments</h3>
+                {% for thread_comment in other_comments %}
+                    <h4 style="margin-top: 3%">{{ thread_comment.author.display_name }}</h4>
+                    <p>{{ thread_comment.entry }}</p>
+                    <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
+                {% endfor %}
+                {% if request.user.is_authenticated %}
+                    <div class="bottom-margin">
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ commentform.entry.label_tag }}
+                        <p></p>
+                        {{ commentform.entry }}
+                        <input type="submit" value="Submit" class="submit-button">
+                    </form>
+                {% endif %}
             </div>
             <a href="{% url 'forum:threads-list' %}" class="button">
                 <p>Back to Threads List</p>
             </a>
+            <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
+                {% for other in other_threads %}
+                    {% if other.category == thread.category %}
+                        <div class="thread-card">
+                            <a href="{{ other.get_absolute_url }}"><h3>{{ other.title }}</h3></a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
         </div>
     </body>
 </html>
