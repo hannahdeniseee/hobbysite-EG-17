@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import ThreadListView, ThreadDetailView
+from .views import ThreadListView, ThreadDetailView, ThreadCreateView
 
 urlpatterns = [
     path('threads', ThreadListView.as_view(), name='threads-list'),
-    path('thread/<int:pk>', ThreadDetailView.as_view(), name='thread-detail')
+    path('thread/<int:pk>', ThreadDetailView.as_view(), name='thread-detail'),
+    path('thread/add', ThreadCreateView.as_view(), name='thread-add'),
 ]
 
 app_name = "forum"

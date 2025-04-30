@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create New Thread</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
+    </head>
+    <body>
+        <div>
+            <h1 class="header-text">CREATE NEW THREAD</h1>
+            <p></p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                <p></p>
+                {{ form.category.label_tag }}
+                {{ form.category }}
+                <p></p>
+                {{ form.entry.label_tag }}
+                <p></p>
+                {{ form.entry }}
+                <p></p>
+                {{ form.image.label_tag }}
+                {{ form.image }}
+                <p></p>
+                <input type="submit" value="Submit" class="submit-button">
+            </form>
+        </div> 
+    </body>
+</html>

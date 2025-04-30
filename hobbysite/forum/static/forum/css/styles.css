@@ -1,5 +1,6 @@
 body, html {
     background-color: #f1ece6;
+    color:#37499e;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     margin: 0;
     padding: 0;
@@ -35,7 +36,6 @@ body, html {
 .thread-card {
     display: block;
     background-color: #f1ece6;
-    color: #37499e;
     padding: 2%;
     text-decoration: none;
     width: 89%;
@@ -47,7 +47,6 @@ body, html {
     margin-right: 1.5%;
 }
 .card {
-    color: #37499e;
     padding: 1%;
     text-align: center;
     width: 20%;
@@ -76,7 +75,6 @@ body, html {
 .detail-box {
     display: block;
     background-color: #f1ece6;
-    color: #37499e;
     padding: 2%;
     width: 89%;
     border-radius: 20px;
@@ -96,13 +94,11 @@ body, html {
     text-align: center;
     font-style: italic;
     font-weight: 100;
-    color: #37499e;
     margin: 0%;
 }
 .button {
     display: block;
     background-color: #f1ece6;
-    color: #37499e;
     padding: .5%;
     text-decoration: none;
     text-align: center;
@@ -121,7 +117,6 @@ body, html {
     font-style: italic;
     font-weight: 100;
     width: 100%;
-    color: #37499e;
     margin-top: 4.5%;
 }
 .line {
@@ -130,7 +125,6 @@ body, html {
     margin-top: 3%
 }
 .custom-comment-box {
-    color: #37499e;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
     padding: 2%;
@@ -140,11 +134,32 @@ body, html {
     border-radius: 20px;
     border-width: 2px;  
     border-color: #37499e;
+    border-style: solid;
+    background-color: #f1ece6;
+}
+.custom-title-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    width: 50%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #37499e;
+    border-style: solid;
+    background-color: #f1ece6;
+}
+.custom-categ-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #37499e;
+    border-style: solid;
     background-color: #f1ece6;
 }
 .submit-button {
+    color:#37499e;
     background-color: #f1ece6;
-    color: #37499e;
     padding: 1%;
     text-decoration: none;
     text-align: center;
@@ -158,7 +173,6 @@ body, html {
 .edit-button {
     display: flex;
     background-color: #f1ece6;
-    color: #37499e;
     height: 50px;
     width: 10%;
     text-decoration: none;

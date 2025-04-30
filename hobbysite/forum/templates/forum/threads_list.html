@@ -14,9 +14,9 @@
             <h1 class="header-text">USER'S THREADS</h1>
             <h3 class="beige-strip">BROWSE THROUGH YOUR PUBLISHED THREADS</h3>
             <div class="layout-personal">
-                <div class="button">
+                <a href="{% url 'forum:thread-add' %}" class="button">
                     <p>Create New Thread</p>
-                </div>
+                </a>
                 {% for thread in threads %}
                     {% if thread.author.user == request.user %}
                         <div class="thread-card">
