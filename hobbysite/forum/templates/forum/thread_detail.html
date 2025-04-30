@@ -15,9 +15,11 @@
                 {% if thread.image %}
                     <img src="{{ thread.image.url }}" alt="{{ thread.title }} image" style="max-width: 50%; max-height: 500px">
                 {% endif %}
-                    <p>{{ thread.entry }}</p>
+                <p>{{ thread.entry }}</p>
                 {% if request.user.is_authenticated %}
-                    <div class="edit-button">Edit Thread</div>
+                    <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
+                        <p>Update Thread</p>
+                    </a>
                 {% endif %}
                 <hr class="line">
                 <h3>Comments</h3>

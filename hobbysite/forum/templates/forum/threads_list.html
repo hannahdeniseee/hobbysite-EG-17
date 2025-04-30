@@ -11,7 +11,7 @@
         <div class="header-strip"></div>
         <img src="{% static 'forum/images/forum.png' %}" alt="Forum Header" class="header-image">
         {% if request.user.is_authenticated %}
-            <h1 class="header-text">USER'S THREADS</h1>
+            <h1 class="header-strip">USER'S THREADS</h1>
             <h3 class="beige-strip">BROWSE THROUGH YOUR PUBLISHED THREADS</h3>
             <div class="layout-personal">
                 <a href="{% url 'forum:thread-add' %}" class="button">
@@ -26,7 +26,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <h1 class="header-text">ALL THREADS</h1>
+        <h1 class="header-strip">ALL THREADS</h1>
         {% if request.user.is_authenticated %}
             <h3 class="beige-strip">BROWSE THROUGH OTHER USERS' THREADS</h3>
         {% else %}

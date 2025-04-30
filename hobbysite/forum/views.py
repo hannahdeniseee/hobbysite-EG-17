@@ -1,9 +1,9 @@
 from .models import Thread, ThreadCategory, Comment
-from .forms import CommentForm, ThreadForm
+from .forms import CommentForm, ThreadForm, UpdateForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse
 
@@ -53,3 +53,9 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
+
+
+class ThreadUpdateView(LoginRequiredMixin, UpdateView):
+    model = Thread
+    form_class = UpdateForm
+    template_name = 'forum/thread_form.html'

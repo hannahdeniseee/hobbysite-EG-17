@@ -39,7 +39,7 @@ class Thread(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('forum:thread-detail', args=[str(self.pk)])
+        return reverse('forum:thread-detail', kwargs={'pk': self.pk})
 
 
 class Comment(models.Model):
