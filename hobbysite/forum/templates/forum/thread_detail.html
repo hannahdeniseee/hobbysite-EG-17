@@ -4,16 +4,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ thread.title }}</title>
+        <title>{{ thread }}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
     </head>
     <body>
         <div class="layout-personal">
             <div class="detail-box">
-                <h1 class="header-strip">[{{ thread.category.name }}] {{ thread.title }}</h1>
+                <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
                 <h3 style="text-align: center;">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
                 {% if thread.image %}
-                    <img src="{{ thread.image.url }}" alt="{{ thread.title }} image" style="max-width: 50%; max-height: 500px">
+                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" style="max-width: 50%; max-height: 500px">
                 {% endif %}
                 <p>{{ thread.entry }}</p>
                 {% if request.user.is_authenticated %}
