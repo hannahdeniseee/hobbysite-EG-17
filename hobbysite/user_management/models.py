@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, 
+                                related_name='user_profile')
     display_name = models.CharField(max_length=63)
-    email_address = models.EmailField()
+    email = models.EmailField()
 
     def __str__(self):
-        return self.display_name
+        return self.display_name 
+

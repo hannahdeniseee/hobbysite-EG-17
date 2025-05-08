@@ -19,4 +19,31 @@
         <li>No products available.</li>
     {% endfor %}
 </div>
+
+
+<h2>Your Products</h2>
+{% if user_products %}
+    <ul>
+        {% for product in user_products %}
+            <li>{{ product.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't posted any products yet.</p>
+{% endif %}
+
+<h2>All Products</h2>
+{% if all_products %}
+    <ul>
+        {% for product in all_products %}
+            <li>{{ product.name }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No products available.</p>
+{% endif %}
+
+
+<a href="{% url 'merchstore:merch-add' %}">Create New Product</a>
+
 {% endblock %}

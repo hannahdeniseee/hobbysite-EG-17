@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if grouped_transactions %}
+    {% for seller, transactions in grouped_transactions.items %}
+        <h2>Seller: {{ seller.display_name }}</h2>
+        <ul>
+            {% for transaction in transactions %}
+                <li>
+                    <strong>{{ transaction.product.name }}</strong><br>
+                    Quantity: {{ transaction.amount }}<br>
+                    Status: {{ transaction.status }}<br>
+                    Price per item: ₱{{ transaction.product.price }}<br>
+                    Total: ₱{{ transaction.total_price }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% else %}
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}
