@@ -4,7 +4,7 @@ Defines ArticleCategory and Article models.
 
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from user_management.models import Profile
 
 
 class ArticleCategory(models.Model):
@@ -22,8 +22,8 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
     """Model for an article."""
     title = models.CharField(max_length=255)
-    author = author = models.ForeignKey(
-        User,
+    author = models.ForeignKey(
+        Profile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -49,9 +49,10 @@ class Article(models.Model):
         """Returns the URL to access the detail view of each article."""
         return reverse('blog:article_detail', args=[str(self.pk)])
 
+
 class Comment(models.Model):
     author = models.ForeignKey(
-        User,
+        Profile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -64,3 +65,6 @@ class Comment(models.Model):
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_on']

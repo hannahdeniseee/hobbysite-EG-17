@@ -10,27 +10,33 @@
     <div class="header-strip"></div>
     
     <img src="{% static 'blog/images/blog.png' %}" alt="Blog Header" class="header-image">
-    
-    <h1 class="header-strip">CATEGORIES</h1>
-    <div class="cardslayout">
-        {% for category in categories %}
-            <div class="card">
-                <h2>{{ category.name }}</h2>
-                <p>{{ category.description }}</p>
-            </div>
-        {% endfor %}
-    </div>
-    
-    <h1 class="header-strip">ARTICLES</h1>
+
+    {% if request.user.is_authenticated %}
+    <h1 class="header-strip">USER'S ARTICLES</h1>
     <div class="cardslayout">
         {% for article in articles %}
+            {% if article.author.user == request.user %}
+                <div class="thread-card">
+                    <a href="{{ article.get_absolute_url }}">
+                        <h2>{{ article.title }}</h2>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <h1 class="header-strip">ALL ARTICLES</h1>
+    <div class="cardslayout">
+        {% for category in categories %}
+            <h2 class="subheader">{{ category.name }}</h2>
+            {% for article in category.article.all %}
             <div class="thread-card">
                 <a href="{{ article.get_absolute_url }}">
                     <h2>{{ article.title }}</h2>
                 </a>
-                <h3>{{ article.category }}</h3>
-                <p>Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}</p>
             </div>
+            {% endfor %}
         {% endfor %}
     </div>
 </body>
