@@ -4,27 +4,17 @@ Django views for handling article-related pages.
 
 from django.shortcuts import render
 from .models import Article, ArticleCategory
+from django.views.generic import ListView, DetailView
 
 
-def article_list(request):
-    """
-    View function for displaying the list view of blog.
-    """
-    articles = Article.objects.all()
-    categories = ArticleCategory.objects.all()
-
-    ctx = {
-        'articles': articles,
-        'categories': categories,
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'article_list.html'
+    context_object_name = 'blog'
+    context = {
+        'categories': ArticleCategory.objects.all()
     }
-    return render(request, 'article_list.html', ctx)
 
-
-def article_detail(request, id):
-    """
-    View function for displaying the detail view of each article.
-    """
-    ctx = {
-        'article': Article.objects.get(id=id)
-    }
-    return render(request, 'article_detail.html', ctx)
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article_detail.html'
