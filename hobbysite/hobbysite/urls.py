@@ -27,6 +27,7 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace="blog")),
     path('commissions/', include('commissions.urls', namespace='commissions')),
     path('admin/', admin.site.urls),
+    path('user_management/', include('user_management.urls')),
     path('', Homepage.as_view(), name='homepage')
 ]
 
