@@ -15,12 +15,12 @@ body, html {
 }
 .header-strip {
     background-color: #37499e;
+    color: #f1ece6;
     padding-top: 1%;
     padding-bottom: 1%;
     width: 100%;
     text-align: center;
     font-weight: 100;
-    color: #f1ece6;
     margin: 0%;
 }
 .beige-strip {
@@ -55,7 +55,6 @@ body, html {
 .thread-card {
     display: block;
     padding: 2%;
-    text-decoration: none;
     width: 90%;
     border-radius: 20px;
     border-style: solid;
@@ -75,7 +74,6 @@ body, html {
     align-items: center;
     justify-content: center;
     font-style: italic;
-    font-weight: 100;
     width: 100%;
     margin-top: 4.5%;
 }
@@ -97,6 +95,7 @@ body, html {
 .custom-comment-box {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
+    color:#37499e;
     padding: 2%;
     width: 100%;
     resize: vertical;
@@ -110,6 +109,7 @@ body, html {
 .custom-title-box {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
+    color:#37499e;
     width: 50%;
     border-radius: 20px;
     border-width: 2px;
@@ -121,6 +121,7 @@ body, html {
 .custom-categ-box {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
+    color:#37499e;
     width: 30%;
     border-radius: 20px;
     border-width: 2px;  
@@ -161,4 +162,17 @@ body, html {
 .side-margins {
     margin-left: 1.5%;
     margin-right: 1.5%;
+}
+.centered-text {
+    text-align: center;
+}
+.thread-image {
+    max-width: 50%;
+    max-height: 500px;
+}
+.comments-margin {
+    margin-top: 3%;
+}
+.thread-link {
+    color: #37499e;
 }

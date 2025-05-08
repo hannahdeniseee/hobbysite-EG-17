@@ -20,7 +20,7 @@
                 {% for thread in threads %}
                     {% if thread.author.user == request.user %}
                         <div class="thread-card">
-                            <a href="{{ thread.get_absolute_url }}"><h3>{{ thread }}</h3></a>
+                            <a href="{{ thread.get_absolute_url }}" class="thread-link"><h3>{{ thread }}</h3></a>
                         </div>
                     {% endif %}
                 {% endfor %}
@@ -47,13 +47,13 @@
                         {% if request.user.is_authenticated %}
                             {% if thread.category == threadcategory and thread.author.user != request.user %}
                                 <div class="thread-card">
-                                    <a href="{{ thread.get_absolute_url }}"><h3>{{ thread }}</h3></a>
+                                    <a href="{{ thread.get_absolute_url }}" class="thread-link"><h3>{{ thread }}</h3></a>
                                 </div>
                             {% endif %}
                         {% else %}
                             {% if thread.category == threadcategory %}
                                 <div class="thread-card">
-                                    <a href="{{ thread.get_absolute_url }}"><h3>{{ thread }}</h3></a>
+                                    <a href="{{ thread.get_absolute_url }}" class="thread-link"><h3>{{ thread }}</h3></a>
                                 </div>
                             {% endif %}
                         {% endif %}

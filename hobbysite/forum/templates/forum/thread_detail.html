@@ -11,9 +11,9 @@
         <div class="layout-personal">
             <div class="detail-box">
                 <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
-                <h3 style="text-align: center;">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
+                <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
                 {% if thread.image %}
-                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" style="max-width: 50%; max-height: 500px">
+                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
                 {% endif %}
                 <p>{{ thread.entry }}</p>
                 {% if request.user.is_authenticated %}
@@ -24,7 +24,7 @@
                 <hr class="line">
                 <h3>Comments</h3>
                 {% for thread_comment in other_comments %}
-                    <h4 style="margin-top: 3%">{{ thread_comment.author.display_name }}</h4>
+                    <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
                     <p>{{ thread_comment.entry }}</p>
                     <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
                 {% endfor %}
@@ -47,7 +47,7 @@
                 {% for other in other_threads %}
                     {% if other.category == thread.category %}
                         <div class="thread-card">
-                            <a href="{{ other.get_absolute_url }}"><h3>{{ other.title }}</h3></a>
+                            <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
                         </div>
                     {% endif %}
                 {% endfor %}
