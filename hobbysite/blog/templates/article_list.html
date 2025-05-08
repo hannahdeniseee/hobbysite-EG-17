@@ -25,6 +25,10 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <a href="{% url 'blog:article_create' %}">
+        <button>Create an Article</button>
+    </a>
     
     <h1 class="header-strip">ALL ARTICLES</h1>
     <div class="cardslayout">
