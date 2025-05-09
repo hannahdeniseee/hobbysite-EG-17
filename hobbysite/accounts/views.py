@@ -6,16 +6,19 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
+from user_management.models import Profile
 
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('accounts:login') 
+    success_url = reverse_lazy('accounts:login')  # or just 'login' if no namespace
 
     def form_valid(self, form):
+        response = super().form_valid(form)
+        Profile.objects.create(user=self.object)  # Automatically create profile
         messages.success(self.request, 'Account created successfully!')
-        return super().form_valid(form)
+        return response
    
 
 class CustomLoginView(LoginView):

@@ -78,27 +78,25 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     template_name = 'merch_form.html'
 
-    def get_initial(self):
-        initial = super().get_initial()
-        try:
-            profile = Profile.objects.get(user=self.request.user)
-            initial['owner'] = profile 
-        except Profile.DoesNotExist:
-            initial['owner'] = None 
-            messages.error(self.request, "You must have a profile to create products.")
-        return initial
+    def dispatch(self, request, *args, **kwargs):
+        # Ensure user has a profile before continuing
+        self.profile = Profile.objects.filter(user=request.user).first()
+        if not self.profile:
+            messages.error(request, "You must set up a profile before creating products.")
+            return redirect('accounts:profile_update')  # adjust this URL name if needed
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user_profile'] = self.profile
+        return kwargs
 
     def form_valid(self, form):
-        if not form.instance.owner:
-            try:
-                form.instance.owner = Profile.objects.get(user=self.request.user)
-            except Profile.DoesNotExist:
-                messages.error(self.request, "You must have a profile to create products.")
-                return self.form_invalid(form)
+        form.instance.owner = self.profile
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('merchstore:product-detail', args=[str(self.object.id)])
+        return reverse('merchstore:merch-detail', args=[str(self.object.id)])
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):

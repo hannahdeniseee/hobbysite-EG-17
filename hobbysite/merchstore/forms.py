@@ -5,10 +5,9 @@ from .models import Product, Transaction
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product 
-        fields = ['name',  'description', 'price', 'product_type',
+        fields = ['name', 'owner', 'description', 'price', 'product_type',
                   'status', 'stock']
         widgets = {
-            'owner': forms.HiddenInput(),
             'status': forms.Select(choices=[
                 ('Available', 'Available'),
                 ('On sale', 'On sale'),
