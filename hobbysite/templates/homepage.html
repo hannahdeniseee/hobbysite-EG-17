@@ -23,6 +23,9 @@
             </div>
         </div>
         <h1 class="header-strip">VISIT OUR PAGES</h1>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'user_management:dashboard' %}" class="dashboard-link"><h3 class="link-strip">OR VISIT YOUR DASHBOARD</h3></a>
+        {% endif %}
         <div class="cardslayout">
             <a href="{% url 'blog:article_list' %}" class="card">
                 <h3>BLOG</h3>
