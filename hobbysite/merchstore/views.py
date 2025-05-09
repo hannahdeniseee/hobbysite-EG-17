@@ -10,7 +10,7 @@ from django.views.generic import ListView
 from .models import Product
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin,ListView):
     model = Product
     template_name = 'merch_list.html'
     context_object_name = "products"
@@ -78,25 +78,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     template_name = 'merch_form.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        # Ensure user has a profile before continuing
-        self.profile = Profile.objects.filter(user=request.user).first()
-        if not self.profile:
-            messages.error(request, "You must set up a profile before creating products.")
-            return redirect('accounts:profile_update')  # adjust this URL name if needed
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user_profile'] = self.profile
-        return kwargs
-
     def form_valid(self, form):
-        form.instance.owner = self.profile
+        try:
+            profile = self.request.user.profile
+            print(f"Profile found: {profile}")
+        except Profile.DoesNotExist:
+            messages.error(self.request, "You must have a profile to create products.")
+            return redirect('accounts:register')  # Adjust to your profile creation URL
+       
+        print("Profile: ", profile)
+        form.instance.owner = profile
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('merchstore:merch-detail', args=[str(self.object.id)])
+        return reverse('merchstore:merch-detail', kwargs={'pk': self.object.pk})
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):

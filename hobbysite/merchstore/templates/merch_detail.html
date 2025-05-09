@@ -1,20 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
 <h1 class="header-strip">{{ product.name }} Details</h1>
-<div class = "detail-container">
+<div class="detail-container">
     <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
-    alt="{{ product.name }}" 
-    class="detail-image">
-    <div class = "detail-info">
+         alt="{{ product.name }}" class="detail-image">
+    <div class="detail-info">
         <p><strong>Description:</strong> {{ product.description }}</p>
-        <p><strong>Owner:</strong> {{ product.owner }}</p>
+        <p><strong>Owner:</strong> {{ product.owner.user.profile.username }}</p>
         <p><strong>Price:</strong> ${{ product.price }}</p>
         <p><strong>Product Type:</strong> {{ product.product_type.name|default:"No product type available" }}</p> 
     </div>
-</div>  
+</div>
+
+{% if is_owner %}
+    <a href="{% url 'merchstore:merch-edit' product.id %}" class="edit-button">Edit Product</a>
+{% endif %}
+
+{% if can_buy %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="buy-button">Buy Now</button>
+    </form>
+{% elif product.stock == 0 %}
+    <p class="info-text">Out of stock.</p>
+{% endif %}
+
 <div class="back-button-container">
     <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
 </div>
-
 {% endblock %}

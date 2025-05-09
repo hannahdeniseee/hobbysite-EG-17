@@ -1,11 +1,12 @@
 from django import forms
 from .models import Product, Transaction
+from user_management.models import Profile
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product 
-        fields = ['name', 'owner', 'description', 'price', 'product_type',
+        fields = ['name', 'description', 'price', 'product_type',
                   'status', 'stock']
         widgets = {
             'status': forms.Select(choices=[
@@ -16,16 +17,14 @@ class ProductForm(forms.ModelForm):
             'product_type': forms.Select(),
         }
 
-    def __init__(self, *args, **kwargs):
-        user_profile = kwargs.pop('user_profile', None)
-        super().__init__(*args, **kwargs)
 
-        if user_profile:
-            self.fields['owner'].initial = user_profile
-        self.fields['owner'].disabled = True  # Prevent editing
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['display_name', 'email']
 
 
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['amount']
+        fields = []

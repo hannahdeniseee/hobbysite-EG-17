@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 
 class ProductType(models.Model):
@@ -36,7 +37,7 @@ class Product(models.Model):
         related_name='products'
     )
     owner = models.ForeignKey(
-        'user_management.Profile',
+        Profile,
         on_delete=models.CASCADE,
         related_name='products',
         null=False
@@ -62,7 +63,7 @@ class Transaction(models.Model):
     ]
 
     buyer = models.ForeignKey(
-        'user_management.Profile',
+        Profile,
         on_delete=models.SET_NULL,
         null=True,
         related_name='transactions_bought'
