@@ -3,4 +3,5 @@ __pycache__/
 *.log
 .env
 db.sqlite3
-**/media/
+**/media/forum/images/*
+!**/media/forum/images/.gitkeep
