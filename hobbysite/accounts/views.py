@@ -16,7 +16,8 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        Profile.objects.create(user=self.object)  # Automatically create profile
+        Profile.objects.create(user=self.object, 
+                               display_name=self.object.username) # Automatically create profile
         messages.success(self.request, 'Account created successfully!')
         return response
    
