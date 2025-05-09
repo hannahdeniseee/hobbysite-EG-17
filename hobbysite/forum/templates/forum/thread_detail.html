@@ -45,11 +45,9 @@
             </a>
             <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
                 {% for other in other_threads %}
-                    {% if other.category == thread.category %}
-                        <div class="thread-card">
-                            <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
-                        </div>
-                    {% endif %}
+                    <div class="thread-card">
+                        <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
+                    </div>
                 {% endfor %}
         </div>
     </body>

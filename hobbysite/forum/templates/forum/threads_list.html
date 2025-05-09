@@ -43,21 +43,23 @@
             {% for threadcategory in threadcategories %}
                 <h1 class="category-header">{{ threadcategory }}</h1>
                 <div class="cards-layout">
-                    {% for thread in threads %}
-                        {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
+                        {% for thread in threads %}
                             {% if thread.category == threadcategory and thread.author.user != request.user %}
                                 <div class="thread-card">
                                     <a href="{{ thread.get_absolute_url }}" class="thread-link"><h3>{{ thread }}</h3></a>
                                 </div>
                             {% endif %}
-                        {% else %}
+                        {% endfor %}
+                    {% else %}
+                        {% for thread in threads %}
                             {% if thread.category == threadcategory %}
                                 <div class="thread-card">
                                     <a href="{{ thread.get_absolute_url }}" class="thread-link"><h3>{{ thread }}</h3></a>
                                 </div>
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

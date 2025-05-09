@@ -25,7 +25,7 @@ class ThreadForm(forms.ModelForm):
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Thread
-        exclude = ['author', 'created_on', 'updated_on', ]
+        fields = ['title', 'category', 'entry', 'image', ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'custom-title-box', }),
             'category': forms.Select(attrs={'class': 'custom-categ-box', }),

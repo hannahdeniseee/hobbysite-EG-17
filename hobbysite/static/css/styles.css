@@ -23,9 +23,12 @@ body, html {
     color: #f1ece6;
     margin: 0%;
 }
-.thread-card {
+.info-card {
     display: block;
-    padding: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
     width: 90%;
     border-radius: 20px;
     border-style: solid;
