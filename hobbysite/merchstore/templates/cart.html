@@ -1,29 +1,108 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h1>Your Cart</h1>
+<h1 class="header-strip">Your Cart</h1>
 
-{% if grouped_transactions %}
-    {% for seller, transactions in grouped_transactions.items %}
-        <h2>Seller: {{ seller.display_name }}</h2>
-        <ul>
-            {% for transaction in transactions %}
-                <li>
-                    <strong>{{ transaction.product.name }}</strong><br>
-                    Quantity: {{ transaction.amount }}<br>
-                    Status: {{ transaction.status }}<br>
-                    Price per item: ₱{{ transaction.product.price }}<br>
-                    Total: ₱{{ transaction.total_price }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
-{% else %}
-{% if messages %}
-    <ul>
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+<div class="cart-container">
+    <div class="grand-total">
+        <h2>Running Total: ₱{{ grand_total }}</h2>
+    </div>
+    {% if grouped_transactions %}
+        {% for seller, transactions in grouped_transactions.items %}
+            <div class="seller-section">
+                <h2 class="seller-name">Seller: {{ seller.display_name }}</h2>
+
+                <div class="transaction-list">
+                    {% for transaction in transactions %}
+                        <div class="transaction-card">
+                            <div class="transaction-flex">
+                                <img src="{% static 'merchstore/product-' %}{{transaction.product.id }}.png" alt="{{transaction.product.name }}" class="product-image">
+                                <div class="transaction-info">
+                                    <h3 class="product-name">{{ transaction.product.name }}</h3>
+                                    <li><strong>Quantity:</strong> {{ transaction.amount }}</li>
+                                    <li><strong>Status:</strong> {{ transaction.status }}</li>
+                                    <li><strong>Price per item:</strong> ₱{{ transaction.product.price }}</li>
+                                    <li><strong>Total:</strong> ₱{{ transaction.total_price }}</li>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if messages %}
+            <ul class="message-list">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-cart">Your cart is empty.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+<a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise</a>
+
+<style>
+    .cart-container {
+        padding: 1rem;
+    }
+    .seller-section {
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 1rem;
+    }
+    .seller-name {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+    .transaction-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .transaction-card {
+        border: 1px solid #ddd;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: #f9f9f9;
+    }
+    .transaction-flex {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .product-image {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+    }
+    .transaction-info {
+        flex: 1;
+    }
+    .product-name {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .empty-cart {
+        font-style: italic;
+        color: gray;
+    }
+    .back-button {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.5rem 1rem;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .back-button:hover {
+        background-color: #45a049;
+    }
+</style>
 
 {% endblock %}

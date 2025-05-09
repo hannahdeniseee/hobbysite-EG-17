@@ -10,7 +10,7 @@ from django.views.generic import ListView
 from .models import Product
 
 
-class ProductListView(LoginRequiredMixin,ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'merch_list.html'
     context_object_name = "products"
@@ -38,39 +38,61 @@ class ProductListView(LoginRequiredMixin,ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'merch_detail.html'
-    context_object_name = "product"
+    context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["product_type"] = self.object.product_type
+        product = self.get_object()
+
+        try:
+            user_profile = self.request.user.profile
+        except Profile.DoesNotExist:
+            user_profile = None
+
+        context['is_owner'] = product.owner == user_profile
+        context['can_buy'] = user_profile and product.stock > 0 and product.owner != user_profile
+
+        if context['can_buy']:
+            context['form'] = TransactionForm()
+
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        product = self.object
+
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+
+        try:
+            buyer = request.user.profile
+        except Profile.DoesNotExist:
+            messages.error(request, "You need a profile to make a transaction.")
+            return redirect('accounts:register')
+
         form = TransactionForm(request.POST)
         if form.is_valid():
             transaction = form.save(commit=False)
-            try:
-                transaction.buyer = Profile.objects.get(user=request.user)
-            except Profile.DoesNotExist:
-                messages.error(request, "You must have a profile to make purchases.")
+            transaction.product = product
+            transaction.buyer = buyer
+
+            quantity = transaction.amount
+            if quantity > product.stock:
+                messages.error(request, "Not enough stock available.")
                 return self.get(request, *args, **kwargs)
 
-            transaction.product = self.object
+            product.stock -= quantity
+            if product.stock == 0:
+                product.status = 'Out of stock' 
+                product.save()
 
-            if transaction.amount <= self.object.stock:
-                self.object.stock -= transaction.amount
-                if self.object.stock == 0:
-                    self.object.status = 'Out of Stock'
-                self.object.save()
-                transaction.save()
-                return redirect('merchstore:cart')
-            else:
-                messages.error(request, "Not enough stock available.")
-        else:
-            messages.error(request, "Invalid form submission.")
+            product.save()
+            transaction.save()
 
-        return self.get(request, *args, **kwargs)
+            return redirect('merchstore:merch-cart')
+
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -84,7 +106,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             print(f"Profile found: {profile}")
         except Profile.DoesNotExist:
             messages.error(self.request, "You must have a profile to create products.")
-            return redirect('accounts:register')  # Adjust to your profile creation URL
+            return redirect('accounts:register')  
        
         print("Profile: ", profile)
         form.instance.owner = profile
@@ -112,11 +134,22 @@ class CartView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            profile = Profile.objects.get(user=self.request.user)
-            context['transactions'] = Transaction.objects.filter(buyer=profile)
-        except Profile.DoesNotExist:
-            context['transactions'] = []
+        user_profile = self.request.user.profile
+
+        transactions = Transaction.objects.filter(buyer=user_profile).select_related('product__owner')
+        grand_total = sum(transaction.total_price for transaction in transactions)
+
+        grouped_transactions = {}
+        for transaction in transactions:
+            seller = transaction.product.owner
+            if seller not in grouped_transactions:
+                grouped_transactions[seller] = []
+            grouped_transactions[seller].append(transaction)
+
+        context['grouped_transactions'] = grouped_transactions
+        context['grand_total'] = grand_total
+        context['messages'] = messages.get_messages(self.request)
+
         return context
 
 

@@ -12,13 +12,12 @@ from user_management.models import Profile
 class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('accounts:login')  # or just 'login' if no namespace
+    success_url = reverse_lazy('accounts:login') 
 
     def form_valid(self, form):
         response = super().form_valid(form)
         Profile.objects.create(user=self.object, 
-                               display_name=self.object.username) # Automatically create profile
-        messages.success(self.request, 'Account created successfully!')
+                               display_name=self.object.username)
         return response
    
 
@@ -27,7 +26,7 @@ class CustomLoginView(LoginView):
 
 
 class CustomLogoutView(LogoutView):
-    next_page = '/'  # Redirect to home or another page after logout
+    next_page = '/' 
 
 
 class ProfileDetailView(DetailView):
@@ -36,15 +35,14 @@ class ProfileDetailView(DetailView):
     context_object_name = 'user'
 
     def get_object(self):
-        # Return the current logged-in user’s profile
         return self.request.user
 
 
 class ProfileUpdateView(UpdateView):
     model = User
-    fields = ['username', 'email']  # You can add more fields as needed
+    fields = ['username', 'email']  
     template_name = 'registration/profile_update.html'
-    success_url = reverse_lazy('accounts:profile')  # Redirect to profile view after update
+    success_url = reverse_lazy('accounts:profile') 
 
     def get_object(self):
         return self.request.user
