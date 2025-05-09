@@ -27,8 +27,9 @@ h3 {
 
 .header-image {
     width: 100%;
-    height: auto;
+    max-height: 500px;
     display: block;
+    object-fit: cover;
 }
 
 .header-strip {

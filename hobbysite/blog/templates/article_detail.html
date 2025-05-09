@@ -9,6 +9,10 @@
 <body>
     <div class="header-strip"></div>
 
+    {% if article.header_image %}
+        <img src="{{ article.header_image.url }}" alt="{{ article.title }} image" class="header-image">
+    {% endif %}
+
     <h2 class="article-title">{{ article.title }}</h2>
     <h3 style="text-align: center">{{ article.category }}</h3>
     <h4 style="text-align: center">
@@ -16,6 +20,13 @@
     </h4>
 
     <p class="article-entry">{{ article.entry|linebreaksbr }}</p>
+
+    {% if request.user.is_authenticated %}
+        {% if article.author.user == request.user %}
+        <a href="{% url 'blog:article_update' article.pk %}"><button>Update</button></a>
+        {% endif %}
+    {% endif %}
+
 
     <h3 style="text-align: center"><a href="{% url 'blog:article_list' %}">Back to List View</a></h3>
 </body>

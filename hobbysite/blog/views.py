@@ -4,8 +4,8 @@ Django views for handling article-related pages.
 
 from django.shortcuts import render
 from .models import Article, ArticleCategory
-from .forms import ArticleForm
-from django.views.generic import ListView, DetailView, CreateView
+from .forms import ArticleForm, UpdateForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ArticleListView(ListView):
@@ -32,3 +32,9 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
+
+
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
+    model = Article
+    form_class = UpdateForm
+    template_name = 'article_form.html'
