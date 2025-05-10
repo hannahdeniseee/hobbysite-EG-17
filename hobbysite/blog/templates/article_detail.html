@@ -21,13 +21,44 @@
 
     <p class="article-entry">{{ article.entry|linebreaksbr }}</p>
 
-    {% if request.user.is_authenticated %}
-        {% if article.author.user == request.user %}
+    {% if article.author.user == request.user %}
         <a href="{% url 'blog:article_update' article.pk %}"><button>Update</button></a>
+    {% endif %}
+
+    <h2 class="subheader">COMMENTS</h2>
+    <div class="comment-section">
+        <form method="post">
+        {% if user.is_authenticated %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Post Comment</button>
+        </form>
         {% endif %}
+
+        {% for comment in comments %}
+        <p><strong>{{ comment.author.user }}</strong> on {{ comment.created_on }}:</p>
+        <div class="comment">
+            <p>{{ comment.entry }}</p>
+        </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <h2 class="subheader">MORE FROM THIS AUTHOR</h2>
+        <div class="cardslayout">
+            {% for article in articles %}
+            <div class="thread-card">
+                <a href="{{ article.get_absolute_url }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
     {% endif %}
 
 
-    <h3 style="text-align: center"><a href="{% url 'blog:article_list' %}">Back to List View</a></h3>
+    <a href="{% url 'blog:article_list' %}"><button>Back to Article List</button></a>
 </body>
 </html>

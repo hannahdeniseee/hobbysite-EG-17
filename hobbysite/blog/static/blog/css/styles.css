@@ -91,7 +91,6 @@ h3 {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    padding-bottom: 3%;
 }
 
 .article-title {
@@ -104,6 +103,12 @@ h3 {
 .article-entry {
     margin: 60px;
     text-align: justify;
+}
+
+.comment-section {
+    padding: 2%;
+    margin: 2%;
+    margin-bottom: 0;
 }
 
 .comment-box {
@@ -119,6 +124,18 @@ h3 {
     border-color: #cb7059;
     border-style: solid;
     background-color: #f1ece6;
+}
+
+.comment {
+    padding: 0.9%;
+    margin-bottom: 20px;
+    background-color: #e9b5a8;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.comment p {
+    margin: 0;
 }
 
 .title-box {
@@ -159,7 +176,10 @@ button {
     border-radius: 15px;
     border-style: solid;
     border-color: #cb7059;
-    margin-top: 1%;
     font-size: medium;
     margin: 1% auto; 
+}
+
+button:hover {
+    transform: scale(1.05);
 }
