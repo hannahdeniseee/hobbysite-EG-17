@@ -1,54 +1,70 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
 {% load static %}
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ thread }}</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
-    </head>
-    <body>
-        <div class="layout-personal">
-            <div class="detail-box">
-                <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
-                <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
-                {% if thread.image %}
-                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
-                {% endif %}
-                <p>{{ thread.entry }}</p>
-                {% if request.user.is_authenticated and request.user.profile == thread.author %}
-                    <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
-                        <p>Update Thread</p>
-                    </a>
-                {% endif %}
-                <hr class="line">
-                <h3>Comments</h3>
-                {% for thread_comment in other_comments %}
+
+{% block title %}{{ thread }}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="layout-personal">
+        <div class="detail-box">
+            <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
+            <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
+            
+            {% if thread.image %}
+                <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
+            {% endif %}
+            
+            <p>{{ thread.entry }}</p>
+            
+            {% if request.user.is_authenticated and request.user.profile == thread.author %}
+                <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
+                    <p>Update Thread</p>
+                </a>
+            {% endif %}
+            
+            <hr class="line">
+            
+            <h3>Comments</h3>
+            
+            {% for thread_comment in other_comments %}
+                <div class="comment-item">
                     <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
                     <p>{{ thread_comment.entry }}</p>
                     <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
-                {% endfor %}
-                {% if request.user.is_authenticated %}
-                    <div class="bottom-margin">
-                    </div>
+                </div>
+            {% endfor %}
+            
+            {% if request.user.is_authenticated %}
+                <div class="comment-form">
                     <form method="post">
                         {% csrf_token %}
-                        {{ commentform.entry.label_tag }}
-                        <p></p>
-                        {{ commentform.entry }}
-                        <input type="submit" value="Submit" class="submit-button">
+                        <div class="form-field">
+                            {{ commentform.entry.label_tag }}
+                            {{ commentform.entry }}
+                        </div>
+                        <div class="form-field">
+                            <input type="submit" value="Submit" class="submit-button">
+                        </div>
                     </form>
-                {% endif %}
-            </div>
-            <a href="{% url 'forum:threads-list' %}" class="button">
-                <p>Back to Threads List</p>
-            </a>
-            <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
-                {% for other in other_threads %}
-                    <div class="thread-card">
-                        <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
-                    </div>
-                {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    </body>
-</html>
+        
+        <a href="{% url 'forum:threads-list' %}" class="button">
+            <p>Back to Threads List</p>
+        </a>
+
+        <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
+        <div class="other-threads">
+            {% for other in other_threads %}
+                <div class="thread-card">
+                    <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

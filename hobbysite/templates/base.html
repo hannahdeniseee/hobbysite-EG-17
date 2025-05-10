@@ -1,27 +1,28 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<header class="navbar">
-    <nav>
-        <a href="{% url 'homepage' %}">Home</a>
-        {% if user.is_authenticated %}
-            <span>Welcome, {{ user.username }}!</span>
-            <form method="POST" action="{% url 'accounts:logout' %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" style="background:none; border:none; color: inherit; text-decoration: underline; cursor: pointer;">Logout</button>
-            </form>
-        {% else %}
-            <a href="{% url 'accounts:login' %}">Login</a>
-            <a href="{% url 'accounts:register' %}">Sign Up</a>
-        {% endif %}
-    </nav>
-</header>
+
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
-    <title>{% block title %}Merchandise Store{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>{% block title %}Hobby Site{% endblock %}</title>
     {% block styles %}{% endblock %}
 </head>
 <body>
+    <header class="navbar">
+        <nav>
+            <a href="{% url 'homepage' %}">Home</a>
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}!</span>
+                <form method="POST" action="{% url 'accounts:logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; color: inherit; text-decoration: underline; cursor: pointer;">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
     {% block content %}{% endblock %}
     {% block scripts %}{% endblock %}
 </body>

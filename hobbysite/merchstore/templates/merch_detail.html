@@ -1,46 +1,49 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ product.name }} Details{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1 class="header-strip">{{ product.name }} Details</h1>
+    <h1 class="header-strip">{{ product.name }} Details</h1>
 
-{% if messages %}
-    <div class="alert alert-danger" role="alert">
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
+    {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="detail-container">
+        <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+             alt="{{ product.name }}" class="detail-image">
+        <div class="detail-info">
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Owner:</strong> {{ product.owner }}</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Product Type:</strong> {{ product.product_type.name|default:"No product type available" }}</p>
+            <p><strong>Stock:</strong> {{ product.stock }}</p> 
+            <p><strong>Status:</strong> {{ product.status }}</p>
+            {% if is_owner %}
+                <a href="{% url 'merchstore:merch-edit' product.id %}" class="edit-button">Edit Product</a>
+            {% endif %}
+            <hr style="border: 1px solid gray; width: 100%; margin: 2rem auto;">
+            {% if can_buy %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="buy-button">Buy Now</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
-{% endif %}
 
-
-<div class="detail-container">
-    <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
-         alt="{{ product.name }}" class="detail-image">
-    <div class="detail-info">
-        <p><strong>Description:</strong> {{ product.description }}</p>
-        <p><strong>Owner:</strong> {{ product.owner}}</p>
-        <p><strong>Price:</strong> ${{ product.price }}</p>
-        <p><strong>Product Type:</strong> {{ product.product_type.name|default:"No product type available" }}</p>
-        <p><strong>Stock:</strong> {{ product.stock }}</p> 
-        <p><strong>Status:</strong> {{ product.status }}</p>
-        {% if is_owner %}
-        <a href="{% url 'merchstore:merch-edit' product.id %}" class="edit-button">Edit Product</a>
-        {% endif %} 
-        <hr style="border: 1px solid gray; width: 100%; margin: 2rem auto;">
-        {% if can_buy %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="buy-button">Buy Now</button>
-            </form>
-        {% endif %}
+    <div class="back-button-container">
+        <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
     </div>
-</div>
-
-
-<div class="back-button-container">
-    <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
-</div>
-
 
 {% endblock %}

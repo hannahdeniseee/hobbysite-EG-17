@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+
 {% block content %}
 <h1 class="header-strip">Your Cart</h1>
 

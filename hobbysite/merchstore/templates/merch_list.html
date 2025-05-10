@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="header-strip"></div>
 <img src="{% static 'merchstore/merchstore.png' %}" alt="Merch Header" class="header-image">
 <h1 class="header-strip">Merchandise List</h1>
 
-<!---USER'S PRODUCTS-->
+<!-- USER'S PRODUCTS -->
 <section class="section-block">
   <h3 class="section-title">Your Products</h3>
   {% if user_products %}
@@ -24,37 +28,35 @@
   {% else %}
     <p>You haven't posted any products yet.</p>
   {% endif %}
-  <div class= "button-container">
-    <a href="{% url 'merchstore:merch-add' %}" class="create-button"> Create New Product</a>
+  
+  <div class="button-container">
+    <a href="{% url 'merchstore:merch-add' %}" class="create-button">Create New Product</a>
     <a href="{% url 'merchstore:merch-cart' %}" class="create-button">My Cart</a>
     <a href="{% url 'merchstore:transactions' %}" class="create-button">My Transactions</a>
   </div>
-  
 </section>
 
 <hr style="border: 1px solid gray; width: 100%; margin: 2rem auto;">
 
-<!---ALL PRODUCTS-->
+<!-- ALL PRODUCTS -->
 <section class="section-block">
-    <h3 class="section-title">All Products</h3>
-  
-    {% if other_products %}
-      <div class="cardslayout">
-        {% for product in other_products %}
-          <div class="card">
-            <a href="{% url 'merchstore:merch-detail' product.pk %}">
-              <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
-                   alt="{{ product.name }}" class="product-image">
-              <p class="product-title">{{ product.name }}</p>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>No products available.</p>
-    {% endif %}
-  </section>
+  <h3 class="section-title">All Products</h3>
 
+  {% if other_products %}
+    <div class="cardslayout">
+      {% for product in other_products %}
+        <div class="card">
+          <a href="{% url 'merchstore:merch-detail' product.pk %}">
+            <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+                 alt="{{ product.name }}" class="product-image">
+            <p class="product-title">{{ product.name }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No products available.</p>
+  {% endif %}
+</section>
 
 {% endblock %}
-
