@@ -4,19 +4,51 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ post.title }}</title>
+        <title>{{ thread }}</title>
         <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
     </head>
     <body>
-        <div class="cardslayout">
+        <div class="layout-personal">
             <div class="detail-box">
-                <h1 class="header-strip">[{{ post.category.name }}] {{ post.title }}</h1>
-                <h3 style="text-align: center;">Created on: {{ post.created_on }} | Updated on: {{ post.updated_on }}</h3>
-                <p>{{ post.entry }}</p>
+                <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
+                <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
+                {% if thread.image %}
+                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
+                {% endif %}
+                <p>{{ thread.entry }}</p>
+                {% if request.user.is_authenticated and request.user.profile == thread.author %}
+                    <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
+                        <p>Update Thread</p>
+                    </a>
+                {% endif %}
+                <hr class="line">
+                <h3>Comments</h3>
+                {% for thread_comment in other_comments %}
+                    <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
+                    <p>{{ thread_comment.entry }}</p>
+                    <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
+                {% endfor %}
+                {% if request.user.is_authenticated %}
+                    <div class="bottom-margin">
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ commentform.entry.label_tag }}
+                        <p></p>
+                        {{ commentform.entry }}
+                        <input type="submit" value="Submit" class="submit-button">
+                    </form>
+                {% endif %}
             </div>
             <a href="{% url 'forum:threads-list' %}" class="button">
                 <p>Back to Threads List</p>
             </a>
+            <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
+                {% for other in other_threads %}
+                    <div class="thread-card">
+                        <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
+                    </div>
+                {% endfor %}
         </div>
     </body>
 </html>

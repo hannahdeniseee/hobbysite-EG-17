@@ -12,17 +12,22 @@
         <img src="{% static 'images/hobbysite.png' %}" alt="Home Header" class="header-image">
         <h1 class="header-strip">ABOUT US</h1>
         <div class=" cardslayout">
-            <div class="thread-card">
-                HobbySite is a project built by five Computer Science students 
+            <div class="info-card">
+                <p>HobbySite is a project built by five Computer Science students 
                 who believe that hobbies deserve more than just a side panel on 
                 social media. Whether you're an artist, collector, gamer, or maker, 
                 we've built this space for you. Hobbysite has grown into a full-featured 
-                platform — complete with a blog, commissions marketplace, community forum, 
-                merch store, and wiki — designed to help hobbyists connect, share,
-                and thrive.
+                platform—complete with a blog, commissions marketplace, community forum, 
+                merch store, and wiki—designed to help hobbyists connect, share,
+                and thrive.</p>
             </div>
         </div>
         <h1 class="header-strip">VISIT OUR PAGES</h1>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'user_management:dashboard' %}" class="dashboard-link">
+                <h3 class="link-strip">OR VISIT YOUR DASHBOARD</h3>
+            </a>
+        {% endif %}
         <div class="cardslayout">
             <a href="{% url 'blog:article_list' %}" class="card">
                 <h3>BLOG</h3>
