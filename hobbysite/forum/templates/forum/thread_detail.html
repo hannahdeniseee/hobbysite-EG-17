@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="layout-personal">
+    <div class="forum-personal">
         <div class="detail-box">
-            <h1 class="header-strip">[{{ thread.category }}] {{ thread }}</h1>
+            <h1 class="forum-header">[{{ thread.category }}] {{ thread }}</h1>
             <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
             
             {% if thread.image %}
@@ -31,40 +31,32 @@
             <h3>Comments</h3>
             
             {% for thread_comment in other_comments %}
-                <div class="comment-item">
-                    <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
-                    <p>{{ thread_comment.entry }}</p>
-                    <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
-                </div>
+                <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
+                <p>{{ thread_comment.entry }}</p>
+                <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
             {% endfor %}
             
             {% if request.user.is_authenticated %}
-                <div class="comment-form">
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="form-field">
-                            {{ commentform.entry.label_tag }}
-                            {{ commentform.entry }}
-                        </div>
-                        <div class="form-field">
-                            <input type="submit" value="Submit" class="submit-button">
-                        </div>
-                    </form>
-                </div>
+                <div class="bottom-margin"></div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ commentform.entry.label_tag }}
+                    <p></p>
+                    {{ commentform.entry }}
+                    <input type="submit" value="Submit" class="submit-button">
+                </form>
             {% endif %}
         </div>
         
-        <a href="{% url 'forum:threads-list' %}" class="button">
+        <a href="{% url 'forum:threads-list' %}" class="forum-button">
             <p>Back to Threads List</p>
         </a>
 
         <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
-        <div class="other-threads">
-            {% for other in other_threads %}
-                <div class="thread-card">
-                    <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
-                </div>
-            {% endfor %}
-        </div>
+        {% for other in other_threads %}
+            <div class="forum-card">
+                <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

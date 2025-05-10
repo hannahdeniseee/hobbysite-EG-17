@@ -1,49 +1,49 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
 {% load static %}
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hobbysite</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    </head>
-    <body>
-        <p class="header-strip">CSCI40 FINAL PROJECT GROUP 17</p>
-        <img src="{% static 'images/hobbysite.png' %}" alt="Home Header" class="header-image">
-        <h1 class="header-strip">ABOUT US</h1>
-        <div class=" cardslayout">
-            <div class="info-card">
-                <p>HobbySite is a project built by five Computer Science students 
-                who believe that hobbies deserve more than just a side panel on 
-                social media. Whether you're an artist, collector, gamer, or maker, 
-                we've built this space for you. Hobbysite has grown into a full-featured 
-                platform—complete with a blog, commissions marketplace, community forum, 
-                merch store, and wiki—designed to help hobbyists connect, share,
-                and thrive.</p>
-            </div>
+
+{% block title %}Hobbysite{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <p class="home-header">CSCI40 FINAL PROJECT GROUP 17</p>
+    <img src="{% static 'images/hobbysite.png' %}" alt="Home Header" class="header-image">
+    <h1 class="home-header">ABOUT US</h1>
+    <div class=" cards-layout">
+        <div class="info-card">
+            <p>HobbySite is a project built by five Computer Science students 
+            who believe that hobbies deserve more than just a side panel on 
+            social media. Whether you're an artist, collector, gamer, or maker, 
+            we've built this space for you. Hobbysite has grown into a full-featured 
+            platform—complete with a blog, commissions marketplace, community forum, 
+            merch store, and wiki—designed to help hobbyists connect, share,
+            and thrive.</p>
         </div>
-        <h1 class="header-strip">VISIT OUR PAGES</h1>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'user_management:dashboard' %}" class="dashboard-link">
-                <h3 class="link-strip">OR VISIT YOUR DASHBOARD</h3>
-            </a>
-        {% endif %}
-        <div class="cardslayout">
-            <a href="{% url 'blog:article_list' %}" class="card">
-                <h3>BLOG</h3>
-            </a>
-            <a href="{% url 'commissions:commissions-list' %}" class="card">
-                <h3>COMMISSIONS</h3>
-            </a>
-            <a href="{% url 'forum:threads-list' %}" class="card">
-                <h3>FORUM</h3>
-            </a>
-            <a href="{% url 'merchstore:merch-list' %}" class="card">
-                <h3>MERCHSTORE</h3>
-            </a>
-            <a href="{% url 'wiki:articles' %}" class="card">
-                <h3>WIKI</h3>
-            </a>
-        </div>
-    </body>
-</html>
+    </div>
+    <h1 class="home-header">VISIT OUR PAGES</h1>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'user_management:dashboard' %}" class="link">
+            <h3 class="link-strip">OR VISIT YOUR DASHBOARD</h3>
+        </a>
+    {% endif %}
+    <div class="cards-layout">
+        <a href="{% url 'blog:article_list' %}" class="card">
+            <h3>BLOG</h3>
+        </a>
+        <a href="{% url 'commissions:commissions-list' %}" class="card">
+            <h3>COMMISSIONS</h3>
+        </a>
+        <a href="{% url 'forum:threads-list' %}" class="card">
+            <h3>FORUM</h3>
+        </a>
+        <a href="{% url 'merchstore:merch-list' %}" class="card">
+            <h3>MERCHSTORE</h3>
+        </a>
+        <a href="{% url 'wiki:articles' %}" class="card">
+            <h3>WIKI</h3>
+        </a>
+    </div>
+{% endblock %}

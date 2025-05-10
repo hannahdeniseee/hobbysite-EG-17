@@ -4,11 +4,13 @@
 {% block title %}{{ product.name }} Details{% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
+{% block title %}{{ product.name }} Details{% endblock %}
+
 {% block content %}
-    <h1 class="header-strip">{{ product.name }} Details</h1>
+    <h1 class="merchstore-strip">{{ product.name }} Details</h1>
 
     {% if messages %}
         <div class="alert alert-danger" role="alert">
@@ -19,7 +21,7 @@
     {% endif %}
 
     <div class="detail-container">
-        <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+        <img src="{% static 'merchstore/images/product-' %}{{ product.id }}.png"
              alt="{{ product.name }}" class="detail-image">
         <div class="detail-info">
             <p><strong>Description:</strong> {{ product.description }}</p>

@@ -8,7 +8,7 @@ class ProductType(models.Model):
     description = models.TextField()
 
     class Meta:
-        ordering = ['name'] 
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -85,6 +85,6 @@ class Transaction(models.Model):
     @property
     def total_price(self):
         return self.product.price * self.amount
-    
+
     def __str__(self):
         return f"{self.buyer} - {self.product} ({self.amount})"

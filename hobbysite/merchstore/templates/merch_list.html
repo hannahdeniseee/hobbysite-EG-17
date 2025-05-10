@@ -2,23 +2,25 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
+{% block title %}Merchandise List{% endblock %}
+
 {% block content %}
-<div class="header-strip"></div>
-<img src="{% static 'merchstore/merchstore.png' %}" alt="Merch Header" class="header-image">
-<h1 class="header-strip">Merchandise List</h1>
+<div class="merchstore-strip"></div>
+<img src="{% static 'merchstore/images/merchstore.png' %}" alt="Merch Header" class="header-image">
+<h1 class="merchstore-strip">Merchandise List</h1>
 
 <!-- USER'S PRODUCTS -->
 <section class="section-block">
   <h3 class="section-title">Your Products</h3>
   {% if user_products %}
-    <div class="cardslayout">
+    <div class="merch-layout">
       {% for product in user_products %}
-        <div class="card">
+        <div class="merch-card">
           <a href="{% url 'merchstore:merch-detail' product.pk %}">
-            <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+            <img src="{% static 'merchstore/images/product-' %}{{ product.id }}.png"
                  alt="{{ product.name }}" class="product-image">
             <p class="product-title">{{ product.name }}</p>
           </a>
@@ -43,11 +45,11 @@
   <h3 class="section-title">All Products</h3>
 
   {% if other_products %}
-    <div class="cardslayout">
+    <div class="merch-layout">
       {% for product in other_products %}
-        <div class="card">
+        <div class="merch-card">
           <a href="{% url 'merchstore:merch-detail' product.pk %}">
-            <img src="{% static 'merchstore/product-' %}{{ product.id }}.png"
+            <img src="{% static 'merchstore/images/product-' %}{{ product.id }}.png"
                  alt="{{ product.name }}" class="product-image">
             <p class="product-title">{{ product.name }}</p>
           </a>

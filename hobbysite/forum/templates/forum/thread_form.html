@@ -10,35 +10,25 @@
 
 {% block content %}
     <div>
-        <h1 class="header-strip">CREATE/EDIT THREAD</h1>
+        <h1 class="forum-header">CREATE/EDIT THREAD</h1>
         <p></p>
         <div class="side-margins">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="form-field">
-                    {{ form.title.label_tag }}
-                    {{ form.title }}
-                </div>
+                {{ form.title.label_tag }}
+                {{ form.title }}
                 <p></p>
-                <div class="form-field">
-                    {{ form.category.label_tag }}
-                    {{ form.category }}
-                </div>
+                {{ form.category.label_tag }}
+                {{ form.category }}
                 <p></p>
-                <div class="form-field">
-                    {{ form.entry.label_tag }}
-                    <p></p>
-                    {{ form.entry }}
-                </div>
+                {{ form.entry.label_tag }}
                 <p></p>
-                <div class="form-field">
-                    {{ form.image.label_tag }}
-                    {{ form.image }}
-                </div>
+                {{ form.entry }}
                 <p></p>
-                <div class="form-field">
-                    <input type="submit" value="Submit" class="submit-button">
-                </div>
+                {{ form.image.label_tag }}
+                {{ form.image }}
+                <p></p>
+                <input type="submit" value="Submit" class="submit-button">
             </form>
         </div> 
     </div>

@@ -1,6 +1,5 @@
 from django import forms
 from .models import Product, Transaction
-from user_management.models import Profile
 
 
 class ProductForm(forms.ModelForm):
@@ -16,12 +15,6 @@ class ProductForm(forms.ModelForm):
             ]),
             'product_type': forms.Select(),
         }
-
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['display_name', 'email']
 
 
 class TransactionForm(forms.ModelForm):

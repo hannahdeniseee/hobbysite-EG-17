@@ -8,12 +8,7 @@ body, html {
 *{
     box-sizing: border-box;
 }
-.header-image {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-.header-strip {
+.forum-header {
     background-color: #37499e;
     color: #f1ece6;
     padding-top: 1%;
@@ -23,7 +18,7 @@ body, html {
     font-weight: 100;
     margin: 0%;
 }
-.beige-strip {
+.forum-beige {
     padding-top: .5%;
     padding-bottom: .5%;
     border-color: #37499e;
@@ -34,13 +29,13 @@ body, html {
     font-weight: 100;
     margin: 0%;
 }
-.layout-personal {
+.forum-personal {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 3%;
 }
-.button {
+.forum-button {
     color: #37499e;
     display: block;
     padding: .5%;
@@ -52,7 +47,7 @@ body, html {
     border-color: #37499e;
     margin-top: 3%;
 }
-.thread-card {
+.forum-card {
     display: block;
     padding: 2%;
     width: 90%;
@@ -61,7 +56,7 @@ body, html {
     border-color: #37499e;
     margin-top: 3%;
 }
-.cards-layout {
+.forum-all {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
@@ -175,35 +170,4 @@ body, html {
 }
 .thread-link {
     color: #37499e;
-}
-.navbar {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: Arial, sans-serif;
-}
-  
-.navbar nav {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-  
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-  
-.navbar a:hover {
-    color: #4CAF50;
-}
-  
-.navbar span {
-    font-size: 0.95rem;
-    color: #ddd;
 }

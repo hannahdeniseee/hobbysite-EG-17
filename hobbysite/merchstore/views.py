@@ -6,8 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from user_management.models import Profile
 from django.urls import reverse
-from django.views.generic import ListView
-from .models import Product
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -23,8 +21,12 @@ class ProductListView(LoginRequiredMixin, ListView):
         if self.request.user.is_authenticated:
             try:
                 user_profile = Profile.objects.get(user=self.request.user)
-                context['user_products'] = Product.objects.filter(owner=user_profile)
-                context['other_products'] = Product.objects.exclude(owner=user_profile)
+                context['user_products'] = Product.objects.filter(
+                    owner=user_profile
+                )
+                context['other_products'] = Product.objects.exclude(
+                    owner=user_profile
+                )
             except Profile.DoesNotExist:
                 context['user_products'] = []
                 context['other_products'] = Product.objects.all()
@@ -50,7 +52,10 @@ class ProductDetailView(DetailView):
             user_profile = None
 
         context['is_owner'] = product.owner == user_profile
-        context['can_buy'] = user_profile and product.stock > 0 and product.owner != user_profile
+        context['can_buy'] = (
+            user_profile and product.stock > 0
+            and product.owner != user_profile
+        )
 
         if context['can_buy']:
             context['form'] = TransactionForm()
@@ -67,7 +72,9 @@ class ProductDetailView(DetailView):
         try:
             buyer = request.user.profile
         except Profile.DoesNotExist:
-            messages.error(request, "You need a profile to make a transaction.")
+            messages.error(
+                request, "You need a profile to make a transaction."
+            )
             return redirect('accounts:register')
 
         form = TransactionForm(request.POST)
@@ -83,7 +90,7 @@ class ProductDetailView(DetailView):
 
             product.stock -= quantity
             if product.stock == 0:
-                product.status = 'Out of stock' 
+                product.status = 'Out of stock'
                 product.save()
 
             product.save()
@@ -105,20 +112,29 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             profile = self.request.user.profile
             print(f"Profile found: {profile}")
         except Profile.DoesNotExist:
-            messages.error(self.request, "You must have a profile to create products.")
-            return redirect('accounts:register')  
+            messages.error(
+                self.request, "You must have a profile to create products."
+            )
+            return redirect('accounts:register')
        
         print("Profile: ", profile)
         form.instance.owner = profile
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('merchstore:merch-detail', kwargs={'pk': self.object.pk})
+        return reverse(
+            'merchstore:merch-detail', kwargs={'pk': self.object.pk}
+        )
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = ['name', 'description', 'price', 'stock', 'status', 'product_type']
+    fields = ['name',
+              'description',
+              'price',
+              'stock',
+              'status',
+              'product_type']
     template_name = 'merch_form.html'
 
     def form_valid(self, form):
@@ -136,8 +152,12 @@ class CartView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user_profile = self.request.user.profile
 
-        transactions = Transaction.objects.filter(buyer=user_profile).select_related('product__owner')
-        grand_total = sum(transaction.total_price for transaction in transactions)
+        transactions = Transaction.objects.filter(
+            buyer=user_profile
+        ).select_related('product__owner')
+        grand_total = sum(
+            transaction.total_price for transaction in transactions
+        )
 
         grouped_transactions = {}
         for transaction in transactions:
@@ -161,7 +181,9 @@ class TransactionListView(LoginRequiredMixin, TemplateView):
         try:
             user_profile = Profile.objects.get(user=self.request.user)
             user_products = Product.objects.filter(owner=user_profile)
-            transactions = Transaction.objects.filter(product__in=user_products)
+            transactions = Transaction.objects.filter(
+                product__in=user_products
+            )
         except Profile.DoesNotExist:
             transactions = []
 
