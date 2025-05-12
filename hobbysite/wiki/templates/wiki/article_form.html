@@ -1,0 +1,38 @@
+{% extends 'wiki/base.html' %}
+{% block title %}Create/Edit Article{% endblock %}
+{% block content %}
+
+<body>
+    <h1>CREATE/EDIT AN ARTICLE</h1>
+    <div style="margin: 3%">
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.title.label_tag }}
+        {{ form.title }}
+
+        <br><br>
+
+        {{ form.category.label_tag }}
+        {{ form.category }}
+
+        <br><br>
+
+        {{ form.entry.label_tag }}
+        {{ form.entry }}
+
+        <br><br>
+
+        {{ form.header_image.label_tag }}
+        {{ form.header_image }}
+
+        <br><br>
+
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}
+
+
