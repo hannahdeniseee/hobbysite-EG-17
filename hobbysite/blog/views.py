@@ -8,6 +8,7 @@ from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class ArticleListView(ListView):
     model = Article
     template_name = 'article_list.html'
@@ -36,7 +37,7 @@ class ArticleDetailView(DetailView):
         context['gallery_images'] = Gallery.objects.filter(
             article=current_article)
         return context
-    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = CommentForm(request.POST, request.FILES)
@@ -45,19 +46,22 @@ class ArticleDetailView(DetailView):
             comment.article = self.object
             comment.author = self.request.user.profile
             comment.save()
-        
+
         images = request.FILES.getlist('image')
         for img in images:
             Gallery.objects.create(article=self.object, image=img)
-        
-        remove_image_id = request.POST.get('remove_image')
-        if remove_image_id:
-            image_to_remove = Gallery.objects.get(id=remove_image_id, article=self.object)
-            if image_to_remove.article.author.user == request.user:
-                image_to_remove.delete()
+
+        remove_image = request.POST.get('remove_image')
+        if remove_image:
+            image = Gallery.objects.get(
+                id=remove_image,
+                article=self.object
+            )
+            if image.article.author.user == request.user:
+                image.delete()
 
         return redirect('blog:article_detail', pk=self.object.pk)
-    
+
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article

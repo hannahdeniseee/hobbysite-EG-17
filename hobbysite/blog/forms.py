@@ -37,7 +37,7 @@ class GalleryForm(forms.ModelForm):
     class Meta:
         model = Gallery
         fields = ['image', ]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["image"].widget.attrs.update({"multiple": "true"})
