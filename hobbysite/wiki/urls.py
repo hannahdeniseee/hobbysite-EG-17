@@ -3,7 +3,11 @@ from .views import ArticleListView, ArticleDetailView, ArticleCreateView, Articl
 
 
 urlpatterns = [
-    path('articles', ArticleListView.as_view(), name='articles'),
+    path(
+        'articles',
+        ArticleListView.as_view(),
+        name='articles'
+    ),
     path(
         'article/<int:pk>',
         ArticleDetailView.as_view(),
