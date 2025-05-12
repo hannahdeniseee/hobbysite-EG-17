@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
+{% endblock %}
+
+{% block title %}My Transactions{% endblock %}
+
+{% block content %}
+<h1 class="merchstore-strip">My Transactions</h1>
+
+<div class="cart-container">
+    {% if grouped_transactions %}
+        {% for buyer, transactions in grouped_transactions.items %}
+            <div class="seller-section">
+                <h2 class="seller-name">Buyer: {{ buyer.user.username }}</h2>
+
+                <div class="transaction-list">
+                    {% for transaction in transactions %}
+                        <div class="transaction-card">
+                            <div class="transaction-content">
+                                <img src="{{ transaction.product.image.url }}" alt="{{ transaction.product.name }}" class="product-image">
+                                <div class="transaction-details">
+                                    <h3 class="product-name">{{ transaction.product.name }}</h3>
+                                    <li><strong>Quantity:</strong> {{ transaction.amount }} x ₱{{ transaction.product.price }}</li>
+                                    <li><strong>Status:</strong> {{ transaction.status }}</li>
+                                    <li><strong>Total Price:</strong> ₱{{ transaction.total_price }}</li>
+                                    <li><strong>Date:</strong> {{ transaction.created_on|date:"M d, Y H:i" }}</li>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-cart">No transactions found for your products.</p>
+    {% endif %}
+</div>
+
+<a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise</a>
+
+{% endblock %}

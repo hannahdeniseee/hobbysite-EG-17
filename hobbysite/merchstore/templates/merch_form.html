@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
+{% endblock %}
+
+{% block title %}{{ Add New Product }}{% endblock %}
+
+{% block content %}
+    <h2>Add New Product</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
+{% endblock %}

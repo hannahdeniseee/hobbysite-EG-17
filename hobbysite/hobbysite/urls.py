@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+<<<<<<< HEAD
+=======
+from .views import Homepage
+>>>>>>> 59930bfe087272dc86c83fe86a6430052558547f
 
 urlpatterns = [
     path('wiki/', include('wiki.urls', namespace='wiki')),
@@ -26,6 +30,13 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace="blog")),
     path('commissions/', include('commissions.urls', namespace='commissions')),
     path('admin/', admin.site.urls),
+    path('', Homepage.as_view(), name='homepage'),
+    path('accounts/', include('accounts.urls')),
+    path('', include('user_management.urls')),
 ]
 
+<<<<<<< HEAD
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+>>>>>>> 59930bfe087272dc86c83fe86a6430052558547f

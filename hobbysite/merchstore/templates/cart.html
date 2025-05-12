@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
+{% endblock %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<h1 class="merchstore-strip">Your Cart</h1>
+
+<div class="cart-container">
+    <div class="grand-total">
+        <h2>Running Total: ₱{{ grand_total }}</h2>
+    </div>
+    {% if grouped_transactions %}
+        {% for seller, transactions in grouped_transactions.items %}
+            <div class="seller-section">
+                <h2 class="seller-name">Seller: {{ seller.display_name }}</h2>
+
+                <div class="transaction-list">
+                    {% for transaction in transactions %}
+                        <div class="transaction-card">
+                            <div class="transaction-flex">
+                                <img src="{% static 'merchstore/images/product-' %}{{transaction.product.id }}.png" alt="{{transaction.product.name }}" class="product-image">
+                                <div class="transaction-info">
+                                    <h3 class="product-name">{{ transaction.product.name }}</h3>
+                                    <li><strong>Quantity:</strong> {{ transaction.amount }}</li>
+                                    <li><strong>Status:</strong> {{ transaction.status }}</li>
+                                    <li><strong>Price per item:</strong> ₱{{ transaction.product.price }}</li>
+                                    <li><strong>Total:</strong> ₱{{ transaction.total_price }}</li>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if messages %}
+            <ul class="message-list">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-cart">Your cart is empty.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
+<a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise</a>
+
+{% endblock %}
