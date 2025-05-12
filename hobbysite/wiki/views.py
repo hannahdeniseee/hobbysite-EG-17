@@ -4,8 +4,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
-from .models import Article, ArticleCategory
-from .forms import ArticleForm, UpdateForm
+from .models import Article, ArticleCategory, Comment
+from .forms import ArticleForm, UpdateForm, CommentForm
 
 
 class ArticleListView(ListView):
@@ -20,6 +20,41 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'wiki/article.html'
+    context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = self.get_object()
+
+        # Related articles (exclude current article)
+        related_articles = Article.objects.filter(
+            category=article.category
+        ).exclude(pk=article.pk)[:2]
+
+        context['related_articles'] = related_articles
+        context['comments'] = Comment.objects.filter(article=article)
+
+        if self.request.user.is_authenticated:
+            context['comment_form'] = CommentForm()
+
+        context['is_owner'] = self.request.user == article.author
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not request.user.is_authenticated:
+            return self.get(request, *args, **kwargs)
+
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = self.object
+            comment.author = self.request.user.profile
+            comment.save()
+            form = CommentForm()  # Reset form after successful submission
+
+        context = self.get_context_data(comment_form=form)
+        return self.render_to_response(context)
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
