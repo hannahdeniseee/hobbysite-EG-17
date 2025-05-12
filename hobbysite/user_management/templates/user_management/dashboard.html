@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="home-header">PRODUCTS BOUGHT</h1>
+    <h1 class="home-header">PRODUCTS SOLD</h1>
         <div class="layout-personal">
             {% for product in products_sold %}
                 <div class="dashboard-card">
@@ -17,6 +17,16 @@
                 </div>
             {% endfor %}
         </div> 
+    
+    <h1 class="home-header">PRODUCTS BOUGHT</h1>
+        <div class="layout-personal">
+            {% for transaction in products_bought %}
+                <div class="dashboard-card">
+                    <a href="{{ product.get_absolute_url }}" class="link"><h3>{{ transaction.product.name }}</h3></a>
+                </div>
+            {% endfor %}
+        </div> 
+        
     <h1 class="home-header">YOUR THREADS</h1>
         <div class="layout-personal">
             {% for thread in threads %}
