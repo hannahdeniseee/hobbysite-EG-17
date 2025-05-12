@@ -8,7 +8,7 @@ class CustomLoginForm(AuthenticationForm):
         attrs={'class': 'form-control',  'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
-    
+
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
