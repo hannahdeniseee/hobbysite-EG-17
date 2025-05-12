@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from .models import Profile
 from .forms import ProfileUpdateForm
+from merchstore.models import Product
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -14,6 +15,12 @@ class DashboardView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Thread.objects.filter(author=self.request.user.profile)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products_sold'] = Product.objects.filter(
+            owner=self.request.user.profile)
+        return context
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):

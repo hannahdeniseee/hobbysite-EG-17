@@ -11,9 +11,11 @@
 <body>
     <header class="navbar">
         <nav>
-            <a href="{% url 'homepage' %}">Home</a>
+            <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">
             {% if user.is_authenticated %}
-                <span>Welcome, {{ user.username }}!</span>
+                <span>Welcome, {{ user.profile.display_name }}!</span>
+                <p> | </p>
+                <a href="{% url 'homepage' %}">Home</a>
                 <form method="POST" action="{% url 'accounts:logout' %}" class="inline-display">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
