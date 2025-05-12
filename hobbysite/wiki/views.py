@@ -4,8 +4,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
-from .models import Article, ArticleCategory, Comment
-from .forms import ArticleForm, UpdateForm, CommentForm
+from .models import Article, ArticleCategory, Comment, Gallery
+from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
 
 
 class ArticleListView(ListView):
@@ -37,6 +37,10 @@ class ArticleDetailView(DetailView):
         if self.request.user.is_authenticated:
             context['comment_form'] = CommentForm()
 
+        context['gallery_form'] = GalleryForm()
+        context['gallery_images'] = Gallery.objects.filter(
+            article=article)
+        
         context['is_owner'] = self.request.user == article.author
         return context
 
