@@ -59,6 +59,7 @@ class Comment(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        related_name='blog_commenter'
     )
     article = models.ForeignKey(
         Article,
