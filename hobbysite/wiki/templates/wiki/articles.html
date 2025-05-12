@@ -1,4 +1,5 @@
 {% extends 'wiki/base.html' %}
+{% load static %}
 {% block title %}Articles{% endblock %}
 
 {% block content %}
@@ -46,7 +47,6 @@
         <p>No articles available.</p>
     {% endfor %}
 
-    <p><a href="{% url 'article_create' %}">➕ Create a new article</a></p>
     
     <section class ="boxdiv">
         <h2>Articles</h2>
