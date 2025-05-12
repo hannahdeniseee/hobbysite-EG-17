@@ -68,3 +68,12 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+
+
+class Gallery(models.Model):
+    image = models.ImageField(upload_to='blog/images/', blank=True, null=True)
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        null=True,
+    )

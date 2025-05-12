@@ -30,7 +30,7 @@
         <form method="post">
         {% if user.is_authenticated %}
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ comment_form.as_p }}
             <button type="submit">Post Comment</button>
         </form>
         {% endif %}
@@ -45,6 +45,28 @@
         {% endfor %}
     </div>
 
+    <h2 class="subheader">GALLERY</h2>
+    <div class="gallery-container">
+        {% for images in gallery_images %}
+        <div class="gallery-item">
+            <img src="{{ images.image.url }}">
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <input type="hidden" name="remove_image" value="{{ images.id }}">
+                <button type="submit" class="delete-button">X</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ gallery_form.as_p }}
+        <button type="submit">Upload Images</button>
+    </form>
+    </div>
+
     {% if request.user.is_authenticated %}
         <h2 class="subheader">MORE FROM THIS AUTHOR</h2>
         <div class="cardslayout">
@@ -57,7 +79,6 @@
         {% endfor %}
         </div>
     {% endif %}
-
 
     <a href="{% url 'blog:article_list' %}"><button>Back to Article List</button></a>
 </body>

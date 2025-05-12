@@ -3,8 +3,8 @@ Django views for handling article-related pages.
 """
 
 from django.shortcuts import redirect
-from .models import Article, ArticleCategory, Comment
-from .forms import ArticleForm, UpdateForm, CommentForm
+from .models import Article, ArticleCategory, Comment, Gallery
+from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -29,8 +29,11 @@ class ArticleDetailView(DetailView):
         context['articles'] = Article.objects.filter(
             author=current_article.author
         ).exclude(pk=current_article.pk)
-        context['form'] = CommentForm()
+        context['comment_form'] = CommentForm()
         context['comments'] = Comment.objects.filter(
+            article=current_article)
+        context['gallery_form'] = GalleryForm()
+        context['gallery_images'] = Gallery.objects.filter(
             article=current_article)
         return context
     
@@ -42,8 +45,19 @@ class ArticleDetailView(DetailView):
             comment.article = self.object
             comment.author = self.request.user.profile
             comment.save()
-            return redirect('blog:article_detail', pk=self.object.pk)
+        
+        images = request.FILES.getlist('image')
+        for img in images:
+            Gallery.objects.create(article=self.object, image=img)
+        
+        remove_image_id = request.POST.get('remove_image')
+        if remove_image_id:
+            image_to_remove = Gallery.objects.get(id=remove_image_id, article=self.object)
+            if image_to_remove.article.author.user == request.user:
+                image_to_remove.delete()
 
+        return redirect('blog:article_detail', pk=self.object.pk)
+    
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
