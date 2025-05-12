@@ -35,11 +35,13 @@
         {% for category in categories %}
             <h2 class="subheader">{{ category.name }}</h2>
             {% for article in category.article.all %}
+            {% if article.author.user != request.user %}
             <div class="thread-card">
                 <a href="{{ article.get_absolute_url }}">
                     <h2>{{ article.title }}</h2>
                 </a>
             </div>
+            {% endif %}
             {% endfor %}
         {% endfor %}
     </div>

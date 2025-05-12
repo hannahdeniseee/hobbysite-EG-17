@@ -16,7 +16,9 @@
     <h2 class="article-title">{{ article.title }}</h2>
     <h3 style="text-align: center">{{ article.category }}</h3>
     <h4 style="text-align: center">
-        Created on: {{ article.created_on }} | Updated on: {{ article.updated_on }}
+        Author: {{ article.author.user }} <br><br>
+        Created on: {{ article.created_on }} <br>
+        Updated on: {{ article.updated_on }}
     </h4>
 
     <p class="article-entry">{{ article.entry|linebreaksbr }}</p>
