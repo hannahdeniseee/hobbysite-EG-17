@@ -12,3 +12,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['entry', ]
+
+
+class UpdateForm(models.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'category', 'entry', 'image', ]
