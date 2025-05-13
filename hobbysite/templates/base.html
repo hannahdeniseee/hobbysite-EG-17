@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.profile.display_name }}!</span>
+                <p> | </p>
+                <a href="{% url 'homepage' %}">Home</a>
+                <a href="{% url 'user_management:dashboard' %}">Dashboard</a>
+
+                 <div class="dropdown">
+                    <a class="dropbtn">Merchandise Store ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'merchstore:merch-list' %}">Merchandise List</a>
+                         <a href="{% url 'merchstore:merch-add' %}">Create New Product</a>
+                        <a href="{% url 'merchstore:merch-cart' %}">Your Cart</a>
+                        <a href="{% url 'merchstore:transactions' %}">Your Transactions</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="dropbtn">Wiki ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'wiki:articles' %}">Articles</a>
+                    </div>
+                </div>
+
+                
+                 <div class="dropdown">
+                    <a class="dropbtn">Blog ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'blog:article_list' %}">Articles</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="dropbtn">Forum ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'forum:threads-list' %}">Threads List</a>
+                        <a href="{% url 'forum:thread-add' %}">Add Thread</a>
+                    </div>
+                </div>
+
+                <form method="POST" action="{% url 'accounts:logout' %}" class="inline-display">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Sign Up</a>
+            {% endif %}
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+</body>
+</html>

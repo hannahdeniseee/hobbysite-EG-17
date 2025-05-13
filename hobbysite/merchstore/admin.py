@@ -5,7 +5,7 @@ from .models import Product, ProductType
 class ProductAdmin(admin.ModelAdmin):
     model = Product
     search_fields = ('name',)
-    list_display = ('name', 'product_type', 'price')
+    list_display = ('name', 'owner', 'product_type', 'price')
     list_filter = ('product_type',)
 
 

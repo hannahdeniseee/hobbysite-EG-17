@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user_management/css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1 class="home-header">PRODUCTS SOLD</h1>
+        <div class="layout-personal">
+            {% for product in products_sold %}
+                <div class="dashboard-card">
+                    <a href="{{ product.get_absolute_url }}" class="link"><h3>{{ product.name }}</h3></a>
+                </div>
+            {% endfor %}
+        </div> 
+    
+    <h1 class="home-header">PRODUCTS BOUGHT</h1>
+        <div class="layout-personal">
+            {% for transaction in products_bought %}
+                <div class="dashboard-card">
+                    <a href="{{ transaction.product.get_absolute_url }}" class="link"><h3>{{ transaction.product.name }}</h3></a>
+                </div>
+            {% endfor %}
+        </div> 
+        
+    <h1 class="home-header">YOUR THREADS</h1>
+        <div class="layout-personal">
+            {% for thread in threads %}
+                <div class="dashboard-card">
+                    <a href="{{ thread.get_absolute_url }}" class="link"><h3>{{ thread }}</h3></a>
+                </div>
+            {% endfor %}
+        </div> 
+
+    <h1 class="home-header">YOUR ARTICLES</h1>
+        <div class="layout-personal">
+            {% for article in blog_articles %}
+                <div class="dashboard-card">
+                    <a href="{{ article.get_absolute_url }}" class="link"><h3>{{ article.title }}</h3></a>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

@@ -1,17 +1,61 @@
-from django.shortcuts import render
-from .models import Post, PostCategory
+from .models import Thread, ThreadCategory, Comment
+from .forms import CommentForm, ThreadForm, UpdateForm
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView
+from django.shortcuts import redirect
+from django.urls import reverse
 
 
-def threads_list(request):
-    ctx = {
-        "posts": Post.objects.all(),
-        "postcategories": PostCategory.objects.all()
+class ThreadListView(ListView):
+    model = Thread
+    template_name = 'forum/threads_list.html'
+    context_object_name = 'threads'
+    extra_context = {
+        "threadcategories": ThreadCategory.objects.all()
     }
-    return render(request, 'forum/threads_list.html', ctx)
 
 
-def thread_detail(request, pk):
-    ctx = {
-        "post": Post.objects.get(pk=pk),
-    }
-    return render(request, 'forum/thread_detail.html', ctx)
+class ThreadDetailView(DetailView):
+    model = Thread
+    template_name = 'forum/thread_detail.html'
+    context_object_name = 'thread'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        t = self.object
+        context['other_threads'] = Thread.objects.filter(
+            category=t.category).exclude(pk=t.pk)
+        context['other_comments'] = Comment.objects.filter(
+            thread=t).order_by('created_on')
+        context['commentform'] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.thread = self.object
+            comment.author = request.user.profile
+            comment.save()
+            return redirect(reverse('forum:thread-detail',
+                                    kwargs={'pk': self.object.pk}))
+        context = self.get_context_data(commentform=form)
+        return self.render_to_response(context)
+
+
+class ThreadCreateView(LoginRequiredMixin, CreateView):
+    model = Thread
+    form_class = ThreadForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        return super().form_valid(form)
+
+
+class ThreadUpdateView(LoginRequiredMixin, UpdateView):
+    model = Thread
+    form_class = UpdateForm
+    template_name = 'forum/thread_form.html'

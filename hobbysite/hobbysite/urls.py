@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from .views import Homepage
 
 urlpatterns = [
     path('wiki/', include('wiki.urls', namespace='wiki')),
@@ -24,4 +27,9 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace="blog")),
     path('commissions/', include('commissions.urls', namespace='commissions')),
     path('admin/', admin.site.urls),
+    path('', Homepage.as_view(), name='homepage'),
+    path('accounts/', include('accounts.urls')),
+    path('', include('user_management.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
