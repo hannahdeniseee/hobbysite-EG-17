@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'commissions/styles.css' %}">
+{% endblock %}
+
+{% block title %}Create/Edit Commission{% endblock %}
+
+{% block content %}
+    <h2>Create Commission</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ commission_form.as_p }}
+            <button type="submit" name="add_commission">Create Commission</button>
+        </form>
+
+        <h2>Create Job</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ job_form.as_p }}
+            <button type="submit" name="add_job">Add Job</button>
+        </form>
+    <a href="{% url 'commissions:commissions-list' %}" class="back-button">Back to Commissions List</a>
+{% endblock %}

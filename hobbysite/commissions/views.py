@@ -18,11 +18,11 @@ class CommissionListView(ListView):
 
 class CommissionDetailView(DetailView):
     model = Commission
-    template_name = 'commission_detail.html'
+    template_name = 'commissions_detail.html'
     context_object_name = 'commission'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         commission = self.object
         jobs = Job.objects.filter(
             commission=commission
@@ -36,37 +36,53 @@ class CommissionDetailView(DetailView):
         for job in jobs:
             total_manpower += job.manpower_required
         open_manpower = total_manpower - total_accepted_applicants
-        context['jobs'] = jobs
-        context['total_manpower'] = total_manpower
-        context['open_manpower'] = open_manpower
-        return context
+        ctx['jobs'] = jobs
+        ctx['total_manpower'] = total_manpower
+        ctx['open_manpower'] = open_manpower
+        return ctx
     
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):
-    model = Commission
-    form_class = CommissionForm
-    
+    template_name = 'commissions_form.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {
+            "commission_form": CommissionForm(),
+            "job_form": JobForm(),
+        })
+
+    def post(self, request):
+        commission_form = CommissionForm()
+        job_form = JobForm()
+
+        if 'add_commission' in request.POST:
+            commission_form = CommissionForm(request.POST)
+            if commission_form.is_valid():
+                commission = commission_form.save(commit=False)
+                commission.author = request.user.profile  # assumes FK to Profile
+                commission.save()
+                return redirect('commissions:commission-create')  
+
+        elif 'add_job' in request.POST:
+            job_form = JobForm(request.POST)
+            if job_form.is_valid():
+                job = job_form.save(commit=False)
+                latest_commission = Commission.objects.filter(author=request.user.profile).last()
+                if latest_commission:
+                    job.commission = latest_commission
+                    job.save()
+                    return redirect('commissions:commission-create')
+                else:
+                    job_form.add_error(None, "No commission found to link this job to.")
+
+        return render(request, self.template_name, {
+            "commission_form": commission_form,
+            "job_form": job_form,
+        })
+
 
 class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     model = Commission
     form_class = CommissionForm
-    template_name = 'commission_form.html'
+    template_name = 'commissions_form.html'
 
-
-
-# def commissions_list(request):
-#     commissions = Commission.objects.all()
-#     ctx = {
-#         "commissions": commissions
-#     }
-#     return render(request, 'commissions_list.html', ctx)
-
-
-# def commissions_detail(request, pk):
-#     commission = Commission.objects.get(pk=pk)
-#     jobs = commission.job.all()
-#     ctx = {
-#         "commission": commission,
-#         "jobs": jobs
-#     }
-#     return render(request, 'commissions_detail.html', ctx)

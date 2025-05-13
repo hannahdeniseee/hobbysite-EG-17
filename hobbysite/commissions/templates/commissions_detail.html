@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'commissions/styles.css' %}">
+{% endblock %}
+
 {% block title %}{{ commission.title }}{% endblock %}
 
 {% block content %}
@@ -14,7 +19,7 @@
     <h3>Jobs:</h3>
     <ul>
         {% for job in jobs %}
-        <li>{{ job.entry }} : Requires {{ job.manpower_required }}</li>
+        <li>{{ job.role }} : Requires {{ job.manpower_required }}</li>
         {% endfor %}
     </ul>
     <h2>Total Manpower Needed : {{ total_manpower }}</h2>

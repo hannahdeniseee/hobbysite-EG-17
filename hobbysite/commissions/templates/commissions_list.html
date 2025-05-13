@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'commissions/styles.css' %}">
+{% endblock %}
+
 {% block title %}Commissions List{% endblock %}
 {% block content %}
 <div class="header-strip"></div>
