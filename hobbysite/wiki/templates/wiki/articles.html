@@ -1,74 +1,67 @@
-{% extends 'wiki/base.html' %}
 {% load static %}
-{% block title %}Articles{% endblock %}
-
-{% block content %}
-
-    <img src="{% static 'wiki/images/wiki.png' %}" alt="Header">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Articles</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href = '/wiki/articles'>WIKI</a></h1>
+    </header>
+    <main>
+        <img src="{% static 'wiki/images/wiki.png' %}" alt="Header">
     
-    <section class ="boxdiv">
-        <h2>Article Categories</h2>
-    </section>
+        <section class ="boxdiv">
+            <h2>Article Categories</h2>
+        </section>
 
-    <div class="category-container">
-        {% for articlecategory in articlecategories %}
-            <div class="table-box">
-                <img src="https://picsum.photos/50" class="category-icon">
-                <div class="name">{{ articlecategory.name }}</div>
-                <div class="description">{{ articlecategory.description }}</div>
+        {% if user.is_authenticated %}
+        <section class="boxdiv2">
+            <h2>Your Articles</h2>
+        </section>
+
+            {% if user_articles %}
+                <div class="category-container">
+                {% for article in user_articles %}
+                    <div class="table-box">
+                        <div class="name">{{ articlecategory.name }}</div>
+                        <div class="description">{{ articlecategory.description }}</div>
+                    </div>
+                {% empty %}
+                    <p>No categories available.</p>
+                {% endfor %}
             </div>
-        {% empty %}
-            <p>No categories available.</p>
-        {% endfor %}
-    </div>
+            {% else %}
+                <p style="text-align: center;">You have not created any articles yet.</p>
+            {% endif %}
+        {% endif %}
 
-    {% if user.is_authenticated and user_articles %}
-    <ul>
-        {% for article in user_articles %}
-            <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
-        {% endfor %}
-    </ul>
-    {% elif user.is_authenticated %}
-        <p>You haven't written any articles yet.</p>
-    {% endif %}
+        <section class="boxdiv2">
+            <h2>All Articles</h2>
+        </section>
+        {% if other_articles %}
+            <div class="category-container">
+                {% for article in other_articles %}
+                    <div class="table-box">
+                        <div class="name">{{ articlecategory.name }}</div>
+                        <div class="description">{{ articlecategory.description }}</div>
+                    </div>
+                {% empty %}
+                    <p>No categories available.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center;">You have not created any articles yet.</p>
+        {% endif %}
 
-    <section class="boxdiv">
-        <h2>All Articles</h2>
-    </section>
+         {% if user.is_authenticated %}
+            <div style="text-align: center; margin: 2%;">
+                <a href="{% url 'article_create' %}"><button>Create an Article</button></a>
+            </div>   
+        {% endif %}
+    </main>
+</body>
+</html>
 
-    {% for category, articles_in_category in grouped_articles.items %}
-        <h3>{{ category.name }}</h3>
-        <ul>
-            {% for article in articles_in_category %}
-                <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% empty %}
-        <p>No articles available.</p>
-    {% endfor %}
-
-    
-    <section class ="boxdiv">
-        <h2>Articles</h2>
-    </section>
-
-    <table class="article-table">
-        <tbody>
-            {% for article in articles %}
-            <tr>
-                <td>
-                    <a href="{{ article.get_absolute_url }}" class="full-link">
-                        <div class="article-content">
-                            <img src="https://picsum.photos/300/200" class="article-img">
-                            <div class="name">{{ article.title }}</div>
-                            <div class="category">{{ article.category }}</div>
-                            <div class="extra-details">Created on {{ article.created_on }} || Updated on {{ article.updated_on }}</div>
-                        </div>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-{% endblock %}

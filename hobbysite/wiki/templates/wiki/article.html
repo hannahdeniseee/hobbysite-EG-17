@@ -1,59 +1,98 @@
-{% extends 'wiki/base.html' %}
 {% load static %}
-{% block title %}{{ article.title }}{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <header>
+        <h1><a href = '/wiki/articles'>WIKI</a></h1>
+    </header>
+    <main>
+        <!--this is for the article, along with author details-->
+        <div class="article-container">
 
-{% block content %}
-<div class="article-container">
+            <h1 class="article-title">{{ article.title }}</h1>
+            <p class="article-meta">Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
 
-    <h1 class="article-title">{{ article.title }}</h1>
-    <p class="article-meta">Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
+            {% if article.image %}
+                <div class="article-image-box">
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
+                </div>
+            {% endif %}
+            
+            <div class="article-entry">
+                {{ article.entry }}  
+            </div>
 
-    {% if is_owner %}
-    <p><a href="{% url 'article_update' article.pk %}">Edit this article</a></p>
-    {% endif %}
+            <!--if the user is the owner of the article, they can edit it-->
+            {% if is_owner %}
+                <p><a href="{% url 'article_update' article.pk %}">Edit this article</a></p>
+            {% endif %}
+        </div>
 
-    <div class="article-image-box">
-        <img src="https://picsum.photos/500/300" alt="{{ article.title }}" class="article-image">
-    </div>
+        <p><a href="{% url 'articles' %}">← Back to All Articles</a></p>
 
-    <div class="article-entry">
-        {{ article.entry }}  
-    </div>
-</div>
+        <h3>Comments</h3>
+        <div class="comment-section">
+        {% if user.is_authenticated %}
+            <p>Leave a Comment</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Post Comment</button>
+            </form>
+        {% endif %}
 
-{% if related_articles %}
-    <h2>Read more from {{ article.category.name }}</h2>
-    <ul>
-        {% for related in related_articles %}
-            <li><a href="{% url 'article_detail' related.pk %}">{{ related.title }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <strong>{{ comment.author.username }}</strong> 
+                        <em>on {{ comment.created_on }}</em>
+                        <div class="comment-entry">
+                            <p>{{ comment.entry }}</p>
+                        </div> 
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+        </div>
 
-<p><a href="{% url 'articles' %}">← Back to All Articles</a></p>
+        <h2 class="subheader">GALLERY</h2>
+        <div class="gallery-container">
+            {% for images in gallery_images %}
+            <div class="gallery-item">
+                <img src="{{ images.image.url }}">
+                <form method="post" class="delete-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_image" value="{{ images.id }}">
+                    <button type="submit" class="delete-button">X</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
 
-<h3>Comments</h3>
-{% if user.is_authenticated %}
-    <h4>Leave a Comment</h4>
-    <form method="post">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Post Comment</button>
-    </form>
-{% endif %}
+        <div>
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ gallery_form.as_p }}
+            <button type="submit">Upload Images</button>
+        </form>
+        </div>
 
-{% if comments %}
-    <ul>
-        {% for comment in comments %}
-            <li>
-                <strong>{{ comment.author.username }}</strong> 
-                <em>on {{ comment.created_on|date:"M d, Y H:i" }}</em>
-                <p>{{ comment.body }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No comments yet.</p>
-{% endif %}
+        {% if related_articles %}
+            <h2>Read more from {{ article.category.name }}</h2>
+            <ul>
+                {% for related in related_articles %}
+                    <li><a href="{% url 'article_detail' related.pk %}">{{ related.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-{% endblock %}
+    </main>
+</body>
+</html>

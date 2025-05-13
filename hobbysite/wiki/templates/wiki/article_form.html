@@ -1,10 +1,13 @@
-{% extends 'wiki/base.html' %}
 {% load static %}
-{% block title %}Create/Edit Article{% endblock %}
-{% block content %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Article</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/styles.css' %}">
+</head>
 <body>
-    <h1>CREATE/EDIT AN ARTICLE</h1>
+<h1>CREATE/EDIT AN ARTICLE</h1>
     <div style="margin: 3%">
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -31,9 +34,9 @@
 
         <button type="submit">Submit</button>
         </form>
-    </div>
+    </div>   
 </body>
 </html>
-{% endblock %}
+
 
 
