@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from .forms import CommissionForm, JobForm, JobApplicationForm
 from .models import Commission, Job, JobApplication
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -17,7 +18,7 @@ class CommissionListView(ListView):
 
 class CommissionDetailView(DetailView):
     model = Commission
-    template_name = 'commissions_detail.html'
+    template_name = 'commission_detail.html'
     context_object_name = 'commission'
 
     def get_context_data(self, **kwargs):
@@ -40,6 +41,18 @@ class CommissionDetailView(DetailView):
         context['open_manpower'] = open_manpower
         return context
     
+
+class CommissionCreateView(LoginRequiredMixin, CreateView):
+    model = Commission
+    form_class = CommissionForm
+    
+
+class CommissionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Commission
+    form_class = CommissionForm
+    template_name = 'commission_form.html'
+
+
 
 # def commissions_list(request):
 #     commissions = Commission.objects.all()

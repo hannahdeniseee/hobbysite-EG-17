@@ -12,6 +12,11 @@ class Commission(models.Model):
         ('discontinued', 'Discontinued')
     ]
     title = models.CharField(max_length=255)
+    author = models.ForeignKey(
+        Profile, 
+        on_delete=models.CASCADE,
+        related_name='commission'
+    )
     description = models.TextField(null=True)
     status = models.CharField(
         max_length=20, 
@@ -70,12 +75,12 @@ class JobApplication(models.Model):
         Job, 
         on_delete=models.CASCADE,
         related_name='applicant'
-        )
+    )
     applicant = models.ForeignKey(
         Profile, 
         on_delete=models.CASCADE,
         related_name='job'
-        )
+    )
     status = models.CharField(
         max_length=20, 
         choices=STATUS_CHOICES, 
@@ -85,3 +90,6 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ['status', '-applied_on']
+
+    def __str__(self):
+        return f'{self.job.entry} - {self.applicant.display_name}'
