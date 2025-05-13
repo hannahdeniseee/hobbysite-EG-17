@@ -21,6 +21,7 @@ class Article(models.Model):
         Profile,
         on_delete=models.SET_NULL,
         null=True,
+        related_name='wiki_articles'
     )
     category = models.ForeignKey(
         ArticleCategory,
@@ -48,6 +49,7 @@ class Comment(models.Model):
         Profile,
         on_delete=models.SET_NULL,
         null=True,
+        related_name= "wiki_comments"
     )
     article = models.ForeignKey(
         Article,
@@ -68,7 +70,7 @@ class Gallery(models.Model):
         null=True
     )
     article = models.ForeignKey(
-        Article,
+        'wiki.Article',
         on_delete=models.CASCADE,
         null=True,
     )
