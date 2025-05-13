@@ -17,6 +17,39 @@
                 <p> | </p>
                 <a href="{% url 'homepage' %}">Home</a>
                 <a href="{% url 'user_management:dashboard' %}">Dashboard</a>
+
+                 <div class="dropdown">
+                    <a class="dropbtn">Merchandise Store ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'merchstore:merch-list' %}">Merchandise List</a>
+                        <a href="{% url 'merchstore:merch-cart' %}">Your Cart</a>
+                        <a href="{% url 'merchstore:transactions' %}">Your Transactions</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="dropbtn">Wiki ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'wiki:articles' %}">Articles</a>
+                    </div>
+                </div>
+
+                
+                 <div class="dropdown">
+                    <a class="dropbtn">Blog ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'blog:article_list' %}">Articles</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="dropbtn">Forum ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'forum:threads-list' %}">Threads List</a>
+                        <a href="{% url 'forum:thread-add' %}">Add Thread</a>
+                    </div>
+                </div>
+
                 <form method="POST" action="{% url 'accounts:logout' %}" class="inline-display">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
