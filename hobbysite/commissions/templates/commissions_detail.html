@@ -13,8 +13,8 @@
     </div>
     <h3>Comments:</h3>
     <ul>
-        {% for comment in comments %}
-        <li>{{ comment.created_on }} : {{ comment.entry }}</li>
+        {% for job in jobs %}
+        <li>{{ job.created_on }} : {{ job.entry }}</li>
         {% endfor %}
     </ul>
     <a href="{% url 'commissions:commissions-list' %}" class="button">

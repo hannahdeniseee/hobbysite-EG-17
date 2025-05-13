@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Commission, Comment
+from .models import Commission, Job
 
 
 def commissions_list(request):
@@ -13,9 +13,9 @@ def commissions_list(request):
 
 def commissions_detail(request, pk):
     commission = Commission.objects.get(pk=pk)
-    comments = commission.comments.all()
+    jobs = commission.job.all()
     ctx = {
         "commission": commission,
-        "comments": comments
+        "jobs": jobs
     }
     return render(request, 'commissions_detail.html', ctx)
