@@ -8,7 +8,9 @@ urlpatterns = [
      path('detail/<int:pk>', 
          CommissionDetailView.as_view(), name='commission-detail'),
      path('create',
-          CommissionCreateView.as_view(), name='commission-create')
+          CommissionCreateView.as_view(), name='commission-create'),
+     path('<int:pk>/update',
+          CommissionUpdateView.as_view(), name ='commission-update')
 ]
 
 
