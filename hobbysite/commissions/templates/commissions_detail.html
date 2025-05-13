@@ -11,12 +11,14 @@
     <div class="header-strip">
         <img src="https://picsum.photos/300/300" alt="Commission">
     </div>
-    <h3>Comments:</h3>
+    <h3>Jobs:</h3>
     <ul>
         {% for job in jobs %}
-        <li>{{ job.created_on }} : {{ job.entry }}</li>
+        <li>{{ job.entry }} : Requires {{ job.manpower_required }}</li>
         {% endfor %}
     </ul>
+    <h2>Total Manpower Needed : {{ total_manpower }}</h2>
+    <h2>Open Manpower : {{ open_manpower}}</h2>
     <a href="{% url 'commissions:commissions-list' %}" class="button">
         <p>Back to Commissions List</p>
     </a>
