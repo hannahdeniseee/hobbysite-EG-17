@@ -15,6 +15,21 @@ class CommissionListView(ListView):
     template_name = 'commissions_list.html'
     context_object_name = 'commissions'
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        if user.is_authenticated:
+            created_commissions = Commission.objects.filter(author=user.profile)
+            applied_commissions = JobApplication.objects.filter(
+                applicant=user.profile
+            ).distinct()
+
+            ctx['created_commissions'] = created_commissions
+            ctx['applied_commissions'] = applied_commissions
+
+        return ctx
+
 
 class CommissionDetailView(DetailView):
     model = Commission

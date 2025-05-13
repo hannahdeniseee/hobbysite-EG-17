@@ -10,7 +10,43 @@
 <div class="header-strip"></div>
 <img src="{% static 'commissions/commissions.png' %}" alt="Commissions Header" class="header-image">
 <h1 class="header-strip">Commission List</h1>
-<div class="cardslayout">
+    {% if request.user.is_authenticated %}
+    <p></p>
+    <h2>Created Commissions</h2>
+    <div class="cardslayout">
+    {% for commission in created_commissions %}
+    <a href="{{ commission.get_absolute_url }}" class="card">
+        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
+        <h2>{{ commission.title }}</h2>
+        <div class="card-info">
+            <p>People Required : {{ commission.people_required }}</p>
+            <p>{{ commission.description }}</p>
+            <p>{{ commission.created_on }}</p>
+        </div>
+    </a>
+    {% empty %}
+        <p>No commissions available.</p>
+    {% endfor %}
+    </div>
+    <h2>Applied Commissions</h2>
+    <div class="cardslayout">
+    {% for commission in appliedd_commissions %}
+    <a href="{{ commission.get_absolute_url }}" class="card">
+        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
+        <h2>{{ commission.title }}</h2>
+        <div class="card-info">
+            <p>People Required : {{ commission.people_required }}</p>
+            <p>{{ commission.description }}</p>
+            <p>{{ commission.created_on }}</p>
+        </div>
+    </a>
+    {% empty %}
+        <p>No commissions available.</p>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <h2>All Commissions</h2>
+    <div class="cardslayout">
     {% for commission in commissions %}
     <a href="{{ commission.get_absolute_url }}" class="card">
         <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
@@ -22,8 +58,8 @@
         </div>
     </a>
     {% empty %}
-        <li>No commissions available.</li>
+        <p>No commissions available.</p>
     {% endfor %}
+    </div>
     <a href="{% url 'commissions:commission-create' %}">Create a new commission</a>
-</div>
 {% endblock %}
