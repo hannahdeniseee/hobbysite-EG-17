@@ -15,8 +15,8 @@ urlpatterns = [
     ),
     path(
         'article/create',
-         ArticleCreateView.as_view(),
-         name="article_create"
+        ArticleCreateView.as_view(),
+        name="article_create"
     ),
     path(
         'article/<int:pk>/update',

@@ -12,7 +12,7 @@ class ArticleListView(ListView):
     model = Article
     template_name = 'wiki/articles.html'
     context_object_name = 'articles'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
@@ -27,7 +27,7 @@ class ArticleListView(ListView):
         context['articlecategories'] = ArticleCategory.objects.all()
         context['user_articles'] = user_articles
         context['other_articles'] = other_articles
-        
+
         return context
 
 
@@ -54,7 +54,7 @@ class ArticleDetailView(DetailView):
         context['gallery_form'] = GalleryForm()
         context['gallery_images'] = Gallery.objects.filter(
             article=article)
-        
+
         context['is_owner'] = self.request.user == article.author
         return context
 
@@ -91,7 +91,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
     template_name = "wiki/article_form.html"
     form_class = ArticleForm
-    
+
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         return super().form_valid(form)
