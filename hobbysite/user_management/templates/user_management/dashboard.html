@@ -35,4 +35,13 @@
                 </div>
             {% endfor %}
         </div> 
+
+    <h1 class="home-header">YOUR ARTICLES</h1>
+        <div class="layout-personal">
+            {% for article in blog_articles %}
+                <div class="dashboard-card">
+                    <a href="{{ article.get_absolute_url }}" class="link"><h3>{{ article.title }}</h3></a>
+                </div>
+            {% endfor %}
+        </div>
 {% endblock %}

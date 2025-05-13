@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import Profile
 from .forms import ProfileUpdateForm
 from merchstore.models import Product, Transaction
+from blog.models import Article
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -22,6 +23,8 @@ class DashboardView(LoginRequiredMixin, ListView):
             owner=self.request.user.profile)
         context['products_bought'] = Transaction.objects.filter(
             buyer=self.request.user.profile).distinct()
+        context['blog_articles'] = Article.objects.filter(
+            author=self.request.user.profile)
         return context
 
 
