@@ -8,14 +8,34 @@
 {% block title %}Add New Product{% endblock %}
 
 {% block content %}
-    <h2>Add New Product</h2>
+<div class="merchstore-strip"><h1>ADD NEW PRODUCT</h1></div>
+<div class="side-margins">
+  <form method="post">
+    {% csrf_token %}
+      <p></p>
+      {{ form.name.label_tag }}
+      {{ form.name }}
+      <p></p>
+      {{ form.product_type.label_tag }}
+      {{ form.product_type }}
+      <p></p>
+      {{ form.description.label_tag }}
+      <p></p>  
+      {{ form.description }}
+      <p></p>    
+      {{ form.price.label_tag }}
+      {{ form.price }}
+      <p></p>
+      {{ form.status.label_tag }}
+      {{ form.status }}
+      <p></p>
+      {{ form.stock.label_tag }}
+      {{ form.stock }}    
+      <p></p>
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-
-      <button type="submit">Submit</button>
+        <button type="submit" class="submit-button">Submit</button>
     </form>
 
     <a href="{% url 'merchstore:merch-list' %}" class="back-button">Back to Merchandise List</a>
+</div>
 {% endblock %}

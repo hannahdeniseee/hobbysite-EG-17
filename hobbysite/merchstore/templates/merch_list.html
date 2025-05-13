@@ -8,9 +8,8 @@
 {% block title %}Merchandise List{% endblock %}
 
 {% block content %}
-<div class="merchstore-strip"></div>
 <img src="{% static 'merchstore/images/merchstore.png' %}" alt="Merch Header" class="header-image">
-<h1 class="merchstore-strip">Merchandise List</h1>
+<div class="merchstore-strip"><h1>MERCHANDISE LIST</h1></div>
 
 <!-- USER'S PRODUCTS -->
 <section class="section-block">
@@ -38,7 +37,6 @@
   </div>
 </section>
 
-<hr style="border: 1px solid gray; width: 100%; margin: 2rem auto;">
 
 <!-- ALL PRODUCTS -->
 <section class="section-block">
@@ -60,5 +58,6 @@
     <p>No products available.</p>
   {% endif %}
 </section>
+
 
 {% endblock %}

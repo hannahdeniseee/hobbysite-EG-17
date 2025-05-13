@@ -3,11 +3,13 @@ body, html {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     margin: 0;
     padding: 0;
+    color:#2d7d30;
 }
 
 *{
     box-sizing: border-box;
 }
+
 
 .merch-card a {
     color: black; 
@@ -46,26 +48,24 @@ body, html {
 }
 
 .merchstore-strip {
-    background-color: #559456;
-    padding: 1.5% 0;
+    background-color: #2d7d30;
+    color: #f1ece6;
+    padding-top: 1%;
+    padding-bottom: 1%;
     width: 100%;
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    font-style: italic;
-    color: #f1ece6;
-    margin: 0;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 100;
+    margin: 0%;
 }
 
 .merch-card:hover {
     transform: scale(1.20); 
-    background-color: #559456;
+    background-color: #679168;
     color: #f1ece6;
 }
 
 .merch-card {
-    border: 1% solid #559456;
+    border: 1% solid #2d7d30;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
     width: 20%;  
     height: 40%;
@@ -94,13 +94,18 @@ body, html {
 }
 
 .back-button {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
-    color: white;
+    display: block;
+    background-color: #f1ece6;
+    color:#2d7d30;
+    padding: 1%;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #2d7d30;
+    margin-top: 1%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    width:15%;
 }
 
 .button-container {
@@ -110,16 +115,15 @@ body, html {
 
 .create-button {
     display: inline-block;
-    background-color: #559456; 
-    border-color: #264326;
-    border-style: solid;
-    color: #f1ece6; 
-    padding: 0.5%;
+    color: #2d7d30;
+    padding: .5%;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
     text-align: center;
-    transition: background-color 0.3s ease-in-out;
+    width: 20%;
+    border-radius: 40px;
+    border-style: solid;
+    border-color: #2d7d30;
+    margin-left: .5%;
 }
   
 .section-title {
@@ -195,6 +199,119 @@ body, html {
     color: gray;
 }
 
-.back-button:hover {
-    background-color: #45a049;
+
+.custom-name-field {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 50%;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: #2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.custom-desc-field {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color: #2d7d30;
+    padding: 2%;
+    width: 100%;
+    resize: vertical;
+    height: 100px;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color:  #2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+}
+
+.custom-price-field {
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: #2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.custom-pt-field {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color:#2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.custom-green-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    height: 40px; 
+    border-radius: 20px;
+     background-color: #f1ece6;
+}
+
+.custom-status-field {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color:#2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.custom-stock-field {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color:#2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.custom-amount-field {
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#2d7d30;
+    width: 50%;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: #2d7d30;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+
+.submit-button {
+    display: block;
+    background-color: #f1ece6;
+    color:#2d7d30;
+    padding: 1%;
+    text-decoration: none;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #2d7d30;
+    margin-top: 1%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
 }

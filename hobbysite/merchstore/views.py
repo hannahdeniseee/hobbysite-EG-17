@@ -88,6 +88,10 @@ class ProductDetailView(DetailView):
             transaction.buyer = buyer
 
             quantity = transaction.amount
+            if quantity <= 0:
+                messages.error(request, "Please enter a valid amount.")
+                return self.get(request, *args, **kwargs)
+        
             if quantity > product.stock:
                 messages.error(request, "Not enough stock available.")
                 return self.get(request, *args, **kwargs)

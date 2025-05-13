@@ -36,7 +36,8 @@
             {% if can_buy %}
                 <form method="post">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                     {{ form.amount.label_tag }}
+                    {{ form.amount }}
                     <button type="submit" class="buy-button">Buy Now</button>
                 </form>
             {% endif %}

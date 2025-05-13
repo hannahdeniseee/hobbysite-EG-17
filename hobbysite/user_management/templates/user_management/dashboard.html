@@ -22,7 +22,7 @@
         <div class="layout-personal">
             {% for transaction in products_bought %}
                 <div class="dashboard-card">
-                    <a href="{{ product.get_absolute_url }}" class="link"><h3>{{ transaction.product.name }}</h3></a>
+                    <a href="{{ transaction.product.get_absolute_url }}" class="link"><h3>{{ transaction.product.name }}</h3></a>
                 </div>
             {% endfor %}
         </div> 
