@@ -20,5 +20,6 @@
     {% empty %}
         <li>No commissions available.</li>
     {% endfor %}
+    <a href="{% url 'commissions:commission-create' %}">Create a new commission</a>
 </div>
 {% endblock %}
