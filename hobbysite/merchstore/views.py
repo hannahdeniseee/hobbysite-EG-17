@@ -1,4 +1,8 @@
-from django.views.generic import ListView, DetailView, TemplateView, UpdateView, CreateView
+from django.views.generic import (ListView,
+                                  DetailView,
+                                  TemplateView,
+                                  UpdateView,
+                                  CreateView)
 from .models import Product, Transaction
 from .forms import TransactionForm, ProductForm
 from django.shortcuts import redirect
@@ -33,7 +37,7 @@ class ProductListView(LoginRequiredMixin, ListView):
         else:
             context['user_products'] = []
             context['other_products'] = Product.objects.all()
-        
+
         return context
 
 
@@ -116,7 +120,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
                 self.request, "You must have a profile to create products."
             )
             return redirect('accounts:register')
-       
+
         print("Profile: ", profile)
         form.instance.owner = profile
         return super().form_valid(form)

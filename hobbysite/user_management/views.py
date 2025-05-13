@@ -16,7 +16,7 @@ class DashboardView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Thread.objects.filter(author=self.request.user.profile)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products_sold'] = Product.objects.filter(

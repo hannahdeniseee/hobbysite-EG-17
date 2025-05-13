@@ -132,6 +132,11 @@ body, html {
     display:inline;
 }
 
+.side-margins {
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
 .navbar-logo {
     height: 10%;  
     width: 10%;    

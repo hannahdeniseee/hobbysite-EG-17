@@ -4,7 +4,7 @@ from .models import Product, Transaction
 
 class ProductForm(forms.ModelForm):
     class Meta:
-        model = Product 
+        model = Product
         fields = ['name', 'description', 'price', 'product_type',
                   'status', 'stock']
         widgets = {
