@@ -7,6 +7,7 @@ from .models import Profile
 from .forms import ProfileUpdateForm
 from merchstore.models import Product, Transaction
 from blog.models import Article
+from wiki.models import Article as WikiArticle
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -24,6 +25,8 @@ class DashboardView(LoginRequiredMixin, ListView):
         context['products_bought'] = Transaction.objects.filter(
             buyer=self.request.user.profile).distinct()
         context['blog_articles'] = Article.objects.filter(
+            author=self.request.user.profile)
+        context['wiki_articles'] = WikiArticle.objects.filter(
             author=self.request.user.profile)
         return context
 
