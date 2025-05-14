@@ -71,7 +71,7 @@ class ArticleDetailView(DetailView):
 
         # Related articles (exclude current article)
         related_articles = Article.objects.filter(
-            author=article.author
+            category=article.category
         ).exclude(pk=article.pk)[:2]
 
         context['related_articles'] = related_articles
