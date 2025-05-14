@@ -35,23 +35,6 @@
         {% endif %}
     {% endfor %}
 
-    {% if no_category_userarticles %}
-        <p class="category">Uncategorized</p>
-        <div class="category-container">
-            {% for group in no_category_userarticles %}
-                {% if group.category == "Uncategorized" %}
-                    {% for article in group.articles %}
-                        <a href="{{ article.get_absolute_url }}">
-                            <div class="table-box">
-                                <p class="name">{{ article.title }}</p>
-                            </div>
-                        </a>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
-
     {% else %}
         <p style="text-align: center;"> You have not written any articles.</p>
     {% endif %}
@@ -73,23 +56,6 @@
             </div>
         {% endif %}
     {% endfor %}
-
-    {% if no_category_otherarticles %}
-        <p class="category">Uncategorized</p>
-        <div class="category-container">
-            {% for group in no_category_otherarticles %}
-                {% if group.category == "Uncategorized" %}
-                    {% for article in group.articles %}
-                        <a href="{{ article.get_absolute_url }}">
-                            <div class="table-box">
-                                <p class="name">{{ article.title }}</p>
-                            </div>
-                        </a>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
 
     {% else %}
         <p style="text-align: center;"> There are no other available articles.</p>
@@ -113,23 +79,6 @@
                 </div>
             {% endif %}
         {% endfor %}
-
-        {% if nocategory_all_articles %}
-        <p class="category">Uncategorized</p>
-        <div class="category-container">
-            {% for group in nocategory_all_articles %}
-                {% if group.category == "Uncategorized" %}
-                    {% for article in group.articles %}
-                        <a href="{{ article.get_absolute_url }}">
-                            <div class="table-box">
-                                <p class="name">{{ article.title }}</p>
-                            </div>
-                        </a>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
 
         {% else %}
             <p style="text-align: center;"> There are no other available articles.</p>
