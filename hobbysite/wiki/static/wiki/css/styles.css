@@ -185,6 +185,12 @@ button:hover {
 
 /*for article detail*/
 
+.header-image {
+    width: 100%;
+    max-height: 500px;
+    display: block;
+    object-fit: cover;
+}
 
 .article-container {
     max-width: 1000px;

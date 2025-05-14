@@ -11,16 +11,15 @@
 <body>
     <main>
         <!--this is for the article, along with author details-->
+
+        {% if article.header_image %}
+            <img src="{{ article.header_image.url }}" alt="{{ article.title }} image" class="header-image">
+        {% endif %}
+
         <div class="article-container">
 
             <h1 class="article-title">{{ article.title }}</h1>
             <p class="article-meta">Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
-
-            {% if article.image %}
-                <div class="article-image-box">
-                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
-                </div>
-            {% endif %}
             
             <div class="article-entry">
                 {{ article.entry }}  
@@ -84,6 +83,7 @@
         </form>
         </div>
 
+        {% if article.category %}
         {% if related_articles %}
             <h3 class="subheader">Read more from the category: {{ article.category.name }}</h3>
             <ul class="related-list">
@@ -91,6 +91,7 @@
                     <li class="other-articles"><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
                 {% endfor %}
             </ul>
+        {% endif %}
         {% endif %}
 
     </main>
