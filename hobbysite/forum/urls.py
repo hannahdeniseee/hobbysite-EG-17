@@ -1,3 +1,11 @@
+"""
+URL configuration for the Forum app.
+
+Maps URL patterns to class-based views.
+Includes routes for threads list, thread detail view,
+and creating and updating the threads.
+"""
+
 from django.urls import path
 from .views import (ThreadListView,
                     ThreadDetailView,

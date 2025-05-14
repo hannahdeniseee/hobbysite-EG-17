@@ -1,41 +1,59 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
-{% block title %}{{ thread }}{% endblock %}
+{% comment %}
+This is the thread_detail.html template, used to display a singular thread, its comments and image, and link to other threads and views.
+{% endcomment %}
 
+{% comment %}
+This section bases the title of the page on the title of the thread, and links the correct css file to use for the whole page.
+{% endcomment %}
+{% block title %}{{ thread }}{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section specifies the content of the page.
+{% endcomment %}
 {% block content %}
+
+    {% comment %}
+    This section sets the layout and margins of the page
+    {% endcomment %}
     <div class="forum-personal">
+
+        {% comment %}
+        This section creates a box for the thread details, entry, image (if there is one), and edit button for the author.
+        Also in the box, below the thread itself is the comment section for logged in users.
+        {% endcomment %}
         <div class="detail-box">
+
+            {% comment %}
+            This section is for the thread itself. It contains all the related information or data and an update button if the logged-in user is the thread's author.
+            {% endcomment %}
             <h1 class="forum-header">[{{ thread.category }}] {{ thread }}</h1>
             <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
-            
             {% if thread.image %}
                 <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
             {% endif %}
-            
             <p>{{ thread.entry }}</p>
-            
             {% if request.user.is_authenticated and request.user.profile == thread.author %}
                 <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
                     <p>Update Thread</p>
                 </a>
             {% endif %}
-            
+
+            {% comment %}
+            This section is for the comment portion. Only logged-in users can comment but they can still read other users' comments from oldest to newest.
+            {% endcomment %}
             <hr class="line">
-            
             <h3>Comments</h3>
-            
             {% for thread_comment in other_comments %}
                 <h4 class="comments-margin">{{ thread_comment.author.display_name }}</h4>
                 <p>{{ thread_comment.entry }}</p>
                 <p>Created on: {{ thread_comment.created_on }} | Updated on: {{ thread_comment.updated_on }}</p>
             {% endfor %}
-            
             {% if request.user.is_authenticated %}
                 <div class="bottom-margin"></div>
                 <form method="post">
@@ -46,17 +64,26 @@
                     <input type="submit" value="Submit" class="submit-button">
                 </form>
             {% endif %}
+
         </div>
         
+        {% comment %}
+        This button returns to the list view with all threads.
+        {% endcomment %}
         <a href="{% url 'forum:threads-list' %}" class="forum-button">
             <p>Back to Threads List</p>
         </a>
 
+        {% comment %}
+        This section enumerates other threads in the same category as the one displayed in the page, and links to them in case the user wants to read more.
+        {% endcomment %}
         <h1 class="category-header">Other Threads in {{ thread.category }}</h1>
         {% for other in other_threads %}
             <div class="forum-card">
                 <a href="{{ other.get_absolute_url }}" class="thread-link"><h3>{{ other.title }}</h3></a>
             </div>
         {% endfor %}
+
     </div>
+
 {% endblock %}

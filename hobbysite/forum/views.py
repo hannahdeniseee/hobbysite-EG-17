@@ -1,3 +1,8 @@
+"""
+This is the views file to create and specify the views for the Forum app.
+This includes the list view, detail view, create view, and update view for threads.
+"""
+
 from .models import Thread, ThreadCategory, Comment
 from .forms import CommentForm, ThreadForm, UpdateForm
 from django.views.generic.list import ListView
@@ -9,6 +14,11 @@ from django.urls import reverse
 
 
 class ThreadListView(ListView):
+    """
+    Displays a list of all threads in the forum.
+
+    Adds all thread categories to the context for filtering or display.
+    """
     model = Thread
     template_name = 'forum/threads_list.html'
     context_object_name = 'threads'
@@ -18,11 +28,21 @@ class ThreadListView(ListView):
 
 
 class ThreadDetailView(DetailView):
+    """
+    Displays the detail page for a single thread.
+
+    Includes related threads in the same category, existing comments,
+    and a comment submission form. Handles new comment submissions via POST.
+    """
     model = Thread
     template_name = 'forum/thread_detail.html'
     context_object_name = 'thread'
 
     def get_context_data(self, **kwargs):
+        """
+        Adds other threads from the same category, existing comments,
+        and the comment form to the context.
+        """
         context = super().get_context_data(**kwargs)
         t = self.object
         context['other_threads'] = Thread.objects.filter(
@@ -33,6 +53,13 @@ class ThreadDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """
+        Handles the submission of a new comment.
+
+        If the form is valid, associates the comment with the thread and user.
+        Redirects back to the same thread detail page
+        with the updated comment section.
+        """
         self.object = self.get_object()
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -47,6 +74,11 @@ class ThreadDetailView(DetailView):
 
 
 class ThreadCreateView(LoginRequiredMixin, CreateView):
+    """
+    Provides a form for logged-in users to create a new thread.
+
+    Automatically sets the thread author to the current user's profile.
+    """
     model = Thread
     form_class = ThreadForm
 
@@ -56,6 +88,9 @@ class ThreadCreateView(LoginRequiredMixin, CreateView):
 
 
 class ThreadUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Provides a form for logged-in users to edit a thread made by them.
+    """
     model = Thread
     form_class = UpdateForm
     template_name = 'forum/thread_form.html'

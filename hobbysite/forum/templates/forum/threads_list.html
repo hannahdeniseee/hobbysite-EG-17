@@ -1,16 +1,34 @@
 {% extends 'base.html' %}
 {% load static %} 
 
-{% block title %}Forum{% endblock %}
+{% comment %}
+This is the thread_list.html template, used to display all threads by category, and separating the ones made by the user if they are logged in.
+The individual threads are all linked here, and there is also a button to create new threads.
+{% endcomment %}
 
+{% comment %}
+This section sets the title of the page to Forum and links the correct css file to use for the whole page.
+{% endcomment %}
+{% block title %}Forum{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section specifies the content of the page.
+{% endcomment %}
 {% block content %}
+
+    {% comment %}
+    This section created the header portion
+    {% endcomment %}
     <div class="forum-header"></div>
     <img src="{% static 'forum/images/forum.png' %}" alt="Forum Header" class="header-image">
 
+    {% comment %}
+    This section creates a user's threads section if the user is logged in, wherein all the threads authored by the user are linked.
+    There is also a button to create a new thread in this section if the user is logged in.
+    {% endcomment %}
     {% if request.user.is_authenticated %}
         <h1 class="forum-header">USER'S THREADS</h1>
         <h3 class="forum-beige">BROWSE THROUGH YOUR PUBLISHED THREADS</h3>
@@ -28,14 +46,21 @@
         </div>
     {% endif %}
 
+    {% comment %}
+    This section displays all threads in the page, except those created by the logged-in user if there is one.
+    There is also a button to create a new thread in this section if the user is not logged-in and the user's threads section doesn't exist.
+    {% endcomment %}
     <h1 class="forum-header">ALL THREADS</h1>
     {% if request.user.is_authenticated %}
         <h3 class="forum-beige">BROWSE THROUGH OTHER USERS' THREADS</h3>
     {% else %}
         <h3 class="forum-beige">BROWSE THROUGH ALL OUR USERS' THREADS</h3>
     {% endif %}
-
     <div class="bottom-margin">
+
+        {% comment %}
+        This is the button to create a new thread.
+        {% endcomment %}
         {% if not request.user.is_authenticated %}
             <div class="forum-all">
                 <a href="{% url 'forum:thread-add' %}" class="forum-button">
@@ -44,6 +69,9 @@
             </div>
         {% endif %}
         
+        {% comment %}
+        This section contains all threads except the user's own arranged by category. The categories are arranged alphabetically and the threads within a category are arranged from newest to oldest.
+        {% endcomment %}
         {% for threadcategory in threadcategories %}
             <h1 class="category-header">{{ threadcategory }}</h1>
             <div class="forum-all">
@@ -66,5 +94,7 @@
                 {% endif %}
             </div>
         {% endfor %}
+
     </div>
+
 {% endblock %}

@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
-{% block title %}Create/Edit Thread{% endblock %}
+{% comment %}
+This is the thread_form.html template, which renders a form used to create or edit a particular thread.
+{% endcomment %}
 
+{% comment %}
+This section sets the title of the page and links the correct css file to use for the whole page.
+{% endcomment %}
+{% block title %}Create/Edit Thread{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'forum/css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section renders the threadform and adds css to the default form.
+{% endcomment %}
 {% block content %}
     <h1 class="forum-header">CREATE/EDIT THREAD</h1>
     <p></p>
