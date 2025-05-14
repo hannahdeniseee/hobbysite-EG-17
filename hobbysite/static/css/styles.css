@@ -82,6 +82,7 @@ body, html {
     color: inherit;
     text-decoration: underline;
     cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
 }
 .navbar {
     background-color: #333;
@@ -91,27 +92,35 @@ body, html {
     justify-content: space-between;
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
   }
   
-  .navbar nav {
+.navbar nav {
   display: flex;
   align-items: center;
   gap: 1rem;
   background-color: #333;
   padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
   
- .navbar nav a {
+.navbar nav a {
   color: white;
   text-decoration: none;
   padding: 8px 12px;
 }
   
-  .navbar a:hover {
+.navbar a:hover {
     color: #8d8b86;
   }
   
-  .navbar span {
+.navbar span {
     font-size: 0.95rem;
     color: #ddd;
   }
@@ -139,7 +148,8 @@ body, html {
 
 .navbar-logo {
     height: 10%;  
-    width: 10%;    
+    width: 10vw;
+    min-width: 100px;    
     align-self: left;
 }
 

@@ -1,3 +1,7 @@
+"""
+Admin permissions to handle articles.
+"""
+
 from django.contrib import admin
 from .models import ArticleCategory, Article
 

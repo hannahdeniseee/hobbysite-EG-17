@@ -1,5 +1,6 @@
 """
-Defines ArticleCategory and Article models.
+Defines ArticleCategory, Article, 
+Comment, and Gallery models.
 """
 
 from django.db import models
@@ -54,6 +55,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
+    """Model for a comment."""
     author = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,
@@ -75,6 +77,7 @@ class Comment(models.Model):
 
 
 class Gallery(models.Model):
+    """Model for the image gallery that handles multiple uploads."""
     image = models.ImageField(
         upload_to='blog/images/',
         blank=True,
