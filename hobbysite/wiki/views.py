@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from .models import Article, ArticleCategory, Comment, Gallery
 from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
@@ -16,17 +15,47 @@ class ArticleListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        categories = ArticleCategory.objects.all()
 
         if user.is_authenticated:
+            # Separate your articles and others'
             user_articles = Article.objects.filter(author=user.profile)
             other_articles = Article.objects.exclude(author=user.profile)
-        else:
-            user_articles = None
-            other_articles = Article.objects.all()
 
-        context['articlecategories'] = ArticleCategory.objects.all()
-        context['user_articles'] = user_articles
-        context['other_articles'] = other_articles
+            # Group each by category
+            grouped_user_articles = []
+            grouped_other_articles = []
+
+            for category in categories:
+                grouped_user_articles.append({
+                    'category': category,
+                    'articles': user_articles.filter(category=category)
+                })
+                grouped_other_articles.append({
+                    'category': category,
+                    'articles': other_articles.filter(category=category)
+                })
+
+            context['grouped_user_articles'] = grouped_user_articles
+            context['grouped_other_articles'] = grouped_other_articles
+            context['has_user_articles'] = user_articles.exists()
+            context['has_other_articles'] = other_articles.exists()
+            context['is_logged_in'] = True
+
+        else:
+            # Everyone's articles in one group
+            all_articles = Article.objects.all()
+            grouped_all_articles = []
+
+            for category in categories:
+                grouped_all_articles.append({
+                    'category': category,
+                    'articles': all_articles.filter(category=category)
+                })
+
+            context['grouped_all_articles'] = grouped_all_articles
+            context['has_all_articles'] = all_articles.exists()
+            context['is_logged_in'] = False
 
         return context
 
@@ -42,7 +71,7 @@ class ArticleDetailView(DetailView):
 
         # Related articles (exclude current article)
         related_articles = Article.objects.filter(
-            author=article.author
+            category=article.category
         ).exclude(pk=article.pk)[:2]
 
         context['related_articles'] = related_articles
@@ -55,7 +84,7 @@ class ArticleDetailView(DetailView):
         context['gallery_images'] = Gallery.objects.filter(
             article=article)
 
-        context['is_owner'] = self.request.user == article.author
+        context['is_owner'] = self.request.user == article.author.user
         return context
 
     def post(self, request, *args, **kwargs):
