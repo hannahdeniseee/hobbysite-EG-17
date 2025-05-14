@@ -19,7 +19,7 @@ urlpatterns = [
         name="article_create"
     ),
     path(
-        'article/<int:pk>/update',
+        'article/<int:pk>/edit',
         ArticleUpdateView.as_view(),
         name="article_update"
     ),
