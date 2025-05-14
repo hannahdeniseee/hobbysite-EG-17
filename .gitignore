@@ -7,3 +7,5 @@ db.sqlite3
 !**/media/forum/images/.gitkeep
 **/media/blog/images/*
 !**/media/blog/images/.gitkeep
+**/media/wiki/images/*
+!**/media/wiki/images/.gitkeep
