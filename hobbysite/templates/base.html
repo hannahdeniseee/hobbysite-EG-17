@@ -27,7 +27,6 @@ It contains some basic css styles and the navigation bar.
             <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">
             {% if user.is_authenticated %}
                 <span>Welcome, {{ user.profile.display_name }}!</span>
-                <p> | </p>
                 <a href="{% url 'homepage' %}">Home</a>
                 <a href="{% url 'user_management:dashboard' %}">Dashboard</a>
 
@@ -45,6 +44,7 @@ It contains some basic css styles and the navigation bar.
                     <a class="dropbtn">Wiki ▾ </a>
                     <div class="dropdown-content">
                         <a href="{% url 'wiki:articles' %}">Articles</a>
+                        <a href="{% url 'wiki:article_create' %}">Create an Article</a>
                     </div>
                 </div>
 
@@ -53,6 +53,7 @@ It contains some basic css styles and the navigation bar.
                     <a class="dropbtn">Blog ▾ </a>
                     <div class="dropdown-content">
                         <a href="{% url 'blog:article_list' %}">Articles</a>
+                        <a href="{% url 'blog:article_create' %}">Create an Article</a>
                     </div>
                 </div>
 
