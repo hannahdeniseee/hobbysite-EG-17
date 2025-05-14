@@ -16,10 +16,11 @@
         <img src="https://picsum.photos/300/300" alt="Commission">
     </div>
     {% if request.user.is_authenticated and is_owner %}
-        <a href="{% url 'commissions:commission-update' commission.pk %}" class="button">
+        <a href="{% url 'commissions:commission-edit' commission.pk %}" class="button">
         <p>Edit Commission</p>
     </a>
     {% endif %}
+    <h2>Status : {{ commission.status }}</h2>
     <p> {{ commission.description }} </p>
     <h3>Jobs:</h3>
     <ul>

@@ -27,7 +27,7 @@ class Commission(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['status', 'created_on']
+        ordering = ['-status', 'created_on']
 
     def __str__(self):
         return self.title
@@ -58,7 +58,7 @@ class Job(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['status', '-manpower_required', 'role']
+        ordering = ['-status', '-manpower_required', 'role']
 
     def __str__(self):
         return self.role
@@ -88,7 +88,7 @@ class JobApplication(models.Model):
     applied_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['status', '-applied_on']
+        ordering = ['-status', '-applied_on']
 
     def __str__(self):
         return f'{self.job.role} - {self.applicant.display_name}'

@@ -1,9 +1,19 @@
+"""
+This is the models file to specify the fields, ordering, and related methods
+for the different models used in the Forum app.
+"""
+
 from django.db import models
 from django.urls import reverse
 from user_management.models import Profile
 
 
 class ThreadCategory(models.Model):
+    """
+    Represents a category for the threads to be posted.
+
+    Includes fields for name and description. 
+    """
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -16,6 +26,12 @@ class ThreadCategory(models.Model):
 
 
 class Thread(models.Model):
+    """
+    Represents a thread posted in the forum.
+
+    Includes fields for name, author, category, entry,
+    image, created_on, and updated_on.
+    """
     title = models.CharField(max_length=255)
     author = models.ForeignKey(
         Profile,
@@ -43,6 +59,12 @@ class Thread(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Represents a comment under a specific thread in the Forum.
+
+    Includes fields for author, thread (under which it was commented),
+    entry, created_on, and updated_on.
+    """
     author = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,

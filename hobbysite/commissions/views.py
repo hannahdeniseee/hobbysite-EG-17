@@ -70,6 +70,9 @@ class CommissionDetailView(DetailView):
         )
         if context['can_apply']:
             context['form'] = JobApplicationForm(commission=commission)
+        if total_open_manpower == 0:
+            commission.status = 'full'
+            commission.save()
 
         return context
     
@@ -155,4 +158,5 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
 class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     model = Commission
     form_class = CommissionForm
+    template_name = 'commissions_update.html'
 

@@ -14,12 +14,12 @@ urlpatterns = [
         name='article_detail'
     ),
     path(
-        'article/create',
+        'article/add',
         ArticleCreateView.as_view(),
         name="article_create"
     ),
     path(
-        'article/<int:pk>/update',
+        'article/<int:pk>/edit',
         ArticleUpdateView.as_view(),
         name="article_update"
     ),
