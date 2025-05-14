@@ -14,7 +14,6 @@
             <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">
             {% if user.is_authenticated %}
                 <span>Welcome, {{ user.profile.display_name }}!</span>
-                <p> | </p>
                 <a href="{% url 'homepage' %}">Home</a>
                 <a href="{% url 'user_management:dashboard' %}">Dashboard</a>
 
