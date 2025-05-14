@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Permanent+Marker&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 /*for whole css*/
-body {
+body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -284,4 +284,48 @@ h3 {
     font-family: 'Noto Serif';
     font-size: 20px;
     margin: 0.5%;
+}
+
+/*widget*/
+.comment-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#1f1f1f;
+    padding: 2%;
+    width: 100%;
+    resize: vertical;
+    height: 100px;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #cb7059;
+    border-style: solid;
+    background-color: #f1ece6;
+}
+
+.title-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#1f1f1f;
+    padding: 0.5%;
+    width: 50%;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: #b83e3e;
+    border-style: solid;
+    background-color: #f1e6e6;
+    padding-left: 1%;
+}
+
+.categ-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#1f1f1f;
+    padding: 0.5%;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #8b0707;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
 }

@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Article</title>
+
+{% block title %}Create and Edit Article{% endblock %}
+
+{% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/styles.css' %}">
-</head>
+{% endblock %}
+
+{% block content %}
 <body>
 <h1>CREATE/EDIT AN ARTICLE</h1>
     <div style="margin: 3%">
@@ -37,7 +38,4 @@
         </form>
     </div>   
 </body>
-</html>
-
-
-
+{% endblock %}

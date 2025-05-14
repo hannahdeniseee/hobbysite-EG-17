@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ article.title }}</title>
-</head>
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
 <body>
-    <header>
-        <h1><a href = '/wiki/articles'>WIKI</a></h1>
-    </header>
     <main>
         <!--this is for the article, along with author details-->
         <div class="article-container">
@@ -96,4 +95,4 @@
 
     </main>
 </body>
-</html>
+{% endblock %}
