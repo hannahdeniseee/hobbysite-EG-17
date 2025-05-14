@@ -30,7 +30,8 @@ class Article(models.Model):
         related_name='articles'
     )
     entry = models.TextField(null=True)
-    header_image = models.ImageField(upload_to='wiki/images/', blank=True)
+    header_image = models.ImageField(upload_to='wiki/images/')
+    image = models.ImageField(upload_to='wiki/images', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -62,16 +63,3 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_on']
-
-
-class Gallery(models.Model):
-    image = models.ImageField(
-        upload_to='wiki/images/',
-        blank=True,
-        null=True
-    )
-    article = models.ForeignKey(
-        'wiki.Article',
-        on_delete=models.CASCADE,
-        null=True,
-    )

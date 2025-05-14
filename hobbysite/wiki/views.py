@@ -3,8 +3,9 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
-from .models import Article, ArticleCategory, Comment, Gallery
-from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
+from .models import Article, ArticleCategory, Comment
+from .forms import ArticleForm, UpdateForm, CommentForm
+from django.views.generic import View
 
 
 class ArticleListView(ListView):
@@ -102,10 +103,6 @@ class ArticleDetailView(DetailView):
         if self.request.user.is_authenticated:
             context['comment_form'] = CommentForm()
 
-        context['gallery_form'] = GalleryForm()
-        context['gallery_images'] = Gallery.objects.filter(
-            article=article)
-
         context['is_owner'] = self.request.user == article.author.user
         return context
 
@@ -122,26 +119,13 @@ class ArticleDetailView(DetailView):
             comment.save()
             form = CommentForm()  # Reset form after successful submission
 
-        images = request.FILES.getlist('image')
-        for img in images:
-            Gallery.objects.create(article=self.object, image=img)
-
-        remove_image = request.POST.get('remove_image')
-        if remove_image:
-            image = Gallery.objects.get(
-                id=remove_image,
-                article=self.object
-            )
-            if image.article.author.user == request.user:
-                image.delete()
-
         return redirect('wiki:article_detail', pk=self.object.pk)
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    template_name = "wiki/article_form.html"
     form_class = ArticleForm
+    template_name = 'wiki/article_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
