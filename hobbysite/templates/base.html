@@ -31,6 +31,7 @@
                     <a class="dropbtn">Wiki ▾ </a>
                     <div class="dropdown-content">
                         <a href="{% url 'wiki:articles' %}">Articles</a>
+                        <a href="{% url 'wiki:article_create' %}">Create an Article</a>
                     </div>
                 </div>
 
@@ -39,6 +40,7 @@
                     <a class="dropbtn">Blog ▾ </a>
                     <div class="dropdown-content">
                         <a href="{% url 'blog:article_list' %}">Articles</a>
+                        <a href="{% url 'blog:article_create' %}">Create an Article</a>
                     </div>
                 </div>
 
