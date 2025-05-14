@@ -48,7 +48,7 @@ class Job(models.Model):
         related_name='job'
     )
     role = models.CharField(max_length=255)
-    manpower_required = models.IntegerField()
+    manpower_required = models.PositiveIntegerField()
     status = models.CharField(
         max_length=20, 
         choices=STATUS_CHOICES, 
