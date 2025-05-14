@@ -12,9 +12,7 @@
     <main>
         <!--this is for the article, along with author details-->
 
-        {% if article.header_image %}
-            <img src="{{ article.header_image.url }}" alt="{{ article.title }} header" class="header-image">
-        {% endif %}
+        <img src="{{ article.header_image.url }}" alt="{{ article.title }} header" class="header-image">
 
         <div class="article-container">
 
@@ -70,12 +68,10 @@
 
         <h3 class="subheader">Gallery</h3>
         <div class="gallery-container">
-            {% if article.header_image %}
             <div class="table-box">
                 <img src="{{ article.header_image.url }}" alt="{{ article.title }} header" class="gallery-item">
                 <p>Header image of {{ article.title }}</p>
             </div>
-            {% endif %}
 
             {% if article.image %}
             <div class="table-box">

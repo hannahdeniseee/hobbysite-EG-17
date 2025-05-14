@@ -43,6 +43,14 @@ h2 {
     margin: 0.5%;
 }
 
+h1 {
+    font-family: 'Lucida Sans Unicode', Arial, sans-serif;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 0.5%;
+}
+
 button {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     display: block;

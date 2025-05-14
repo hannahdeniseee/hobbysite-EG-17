@@ -116,3 +116,14 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = UpdateForm
     template_name = 'wiki/article_form.html'
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+
+        # Remove image if "clear" checkbox was checked
+        if self.request.POST.get('image-clear'):
+            article.image.delete(save=False)
+            article.image = None
+
+        article.save()
+        return super().form_valid(form)

@@ -36,6 +36,16 @@
 
         {{ form.image.label_tag }}
         {{ form.image }}
+
+        {% if form.instance.image %}
+            <br>
+            <label>
+                <input type="checkbox" name="image-clear">
+                Remove current image
+            </label>
+            <br>
+            <img src="{{ form.instance.image.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+        {% endif %}
         
         <br><br>
 
