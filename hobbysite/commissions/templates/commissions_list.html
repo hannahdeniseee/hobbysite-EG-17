@@ -11,7 +11,7 @@
     <img src="{% static 'commissions/commissions.jpg' %}" alt="Commissions Header" class="header-image">
 
         {% if request.user.is_authenticated %}
-            <h1 class="commissions-header">CREATED COMMISSIONS</h1>
+            <h1 class="commissions-header">COMMISSIONS CREATED</h1>
             <div class="commissions-personal">
                 {% for commission in created_commissions %}
                     <a href="{{ commission.get_absolute_url }}" class="card">
@@ -24,20 +24,18 @@
                     <p>No commissions available.</p>
                 {% endfor %}
             </div>
-            <h2 class="commissions-header">APPLIED COMMISSIONS</h2>
+            <h2 class="commissions-header">COMMISSIONS APPLIED TO</h2>
             <div class="commissions-personal">
-            {% for commission in applied_commissions %}
-                <div class="commissions-card">
+                {% for commission in applied_commissions %}
                     <a href="{{ commission.get_absolute_url }}" class="card">
                         <h2>{{ commission.title }}</h2>
                         <p>Status: {{ commission.status }}</p>
                         <p>{{ commission.description }}</p>
                         <p>{{ commission.created_on }}</p>
                     </a>
-                </div>
-            {% empty %}
-                <p>No commissions available.</p>
-            {% endfor %}
+                {% empty %}
+                    <p>No commissions available.</p>
+                {% endfor %}
             </div>
             <h2 class="commissions-header">OTHER COMMISSIONS</h2>
             <div class="commissions-personal">
