@@ -43,6 +43,24 @@ h2 {
     margin: 0.5%;
 }
 
+button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    display: block;
+    background-color: #f1e6e6;
+    color:#8a0101;
+    padding: 1%;
+    text-decoration: none;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #8a0101;
+    font-size: medium;
+    margin: 1% auto; 
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
 .boxdiv {
     display: grid;
     background-color:rgb(102, 21, 21);
@@ -95,7 +113,6 @@ h2 {
     color: rgb(67, 13, 13);
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 8px;
 }
 
 .description {
@@ -370,7 +387,7 @@ h3 {
     height: 100px;
     border-radius: 20px;
     border-width: 2px;  
-    border-color: #cb7059;
+    border-color: #8b0707;
     border-style: solid;
     background-color: #f1ece6;
 }
@@ -383,7 +400,7 @@ h3 {
     width: 50%;
     border-radius: 20px;
     border-width: 2px;
-    border-color: #b83e3e;
+    border-color: #8b0707;
     border-style: solid;
     background-color: #f1e6e6;
     padding-left: 1%;

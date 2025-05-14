@@ -25,6 +25,8 @@ class ArticleListView(ListView):
             # Group each by category
             grouped_user_articles = []
             grouped_other_articles = []
+            no_category_userarticles = []
+            no_category_otherarticles = []
 
             for category in categories:
                 grouped_user_articles.append({
@@ -35,9 +37,21 @@ class ArticleListView(ListView):
                     'category': category,
                     'articles': other_articles.filter(category=category)
                 })
+            
+            # Handle "Uncategorized" articles
+            no_category_userarticles.append({
+                'category': "Uncategorized",
+                'articles': user_articles.filter(category__isnull=True)
+            })
+            no_category_otherarticles.append({
+                'category': "Uncategorized",
+                'articles': other_articles.filter(category__isnull=True)
+            })
 
             context['grouped_user_articles'] = grouped_user_articles
             context['grouped_other_articles'] = grouped_other_articles
+            context['no_category_userarticles'] = no_category_userarticles
+            context['no_category_otherarticles'] = no_category_otherarticles
             context['has_user_articles'] = user_articles.exists()
             context['has_other_articles'] = other_articles.exists()
             context['is_logged_in'] = True
@@ -46,14 +60,22 @@ class ArticleListView(ListView):
             # Everyone's articles in one group
             all_articles = Article.objects.all()
             grouped_all_articles = []
+            nocategory_all_articles = []
 
             for category in categories:
                 grouped_all_articles.append({
                     'category': category,
                     'articles': all_articles.filter(category=category)
                 })
+            
+            # Handle "Uncategorized" articles
+            nocategory_all_articles.append({
+                'category': "Uncategorized",
+                'articles': all_articles.filter(category__isnull=True)
+            })
 
             context['grouped_all_articles'] = grouped_all_articles
+            context['nocategory_all_articles'] = nocategory_all_articles
             context['has_all_articles'] = all_articles.exists()
             context['is_logged_in'] = False
 
