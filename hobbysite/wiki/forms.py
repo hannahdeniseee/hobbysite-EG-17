@@ -10,8 +10,7 @@ class ArticleForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'title-box', }),
             'category': forms.Select(attrs={'class': 'categ-box', }),
             'entry': forms.Textarea(attrs={'class': 'comment-box', }),
-            'header_image': forms.ClearableFileInput(),
-            'image': forms.ClearableFileInput(),
+            'image': forms.ClearableFileInput(), #allows deletion of image
         }
 
 
@@ -32,4 +31,5 @@ class UpdateForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'title-box', }),
             'category': forms.Select(attrs={'class': 'categ-box', }),
             'entry': forms.Textarea(attrs={'class': 'comment-box', }),
+            'image': forms.ClearableFileInput(),
         }

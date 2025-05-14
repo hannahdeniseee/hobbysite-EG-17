@@ -25,8 +25,6 @@ class ArticleListView(ListView):
             # Group each by category
             grouped_user_articles = []
             grouped_other_articles = []
-            no_category_userarticles = []
-            no_category_otherarticles = []
 
             for category in categories:
                 grouped_user_articles.append({
@@ -45,10 +43,9 @@ class ArticleListView(ListView):
             context['is_logged_in'] = True
 
         else:
-            # Everyone's articles in one group
+            # Everyone's articles in one group (user is not logged in)
             all_articles = Article.objects.all()
             grouped_all_articles = []
-            nocategory_all_articles = []
 
             for category in categories:
                 grouped_all_articles.append({
@@ -97,9 +94,8 @@ class ArticleDetailView(DetailView):
             comment.article = self.object
             comment.author = self.request.user.profile
             comment.save()
-            form = CommentForm()  # Reset form after successful submission
 
-        return redirect('wiki:article_detail', pk=self.object.pk)
+        return redirect(f"{self.object.get_absolute_url()}#comment_section") #this will redirect to the comment section
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):

@@ -20,7 +20,7 @@
             <p class="article-meta">written by {{ article.author }} <br> Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
 
             {% if article.image %}
-                <img src="{{ article.image.url }}" alt="{{ article.title }} image">
+                <img src="{{ article.image.url }}" alt="{{ article.title }} image" style="max-height: 300px; width: auto;">
             {% endif %}
             
             <div class="article-entry">
@@ -36,7 +36,7 @@
         <h3 style="text-align: center;"><a href="{% url 'wiki:articles' %}" class="back-link">← Back to All Articles</a></h3>
 
         <h3 class="subheader">Comments</h3>
-        <div class="comment-section">
+        <div class="comment-section" id="comment_section">
         {% if user.is_authenticated %}
             <p>Leave a Comment</p>
             <form method="post">
@@ -46,9 +46,9 @@
             </form>
         {% endif %}
 
+        <div class="comment-section-entries">
+        <h2 style="font-size: 22px; text-align: center;">Comment Thread</h2>
         {% if comments %}
-            <div class="comment-section-entries">
-                <h2 style="font-size: 22px; text-align: center;">Comment Thread</h2>
                 <ul>
                     {% for comment in comments %}
                         <li>
@@ -60,10 +60,10 @@
                         </li>
                     {% endfor %}
                 </ul>
-            {% else %}
-                <p>No comments yet.</p>
-            {% endif %}
-            </div>
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+        </div>
         </div>
 
         <h3 class="subheader">Gallery</h3>
