@@ -86,9 +86,9 @@
 
         {% if related_articles %}
             <h3 class="subheader">Read more from the category: {{ article.category.name }}</h3>
-            <ul>
+            <ul class="related-list">
                 {% for related in related_articles %}
-                    <li><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
+                    <li class="other-articles"><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}

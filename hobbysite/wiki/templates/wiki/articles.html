@@ -46,7 +46,7 @@
                 <a href="{{ article.get_absolute_url }}">
                     <div class="table-box">
                         <p class="name">{{ article.title }}</p>
-                        <p class="description">Category: {{ article.category.name }}</p>
+                        <p class="description">by: {{article.author}} <br> Category: {{ article.category.name }}</p>
                     </div>
                 </a>
                 {% endfor %}
