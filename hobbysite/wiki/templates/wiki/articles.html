@@ -24,10 +24,12 @@
             {% if user_articles %}
                 <div class="category-container">
                 {% for article in user_articles %}
+                <a href="{{ article.get_absolute_url }}">
                     <div class="table-box">
-                        <div class="name">{{ articlecategory.name }}</div>
-                        <div class="description">{{ articlecategory.description }}</div>
+                        <p class="name">{{ article.title }}</p>
+                        <p class="description">{{ articlecategory.name }}</p>
                     </div>
+                </a>
                 </div>
                 {% endfor %}
             {% else %}
@@ -42,15 +44,15 @@
             <div class="category-container">
                 {% for article in other_articles %}
                     <div class="table-box">
-                        <div class="name">{{ articlecategory.name }}</div>
-                        <div class="description">{{ articlecategory.description }}</div>
+                        <p class="name">{{ article.title }}</p>
+                        <p class="description">{{ articlecategory.name }}</p>
                     </div>
                 {% empty %}
                     <p>No categories available.</p>
                 {% endfor %}
             </div>
         {% else %}
-            <p style="text-align: center;">You have not created any articles yet.</p>
+            <p style="text-align: center;">There are no articles yet.</p>
         {% endif %}
 
          {% if user.is_authenticated %}
