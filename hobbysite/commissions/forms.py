@@ -18,3 +18,9 @@ class JobApplicationForm(forms.ModelForm):
     class Meta:
         model = JobApplication
         fields = ['job', ]
+
+    def __init__(self, *args, **kwargs):
+        commission = kwargs.pop('commission', None)
+        super().__init__(*args, **kwargs)
+        if commission:
+            self.fields['job'].queryset = Job.objects.filter(commission=commission)

@@ -54,7 +54,6 @@ class Job(models.Model):
         choices=STATUS_CHOICES, 
         default='open'
     )
-    entry = models.TextField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -62,7 +61,7 @@ class Job(models.Model):
         ordering = ['status', '-manpower_required', 'role']
 
     def __str__(self):
-        return self.entry
+        return self.role
     
 
 class JobApplication(models.Model):
@@ -92,4 +91,4 @@ class JobApplication(models.Model):
         ordering = ['status', '-applied_on']
 
     def __str__(self):
-        return f'{self.job.entry} - {self.applicant.display_name}'
+        return f'{self.job.role} - {self.applicant.display_name}'
