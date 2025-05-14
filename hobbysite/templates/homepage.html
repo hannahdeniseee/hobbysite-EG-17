@@ -1,14 +1,27 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
-{% block title %}Hobbysite{% endblock %}
+{% comment %}
+This is the homepage.html template, used to link all the apps together and allow a logged in user to view their dashboard.
+This also serves as the default redirect page for logins.
+{% endcomment %}
 
+{% comment %}
+This section sets the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+{% block title %}Hobbysite{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section renders the homepage using css. It includes a short introduction and the links to the other apps.
+{% endcomment %}
 {% block content %}
+
+    {% comment %}
+    This section forms the page header and the short introduction to the site.
+    {% endcomment %}
     <p class="home-header">CSCI40 FINAL PROJECT GROUP 17</p>
     <img src="{% static 'images/hobbysite.png' %}" alt="Home Header" class="header-image">
     <h1 class="home-header">ABOUT US</h1>
@@ -23,6 +36,10 @@
             and thrive.</p>
         </div>
     </div>
+
+    {% comment %}
+    This section has buttons to visit all the apps, or the user's dashboard if the user is logged in to their profile.
+    {% endcomment %}
     <h1 class="home-header">VISIT OUR PAGES</h1>
     {% if request.user.is_authenticated %}
         <a href="{% url 'user_management:dashboard' %}" class="link">

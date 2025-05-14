@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
-{% block title %}User Dashboard{% endblock %}
+{% comment %}
+This is the dashboard.html file, which shows all the user-created items throguhout the whole site when the user is logged in.
+{% endcomment %}
 
+
+{% comment %}
+This section sets the title of the page and links the correct css file to be used throguhout the whole page.
+{% endcomment %}
+{% block title %}User Dashboard{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'user_management/css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section contains headers for each main type of model for each app, and lists down all the instances created
+by the logged in user.
+{% endcomment %}
 {% block content %}
     <h1 class="home-header">PRODUCTS SOLD</h1>
         <div class="layout-personal">

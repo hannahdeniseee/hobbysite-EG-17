@@ -1,6 +1,7 @@
 """
 This is the views file to create and specify the views for the Forum app.
-This includes the list view, detail view, create view, and update view for threads.
+This includes the list view, detail view, create view, and
+update view for threads.
 """
 
 from .models import Thread, ThreadCategory, Comment

@@ -1,7 +1,16 @@
 {% load static %}
 <!DOCTYPE html>
+
+{% comment %}
+This is the base.html file, which serves as the base file for all html templates.
+It contains some basic css styles and the navigation bar.
+{% endcomment %}
+
 <html lang="en">
 <head>
+    {% comment %}
+    This section allows each page to have a custom title and added stylesheet for css.
+    {% endcomment %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
@@ -9,6 +18,10 @@
     {% block styles %}{% endblock %}
 </head>
 <body>
+    {% comment %}
+    This section adds the navigation bar with dropdowns that also help easily access each page and logout,
+    or log in and out if the user has not yet done so.
+    {% endcomment %}
     <header class="navbar">
         <nav>
             <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">

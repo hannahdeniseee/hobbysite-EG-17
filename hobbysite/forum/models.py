@@ -12,7 +12,7 @@ class ThreadCategory(models.Model):
     """
     Represents a category for the threads to be posted.
 
-    Includes fields for name and description. 
+    Includes fields for name and description.
     """
     name = models.CharField(max_length=255)
     description = models.TextField()

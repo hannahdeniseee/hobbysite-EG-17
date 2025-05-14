@@ -1,3 +1,9 @@
+"""
+This is the views file to create and specify the views for the
+user_management app.
+This includes the dashboard view and profile update view.
+"""
+
 from forum.models import Thread
 from django.views.generic.list import ListView
 from django.views.generic import UpdateView
@@ -11,6 +17,12 @@ from wiki.models import Article as WikiArticle
 
 
 class DashboardView(LoginRequiredMixin, ListView):
+    """
+    Displays a list of all main user-created instances of models
+
+    This includes threads, products sold, products bought,
+    blog articles, wiki articles, commissions created, and commissions joined.
+    """
     model = Thread
     template_name = 'user_management/dashboard.html'
     context_object_name = 'threads'
@@ -32,6 +44,10 @@ class DashboardView(LoginRequiredMixin, ListView):
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Provides a form for logged-in users to edit the display
+    name of their profile. Redirects to the homepage.
+    """
     model = Profile
     template_name = 'user_management/profile_form.html'
     form_class = ProfileUpdateForm

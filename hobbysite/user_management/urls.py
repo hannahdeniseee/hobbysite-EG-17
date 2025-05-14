@@ -1,3 +1,10 @@
+"""
+URL configuration for the user_management app.
+
+Maps URL patterns to class-based views.
+Includes routes for the dashboard and the profile update view.
+"""
+
 from django.urls import path
 from .views import DashboardView
 from .views import ProfileUpdateView
