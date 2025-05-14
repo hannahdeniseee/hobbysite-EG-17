@@ -212,8 +212,8 @@ h2 {
 }
 
 .comment-section {
-    padding: 2%;
-    margin: 2%;
+    padding: 1%;
+    margin: 1%;
     margin-bottom: 0;
 }
 
@@ -281,9 +281,46 @@ h2 {
 }
 
 h3 {
-    font-family: 'Noto Serif';
+    font-family: 'DM Serif Display', serif;
     font-size: 20px;
     margin: 0.5%;
+}
+
+.subheader {
+    background-color: rgb(64, 13, 13);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-weight: 100;
+    color: #f1ece6;
+    margin: 0;
+}
+
+.edit-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #8f4040;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.back-link {
+    text-align: center;
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #602a2a;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
 /*widget*/
@@ -291,7 +328,7 @@ h3 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
     color:#1f1f1f;
-    padding: 2%;
+    padding: 1%;
     width: 100%;
     resize: vertical;
     height: 100px;

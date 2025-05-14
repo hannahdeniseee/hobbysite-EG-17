@@ -55,7 +55,7 @@ class ArticleDetailView(DetailView):
         context['gallery_images'] = Gallery.objects.filter(
             article=article)
 
-        context['is_owner'] = self.request.user == article.author
+        context['is_owner'] = self.request.user == article.author.user
         return context
 
     def post(self, request, *args, **kwargs):
