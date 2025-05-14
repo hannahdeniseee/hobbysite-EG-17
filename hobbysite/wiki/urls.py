@@ -14,7 +14,7 @@ urlpatterns = [
         name='article_detail'
     ),
     path(
-        'article/create',
+        'article/add',
         ArticleCreateView.as_view(),
         name="article_create"
     ),
