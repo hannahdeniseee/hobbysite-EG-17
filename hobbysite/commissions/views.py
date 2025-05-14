@@ -89,6 +89,9 @@ class CommissionDetailView(DetailView):
         )
         if context['can_apply']:
             context['form'] = JobApplicationForm()
+        if all_jobs_full:
+            commission.status = 'full'
+            commission.save()
 
         return context
     
@@ -181,4 +184,17 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     model = Commission
     form_class = CommissionForm
     template_name = 'commissions_update.html'
+    context_object_name = 'commission'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        commission = self.object
+        jobs = Job.objects.filter(commission=commission)
+
+        job_applications = []
+        for job in jobs:
+            applications = JobApplication.objects.filter(job=job)
+            job_applications.append((job,applications))
+
+        context['job_applications'] = job_applications
+        return context

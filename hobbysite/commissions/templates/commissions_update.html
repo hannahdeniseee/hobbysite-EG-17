@@ -14,20 +14,17 @@
             {{ form.as_p }}
             <button type="submit">Update Commission</button>
         </form>
-    {% for job in jobs %}
-    <div>
-        <h3>{{ job.title }}</h3>
-        <p>Manpower required: {{ job.manpower_required }}</p>
+    <h3>Jobs</h3>
+    {% for job, applications in job_applications %}
+        <h3>{{ job.role }} ({{ job.manpower_required }})</h3>
 
-        <h4>Applications</h4>
         <ul>
-        {% for app in job_applications|get_item:job %}
-            <li>{{ app.applicant.user.username }} - {{ app.status }}</li>
+        {% for application in applications %}
+            <li>{{ application.applicant.user.username }} - Status: {{ application.status }}</li>
         {% empty %}
             <li>No applications yet.</li>
         {% endfor %}
         </ul>
-    </div>
     {% endfor %}
     <a href="{% url 'commissions:commission-detail' commission.pk %}" class="back-button">Back to Commission</a>
 {% endblock %}
