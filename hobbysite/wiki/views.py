@@ -84,7 +84,7 @@ class ArticleDetailView(DetailView):
             if image.article.author.user == request.user:
                 image.delete()
 
-        return redirect('article_detail', pk=self.object.pk)
+        return redirect('wiki:article_detail', pk=self.object.pk)
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
