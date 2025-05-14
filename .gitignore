@@ -5,3 +5,5 @@ __pycache__/
 db.sqlite3
 **/media/forum/images/*
 !**/media/forum/images/.gitkeep
+**/media/blog/images/*
+!**/media/blog/images/.gitkeep
