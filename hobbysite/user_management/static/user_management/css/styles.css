@@ -1,0 +1,28 @@
+body, html {
+    background-color: #f1ece6;
+    color: #3c4142;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin: 0;
+    padding: 0;
+}
+*{
+    box-sizing: border-box;
+}
+.dashboard-card {
+    display: block;
+    padding: 2%;
+    width: 90%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #3c4142;
+    margin-top: 3%;
+    text-align: justify;
+    line-height: 24px;
+}
+.layout-personal {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 3%;
+}
+
