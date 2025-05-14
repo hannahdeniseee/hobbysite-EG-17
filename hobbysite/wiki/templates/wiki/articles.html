@@ -28,13 +28,13 @@
                     <a href="{{ article.get_absolute_url }}">
                         <div class="table-box">
                             <p class="name">{{ article.title }}</p>
-                            <p class="description">by: {{ article.author }} <br> Category: {{ article.category.name }}</p>
                         </div>
                     </a>
                 {% endfor %}
             </div>
         {% endif %}
     {% endfor %}
+
     {% else %}
         <p style="text-align: center;"> You have not written any articles.</p>
     {% endif %}
@@ -50,41 +50,40 @@
                     <a href="{{ article.get_absolute_url }}">
                         <div class="table-box">
                             <p class="name">{{ article.title }}</p>
-                            <p class="description">by: {{ article.author }} <br> Category: {{ article.category.name }}</p>
                         </div>
                     </a>
                 {% endfor %}
             </div>
         {% endif %}
     {% endfor %}
+
     {% else %}
         <p style="text-align: center;"> There are no other available articles.</p>
     {% endif %}
 
 <!--this shows all the articles for those not logged in, grouped by category-->
 {% else %}
-            <h2 class="boxdiv2">All Articles</h2>
-            {% if has_all_articles %}
-            {% for group in grouped_all_articles %}
-                {% if group.articles %}
-                    <p class="category">{{ group.category.name }}</p>
-                    <div class="category-container">
-                        {% for article in group.articles %}
-                            <a href="{{ article.get_absolute_url }}">
-                                <div class="table-box">
-                                    <p class="name">{{ article.title }}</p>
-                                    <p class="description">by: {{ article.author }} <br> Category: {{ article.category.name }}</p>
-                                </div>
-                            </a>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-            {% else %}
-                <p style="text-align: center;"> There are no other available articles.</p>
+    <h2 class="boxdiv2">All Articles</h2>
+    {% if has_all_articles %}
+        {% for group in grouped_all_articles %}
+            {% if group.articles %}
+                <p class="category">{{ group.category.name }}</p>
+                <div class="category-container">
+                    {% for article in group.articles %}
+                        <a href="{{ article.get_absolute_url }}">
+                            <div class="table-box">
+                                <p class="name">{{ article.title }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
             {% endif %}
-{% endif %}
+        {% endfor %}
 
+        {% else %}
+            <p style="text-align: center;"> There are no other available articles.</p>
+        {% endif %}
+{% endif %}
 
 {% if user.is_authenticated %}
     <div style="text-align: center; margin: 2%;">

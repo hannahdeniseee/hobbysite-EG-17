@@ -8,7 +8,7 @@ class ArticleCategory(models.Model):
     description = models.TextField(null=True)
 
     class Meta:
-        ordering = ['name']  # Sort categories by name in ascending order
+        ordering = ['name']  # Sort categories by name in ascending order (a to z)
         verbose_name_plural = "Article Categories"
 
     def __str__(self):
@@ -30,12 +30,13 @@ class Article(models.Model):
         related_name='articles'
     )
     entry = models.TextField(null=True)
-    image = models.ImageField(upload_to='wiki/images/', blank=True)
+    header_image = models.ImageField(upload_to='wiki/images/')
+    image = models.ImageField(upload_to='wiki/images', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ['-created_on'] # Sort articles by date in descending order (newest first)
 
     def __str__(self):
         return self.title
@@ -49,7 +50,7 @@ class Comment(models.Model):
         Profile,
         on_delete=models.SET_NULL,
         null=True,
-        related_name= "wiki_comments"
+        related_name="wiki_comments"
     )
     article = models.ForeignKey(
         Article,
@@ -61,17 +62,4 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['created_on']
-
-
-class Gallery(models.Model):
-    image = models.ImageField(
-        upload_to='wiki/images/',
-        blank=True,
-        null=True
-    )
-    article = models.ForeignKey(
-        'wiki.Article',
-        on_delete=models.CASCADE,
-        null=True,
-    )
+        ordering = ['created_on'] # Sort comments by date in ascending order (oldest first)

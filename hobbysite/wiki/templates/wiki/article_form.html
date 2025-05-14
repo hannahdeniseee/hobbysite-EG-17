@@ -24,6 +24,11 @@
 
         <br><br>
 
+        {{ form.header_image.label_tag }}
+        {{ form.header_image }}
+        
+        <br><br>
+
         {{ form.entry.label_tag }}
         {{ form.entry }}
 
@@ -32,6 +37,11 @@
         {{ form.image.label_tag }}
         {{ form.image }}
 
+        <br> <br>
+        {% if form.instance.image %}
+            <img src="{{ form.instance.image.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+        {% endif %}
+        
         <br><br>
 
         <button type="submit">Submit</button>

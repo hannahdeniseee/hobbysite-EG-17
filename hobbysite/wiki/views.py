@@ -3,8 +3,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
-from .models import Article, ArticleCategory, Comment, Gallery
-from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
+from .models import Article, ArticleCategory, Comment
+from .forms import ArticleForm, UpdateForm, CommentForm
 
 
 class ArticleListView(ListView):
@@ -43,7 +43,7 @@ class ArticleListView(ListView):
             context['is_logged_in'] = True
 
         else:
-            # Everyone's articles in one group
+            # Everyone's articles in one group (user is not logged in)
             all_articles = Article.objects.all()
             grouped_all_articles = []
 
@@ -80,10 +80,6 @@ class ArticleDetailView(DetailView):
         if self.request.user.is_authenticated:
             context['comment_form'] = CommentForm()
 
-        context['gallery_form'] = GalleryForm()
-        context['gallery_images'] = Gallery.objects.filter(
-            article=article)
-
         context['is_owner'] = self.request.user == article.author.user
         return context
 
@@ -98,28 +94,14 @@ class ArticleDetailView(DetailView):
             comment.article = self.object
             comment.author = self.request.user.profile
             comment.save()
-            form = CommentForm()  # Reset form after successful submission
 
-        images = request.FILES.getlist('image')
-        for img in images:
-            Gallery.objects.create(article=self.object, image=img)
-
-        remove_image = request.POST.get('remove_image')
-        if remove_image:
-            image = Gallery.objects.get(
-                id=remove_image,
-                article=self.object
-            )
-            if image.article.author.user == request.user:
-                image.delete()
-
-        return redirect('wiki:article_detail', pk=self.object.pk)
+        return redirect(f"{self.object.get_absolute_url()}#comment_section") #this will redirect to the comment section
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    template_name = "wiki/article_form.html"
     form_class = ArticleForm
+    template_name = 'wiki/article_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
@@ -130,3 +112,14 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = UpdateForm
     template_name = 'wiki/article_form.html'
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+
+        # Remove image if "clear" checkbox was checked
+        if self.request.POST.get('image-clear'):
+            article.image.delete(save=False)
+            article.image = None
+
+        article.save()
+        return super().form_valid(form)

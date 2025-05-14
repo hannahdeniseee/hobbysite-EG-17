@@ -11,15 +11,16 @@
 <body>
     <main>
         <!--this is for the article, along with author details-->
+
+        <img src="{{ article.header_image.url }}" alt="{{ article.title }} header" class="header-image">
+
         <div class="article-container">
 
             <h1 class="article-title">{{ article.title }}</h1>
-            <p class="article-meta">Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
+            <p class="article-meta">written by {{ article.author }} <br> Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
 
             {% if article.image %}
-                <div class="article-image-box">
-                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="article-image">
-                </div>
+                <img src="{{ article.image.url }}" alt="{{ article.title }} image" style="max-height: 300px; width: auto;">
             {% endif %}
             
             <div class="article-entry">
@@ -35,7 +36,7 @@
         <h3 style="text-align: center;"><a href="{% url 'wiki:articles' %}" class="back-link">← Back to All Articles</a></h3>
 
         <h3 class="subheader">Comments</h3>
-        <div class="comment-section">
+        <div class="comment-section" id="comment_section">
         {% if user.is_authenticated %}
             <p>Leave a Comment</p>
             <form method="post">
@@ -45,45 +46,42 @@
             </form>
         {% endif %}
 
+        <div class="comment-section-entries">
+        <h2 style="font-size: 22px; text-align: center;">Comment Thread</h2>
         {% if comments %}
-            <ul>
-                {% for comment in comments %}
-                    <li>
-                        <strong>{{ comment.author }}</strong> 
-                        <em>on {{ comment.created_on }}</em>
-                        <div class="comment-entry">
-                            <p>{{ comment.entry }}</p>
-                        </div> 
-                    </li>
-                {% endfor %}
-            </ul>
+                <ul>
+                    {% for comment in comments %}
+                        <li>
+                            <strong>{{ comment.author }}</strong> 
+                            <em>on {{ comment.created_on }}</em>
+                            <div class="comment-entry">
+                                <p>{{ comment.entry }}</p>
+                            </div> 
+                        </li>
+                    {% endfor %}
+                </ul>
         {% else %}
             <p>No comments yet.</p>
         {% endif %}
         </div>
+        </div>
 
-        <h3 class="subheader">GALLERY</h3>
+        <h3 class="subheader">Gallery</h3>
         <div class="gallery-container">
-            {% for images in gallery_images %}
-            <div class="gallery-item">
-                <img src="{{ images.image.url }}">
-                <form method="post" class="delete-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="remove_image" value="{{ images.id }}">
-                    <button type="submit" class="delete-button">X</button>
-                </form>
+            <div class="table-box">
+                <img src="{{ article.header_image.url }}" alt="{{ article.title }} header" class="gallery-item">
+                <p>Header image of {{ article.title }}</p>
             </div>
-            {% endfor %}
+
+            {% if article.image %}
+            <div class="table-box">
+                <img src="{{ article.image.url }}" alt="{{ article.title }} image" class="gallery-item">
+                <p>Article image of {{ article.title }}</p>
+            </div>
+            {% endif %}
         </div>
 
-        <div>
-            <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ gallery_form.as_p }}
-            <button type="submit">Upload Images</button>
-        </form>
-        </div>
-
+        {% if article.category %}
         {% if related_articles %}
             <h3 class="subheader">Read more from the category: {{ article.category.name }}</h3>
             <ul class="related-list">
@@ -91,6 +89,7 @@
                     <li class="other-articles"><a href="{% url 'wiki:article_detail' related.pk %}">{{ related.title }}</a></li>
                 {% endfor %}
             </ul>
+        {% endif %}
         {% endif %}
 
     </main>

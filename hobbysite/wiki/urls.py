@@ -1,8 +1,13 @@
 from django.urls import path
-from .views import ArticleListView, ArticleDetailView, ArticleCreateView, ArticleUpdateView
+from .views import (
+    ArticleListView,
+    ArticleDetailView,
+    ArticleCreateView,
+    ArticleUpdateView,
+)
 
 
-urlpatterns = [
+urlpatterns = [ #needed url links, as specified in the specs
     path(
         'articles',
         ArticleListView.as_view(),
