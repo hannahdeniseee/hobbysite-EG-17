@@ -1,65 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Commissions List{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'commissions/styles.css' %}">
 {% endblock %}
 
-{% block title %}Commissions List{% endblock %}
 {% block content %}
-<div class="header-strip"></div>
-<img src="{% static 'commissions/commissions.png' %}" alt="Commissions Header" class="header-image">
-<h1 class="header-strip">Commission List</h1>
-    {% if request.user.is_authenticated %}
-    <p></p>
-    <h2>Created Commissions</h2>
-    <div class="cardslayout">
-    {% for commission in created_commissions %}
-    <a href="{{ commission.get_absolute_url }}" class="card">
-        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
-        <h2>{{ commission.title }}</h2>
-        <div class="card-info">
-            <p>People Required : {{ commission.people_required }}</p>
-            <p>{{ commission.description }}</p>
-            <p>{{ commission.created_on }}</p>
+    <div class="commissions-header"></div>
+    <img src="{% static 'commissions/commissions.png' %}" alt="Commissions Header" class="header-image">
+
+        {% if request.user.is_authenticated %}
+            <h1 class="commissions-header">CREATED COMMISSIONS</h1>
+            <div class="commissions-personal">
+                <a href="{% url 'commissions:commission-add' %}" class="commission-button">
+                    <p>Create New Commission</p>
+                </a>
+                {% for commission in created_commissions %}
+                    <div class="commissions-card">
+                        <a href="{{ commission.get_absolute_url }}" class="card">
+                        <h2>{{ commission.title }}</h2>
+                        <p>People Required : {{ commission.people_required }}</p>
+                        <p>{{ commission.description }}</p>
+                        <p>{{ commission.created_on }}</p>
+                    </div>
+                </a>
+                {% empty %}
+                    <p>No commissions available.</p>
+                {% endfor %}
+            </div>
+            <h2>Applied Commissions</h2>
+            <div class="cardslayout">
+            {% for commission in appliedd_commissions %}
+            <a href="{{ commission.get_absolute_url }}" class="card">
+                <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
+                <h2>{{ commission.title }}</h2>
+                <div class="card-info">
+                    <p>People Required : {{ commission.people_required }}</p>
+                    <p>{{ commission.description }}</p>
+                    <p>{{ commission.created_on }}</p>
+                </div>
+            </a>
+            {% empty %}
+                <p>No commissions available.</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        <h2>All Commissions</h2>
+        <div class="cardslayout">
+        {% for commission in commissions %}
+        <a href="{{ commission.get_absolute_url }}" class="card">
+            <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
+            <h2>{{ commission.title }}</h2>
+            <div class="card-info">
+                <p>People Required : {{ commission.people_required }}</p>
+                <p>{{ commission.description }}</p>
+                <p>{{ commission.created_on }}</p>
+            </div>
+        </a>
+        {% empty %}
+            <p>No commissions available.</p>
+        {% endfor %}
         </div>
-    </a>
-    {% empty %}
-        <p>No commissions available.</p>
-    {% endfor %}
-    </div>
-    <h2>Applied Commissions</h2>
-    <div class="cardslayout">
-    {% for commission in appliedd_commissions %}
-    <a href="{{ commission.get_absolute_url }}" class="card">
-        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
-        <h2>{{ commission.title }}</h2>
-        <div class="card-info">
-            <p>People Required : {{ commission.people_required }}</p>
-            <p>{{ commission.description }}</p>
-            <p>{{ commission.created_on }}</p>
-        </div>
-    </a>
-    {% empty %}
-        <p>No commissions available.</p>
-    {% endfor %}
-    </div>
-    {% endif %}
-    <h2>All Commissions</h2>
-    <div class="cardslayout">
-    {% for commission in commissions %}
-    <a href="{{ commission.get_absolute_url }}" class="card">
-        <img src="https://picsum.photos/200/200" alt="Commision {{ commission.pk }}">
-        <h2>{{ commission.title }}</h2>
-        <div class="card-info">
-            <p>People Required : {{ commission.people_required }}</p>
-            <p>{{ commission.description }}</p>
-            <p>{{ commission.created_on }}</p>
-        </div>
-    </a>
-    {% empty %}
-        <p>No commissions available.</p>
-    {% endfor %}
-    </div>
-    <a href="{% url 'commissions:commission-add' %}">Create a new commission</a>
+        <a href="{% url 'commissions:commission-add' %}">Create a new commission</a>
 {% endblock %}
