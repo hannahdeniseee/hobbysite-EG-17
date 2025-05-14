@@ -1,8 +1,14 @@
+"""
+Django views for handling user inputs.
+"""
+
 from django import forms
 from .models import Article, Comment, Gallery
 
 
 class ArticleForm(forms.ModelForm):
+    """Form to create an article."""
+
     class Meta:
         model = Article
         fields = ['title', 'category', 'entry', 'header_image', ]
@@ -14,6 +20,8 @@ class ArticleForm(forms.ModelForm):
 
 
 class UpdateForm(forms.ModelForm):
+    """Form to edit an article."""
+
     class Meta:
         model = Article
         fields = ['title', 'category', 'entry', 'header_image', ]
@@ -25,6 +33,8 @@ class UpdateForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    """Form to comment on an article."""
+
     class Meta:
         model = Comment
         fields = ['entry', ]
@@ -34,6 +44,8 @@ class CommentForm(forms.ModelForm):
 
 
 class GalleryForm(forms.ModelForm):
+    """Form to upload images in the gallery."""
+
     class Meta:
         model = Gallery
         fields = ['image', ]
