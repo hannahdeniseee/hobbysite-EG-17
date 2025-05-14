@@ -51,6 +51,14 @@
                     </div>
                 </div>
 
+                <div class="dropdown">
+                    <a class="dropbtn">Commissions ▾ </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'commissions:commissions-list' %}">Commissions List</a>
+                        <a href="{% url 'commissions:commission-add' %}">Create Commission</a>
+                    </div>
+                </div>
+
                 <form method="POST" action="{% url 'accounts:logout' %}" class="inline-display">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
