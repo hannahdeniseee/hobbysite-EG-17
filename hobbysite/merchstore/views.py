@@ -1,3 +1,9 @@
+"""
+This is the views file to create and specify the views for the Merchstore app.
+This includes the list view, detail view, create view, and update view
+for products and the cart and transaction views.
+"""
+
 from django.views.generic import (ListView,
                                   DetailView,
                                   TemplateView,
@@ -12,7 +18,10 @@ from user_management.models import Profile
 from django.urls import reverse
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(ListView):
+    """
+    Displays a list of all products in the merchandise store.
+    """
     model = Product
     template_name = 'merch_list.html'
     context_object_name = "products"
@@ -21,6 +30,9 @@ class ProductListView(LoginRequiredMixin, ListView):
         return Product.objects.all()
 
     def get_context_data(self, **kwargs):
+        """
+        Separates products owned by user from other users.
+        """
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             try:
@@ -42,11 +54,17 @@ class ProductListView(LoginRequiredMixin, ListView):
 
 
 class ProductDetailView(DetailView):
+    """
+    Displays the detail page of a product.
+    """
     model = Product
     template_name = 'merch_detail.html'
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
+        """
+        Checks if product is not owned by user and still in stock.
+        """
         context = super().get_context_data(**kwargs)
         product = self.get_object()
 
@@ -67,6 +85,11 @@ class ProductDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """
+        Checks if user is logged in.
+
+        Checks if the quantity to be purchased by the user is valid.
+        """
         self.object = self.get_object()
         product = self.object
 
@@ -111,11 +134,17 @@ class ProductDetailView(DetailView):
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
+    """
+    Allows user to create a new product.
+    """
     model = Product
     form_class = ProductForm
     template_name = 'merch_form.html'
 
     def form_valid(self, form):
+        """
+        Ensures the user is logged in before creating a product.
+        """
         try:
             profile = self.request.user.profile
             print(f"Profile found: {profile}")
@@ -136,6 +165,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Allows the user to update information on the product.
+    """
     model = Product
     fields = ['name',
               'description',
@@ -146,6 +178,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'merch_form.html'
 
     def form_valid(self, form):
+        """
+        Updates status of product according to quantity.
+        """
         if form.instance.stock == 0:
             form.instance.status = 'Out of Stock'
         else:
@@ -154,9 +189,16 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class CartView(LoginRequiredMixin, TemplateView):
+    """
+    Allows users to see all items they have purchased.
+    """
     template_name = 'cart.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Filters the products that were bought by the user.
+        Computes for the total amount spent by the user.
+        """
         context = super().get_context_data(**kwargs)
         user_profile = self.request.user.profile
 
@@ -182,9 +224,15 @@ class CartView(LoginRequiredMixin, TemplateView):
 
 
 class TransactionListView(LoginRequiredMixin, TemplateView):
+    """
+    Lists all of the transactions of the user.
+    """
     template_name = 'transactions.html'
 
     def get_context_data(self, **kwargs):
+        """
+        Lists user's products that were purchased by other users.
+        """
         context = super().get_context_data(**kwargs)
         try:
             user_profile = Profile.objects.get(user=self.request.user)

@@ -1,11 +1,21 @@
+"""
+This is the forms file to specify the different types of forms
+used in the Forum app.
+"""
+
 from django import forms
 from .models import Product, Transaction
 
 
 class ProductForm(forms.ModelForm):
+    """
+    Form for creating products in the Merchandise Store.
+
+    Includes all fields.
+    """
     class Meta:
         model = Product
-        fields = ['name', 'product_type','description', 'price', 
+        fields = ['name', 'product_type', 'description', 'price', 
                   'status', 'stock']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'custom-name-field'}),
@@ -25,6 +35,11 @@ class ProductForm(forms.ModelForm):
 
 
 class TransactionForm(forms.ModelForm):
+    """
+    Form for transactions in the Merchandise Store.
+
+    Includes amount field only.
+    """
     class Meta:
         model = Transaction
         fields = ['amount']

@@ -1,3 +1,11 @@
+"""
+URL configuration for the Merchstore app.
+
+Maps URL patterns to class-based views.
+Includes routes for merchandise list, merchandise detail view,
+creating products, user's cart, and user's transactions.
+"""
+
 from django.urls import path
 from .views import ProductListView, ProductDetailView
 from .views import ProductCreateView, ProductUpdateView, CartView

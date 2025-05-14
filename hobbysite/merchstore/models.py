@@ -1,9 +1,19 @@
+"""
+This is the models file to specify the fields, ordering, and related methods
+for the different models used in the Merchstore app.
+"""
+
 from django.db import models
 from django.urls import reverse
 from user_management.models import Profile
 
 
 class ProductType(models.Model):
+    """
+    Represents a product type in Merchandise Store.
+
+    Includes fields for name.
+    """
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -15,6 +25,12 @@ class ProductType(models.Model):
 
 
 class Product(models.Model):
+    """
+    Represents a product in Merchandise Store.
+
+    Includes fields for name, description, price,
+    stock, status, product type, and owner.
+    """
     STATUS_CHOICES = [
         ('Available', 'Available'),
         ('On Sale', 'On Sale'),
@@ -54,6 +70,12 @@ class Product(models.Model):
 
 
 class Transaction(models.Model):
+    """
+    Represents a transaction in Merchandise Store.
+
+    Includes fields for status, buyer, product, amount,
+    and created_on.
+    """
     STATUS_CHOICES = [
         ('On Cart', 'On Cart'),
         ('To Pay', 'To Pay'),

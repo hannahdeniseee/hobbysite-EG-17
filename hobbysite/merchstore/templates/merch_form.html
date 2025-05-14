@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %}
+This is the merch form template that is used to when creating a product.
+{% endcomment %}
+
+{% comment %}
+This section bases the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+
+{% block title %}Add New Product{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
-{% block title %}Add New Product{% endblock %}
+{% comment %}
+This section includes the form that allowed the user to input/ select information about their product.
+{% endcomment %}
 
 {% block content %}
 <div class="merchstore-strip"><h1>ADD NEW PRODUCT</h1></div>

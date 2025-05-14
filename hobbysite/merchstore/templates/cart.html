@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %}
+This is the cart template that is used to present all of the products purchased by the user.
+{% endcomment %}
+
+{% comment %}
+This section bases the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+
+{% block title %}Your Cart{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
-{% block title %}Your Cart{% endblock %}
+
+{% comment %}
+This section presents the details of the products purchased by the user.
+{% endcomment %}
 
 {% block content %}
 <h1 class="merchstore-strip">YOUR CART</h1>

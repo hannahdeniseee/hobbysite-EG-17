@@ -102,10 +102,11 @@ body, html {
     border-radius: 15px;
     border-style: solid;
     border-color: #2d7d30;
-    margin-top: 1%;
+    margin-left: 1%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     font-size: medium;
-    width:15%;
+    width:13%;
+    text-align: center;
 }
 
 .button-container {

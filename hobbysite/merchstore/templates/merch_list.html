@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %}
+This is the merch list template that lists all products.
+{% endcomment %}
+
+{% comment %}
+This section bases the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+
+{% block title %}Merchandise List{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
-
-{% block title %}Merchandise List{% endblock %}
 
 {% block content %}
 <img src="{% static 'merchstore/images/merchstore.png' %}" alt="Merch Header" class="header-image">
 <div class="merchstore-strip"><h1>MERCHANDISE LIST</h1></div>
 
-<!-- USER'S PRODUCTS -->
+{% comment %}
+This portion lists the user's products.
+{% endcomment %}
+
 <section class="section-block">
   <h3 class="section-title">Your Products</h3>
   {% if user_products %}
@@ -38,7 +48,9 @@
 </section>
 
 
-<!-- ALL PRODUCTS -->
+{% comment %}
+This portion lists all other products.
+{% endcomment %}
 <section class="section-block">
   <h3 class="section-title">All Products</h3>
 

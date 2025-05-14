@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ product.name }} Details{% endblock %}
+{% comment %}
+This is the merch detail template that is used to present the details of a product.
+{% endcomment %}
 
+
+{% comment %}
+This section bases the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+
+{% block title %}{{ product.name }} Product Details{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}

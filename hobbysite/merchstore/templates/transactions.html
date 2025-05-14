@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %}
+This is the merch list template that lists all transactions.
+{% endcomment %}
+
+{% comment %}
+This section bases the title of the page, and links the correct css file to use for the whole page.
+{% endcomment %}
+
+
+{% block title %}My Transactions{% endblock %}
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
-{% block title %}My Transactions{% endblock %}
+{% comment %}
+This section presents the user's products that were bought. 
+It also includes the details of the product and the name of the buyer/s.
+{% endcomment %}
 
 {% block content %}
 <h1 class="merchstore-strip">MY TRANSACTIONS</h1>
@@ -20,7 +33,7 @@
                     {% for transaction in transactions %}
                         <div class="transaction-card">
                             <div class="transaction-content">
-                                <img src="{{ transaction.product.image.url }}" alt="{{ transaction.product.name }}" class="product-image">
+                               <img src="{% static 'merchstore/images/product-' %}{{ transaction.product.id }}.png" alt="{{ transaction.product.name }}" class="product-image">
                                 <div class="transaction-details">
                                     <h3 class="product-name">{{ transaction.product.name }}</h3>
                                     <li><strong>Quantity:</strong> {{ transaction.amount }} x ₱{{ transaction.product.price }}</li>
