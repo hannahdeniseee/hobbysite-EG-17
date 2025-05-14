@@ -8,6 +8,7 @@ from .forms import ProfileUpdateForm
 from merchstore.models import Product, Transaction
 from blog.models import Article
 from wiki.models import Article as WikiArticle
+from commissions.models import Commission, JobApplication
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -20,6 +21,14 @@ class DashboardView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        job_applications = JobApplication.objects.filter(
+            status='accepted', applicant=self.request.user.profile)
+        commissions_joined = []
+        for application in job_applications:
+            commissions_joined.append(application.job.commission)
+
+
         context['products_sold'] = Product.objects.filter(
             owner=self.request.user.profile)
         context['products_bought'] = Transaction.objects.filter(
@@ -28,6 +37,9 @@ class DashboardView(LoginRequiredMixin, ListView):
             author=self.request.user.profile)
         context['wiki_articles'] = WikiArticle.objects.filter(
             author=self.request.user.profile)
+        context['commissions_created'] = Commission.objects.filter(
+            author=self.request.user.profile)
+        context['commissions_joined'] = commissions_joined
         return context
 
 
