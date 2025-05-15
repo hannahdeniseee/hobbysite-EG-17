@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
     """
     class Meta:
         model = Product
-        fields = ['name', 'product_type', 'description', 'price', 
+        fields = ['name', 'product_type', 'description', 'price',
                   'status', 'stock']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'custom-name-field'}),
@@ -45,5 +45,6 @@ class TransactionForm(forms.ModelForm):
         fields = ['amount']
 
         widgets = {
-            'amount': forms.NumberInput(attrs={'class': 'custom-amount-field'}),   
+            'amount': forms.NumberInput(attrs={
+                'class': 'custom-amount-field'}),
         }

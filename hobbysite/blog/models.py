@@ -1,5 +1,5 @@
 """
-Defines ArticleCategory, Article, 
+Defines ArticleCategory, Article,
 Comment, and Gallery models.
 """
 

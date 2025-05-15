@@ -232,7 +232,7 @@ class TransactionListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         """
-        Lists user's products that were purchased by other users. 
+        Lists user's products that were purchased by other users.
         """
         context = super().get_context_data(**kwargs)
         try:

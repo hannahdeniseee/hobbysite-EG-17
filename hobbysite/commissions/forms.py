@@ -30,7 +30,7 @@ class JobForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None) 
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         if user is not None:
             self.fields['commission'].queryset = Commission.objects.filter(

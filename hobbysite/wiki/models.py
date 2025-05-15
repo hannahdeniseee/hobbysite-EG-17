@@ -8,7 +8,7 @@ class ArticleCategory(models.Model):
     description = models.TextField(null=True)
 
     class Meta:
-        ordering = ['name']  # Sort categories by name in ascending order (a to z)
+        ordering = ['name']  # Sort categories by name in ascending order
         verbose_name_plural = "Article Categories"
 
     def __str__(self):
@@ -36,7 +36,7 @@ class Article(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-created_on'] # Sort articles by date in descending order (newest first)
+        ordering = ['-created_on']  # Sort articles by date (newest first)
 
     def __str__(self):
         return self.title
@@ -62,4 +62,4 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['created_on'] # Sort comments by date in ascending order (oldest first)
+        ordering = ['created_on']  # Sort comments by date (oldest first)
