@@ -15,6 +15,9 @@ This section bases the title of the page, and links the correct css file to use 
     <link rel="stylesheet" type="text/css" href="{% static 'merchstore/css/styles.css' %}">
 {% endblock %}
 
+{% comment %}
+This section presents the details of the product.
+{% endcomment %}
 
 {% block content %}
     <h1 class="merchstore-strip">{{ product.name }} Details</h1>
@@ -42,12 +45,18 @@ This section bases the title of the page, and links the correct css file to use 
             {% endif %}
             <hr style="border: 1px solid gray; width: 100%; margin: 2rem auto;">
             {% if can_buy %}
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.amount.label_tag }}
-                    {{ form.amount }}
-                    <button type="submit" class="buy-button">Buy Now</button>
-                </form>
+                {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.amount.label_tag }}
+                        {{ form.amount }}
+                        <button type="submit" class="buy-button">Buy Now</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}?next={{ request.path }}">
+                        <button class="buy-button">Buy Now</button>
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
     </div>

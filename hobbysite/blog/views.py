@@ -7,6 +7,7 @@ from .models import Article, ArticleCategory, Comment, Gallery
 from .forms import ArticleForm, UpdateForm, CommentForm, GalleryForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 
 
 class ArticleListView(ListView):
@@ -94,3 +95,9 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     form_class = UpdateForm
     template_name = 'article_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        article = self.get_object()
+        if article.author.user != request.user:
+            raise PermissionDenied("You are not allowed to edit this.")
+        return super().dispatch(request, *args, **kwargs)

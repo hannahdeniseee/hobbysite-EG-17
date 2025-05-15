@@ -93,7 +93,7 @@ class ApplicationQuerySet(models.QuerySet):
     Used for custom ordering of applications.
     """
     def ordered_by_status(self):
-        custom_order = ['pending', 'accepted', 'rejectd',]
+        custom_order = ['pending', 'accepted', 'rejected',]
         return self.annotate(
             status_priority=Case(
                 *[When(status=val, then=idx) for idx, val in enumerate(

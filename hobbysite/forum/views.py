@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.core.exceptions import PermissionDenied
 
 
 class ThreadListView(ListView):
@@ -95,3 +96,9 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     model = Thread
     form_class = UpdateForm
     template_name = 'forum/thread_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        thread= self.get_object()
+        if thread.author.user != request.user:
+            raise PermissionDenied("You are not allowed to edit this.")
+        return super().dispatch(request, *args, **kwargs)

@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from user_management.models import Profile
 from django.urls import reverse
+from django.core.exceptions import PermissionDenied
 
 
 class ProductListView(ListView):
@@ -62,25 +63,26 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
-        """
-        Checks if product is not owned by user and still in stock.
-        """
         context = super().get_context_data(**kwargs)
         product = self.get_object()
 
-        try:
-            user_profile = self.request.user.profile
-        except Profile.DoesNotExist:
-            user_profile = None
+        user = self.request.user
+        user_profile = None
 
-        context['is_owner'] = product.owner == user_profile
+        if user.is_authenticated:
+            try:
+                user_profile = user.profile
+            except Profile.DoesNotExist:
+                user_profile = None
+
+        context['is_owner'] = (product.owner == user_profile)
         context['can_buy'] = (
-            user_profile and product.stock > 0
-            and product.owner != user_profile
+            product.stock > 0 and
+            (not user.is_authenticated or product.owner != user_profile)
         )
 
         if context['can_buy']:
-            context['form'] = TransactionForm()
+            context['form'] = kwargs.get('form') or TransactionForm()
 
         return context
 
@@ -94,7 +96,8 @@ class ProductDetailView(DetailView):
         product = self.object
 
         if not request.user.is_authenticated:
-            return redirect('accounts:login')
+            login_url = reverse('accounts:login')
+            return redirect(f"{login_url}?next={request.path}")
 
         try:
             buyer = request.user.profile
@@ -187,6 +190,12 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             if form.instance.status == 'Out of Stock':
                 form.instance.status = 'Available'
         return super().form_valid(form)
+    
+    def dispatch(self, request, *args, **kwargs):
+        product = self.get_object()
+        if product.owner.user != request.user:
+            raise PermissionDenied("You are not allowed to edit this.")
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CartView(LoginRequiredMixin, TemplateView):

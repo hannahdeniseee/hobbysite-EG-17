@@ -11,7 +11,7 @@
     <div class="commissions-personal">
         <div class="detail-box">
             <h1 class="commissions-header">{{ commission.title }}</h1>
-            <h3 class="centered-text">Status: {{ commission.status }} | Created on: {{ commission.created_on }} | Updated on: {{ commission.updated_on }}</h3>
+            <h3 class="centered-text">Author: {{ commission.author }} | Status: {{ commission.status }} | Created on: {{ commission.created_on }} | Updated on: {{ commission.updated_on }}</h3>
             <p> {{ commission.description }} </p>
             {% if request.user.is_authenticated and is_owner %}
             <a href="{% url 'commissions:commission-edit' commission.pk %}" class="edit-button">

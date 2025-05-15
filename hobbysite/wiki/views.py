@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from .models import Article, ArticleCategory, Comment
 from .forms import ArticleForm, UpdateForm, CommentForm
 from user_management.models import Profile
+from django.core.exceptions import PermissionDenied 
 
 
 class ArticleListView(ListView):
@@ -130,3 +131,9 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
 
         article.save()
         return super().form_valid(form)
+  
+    def dispatch(self, request, *args, **kwargs):
+        article = self.get_object()
+        if article.author.user != request.user:
+            raise PermissionDenied("You are not allowed to edit this.")
+        return super().dispatch(request, *args, **kwargs)

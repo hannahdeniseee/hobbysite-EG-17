@@ -49,7 +49,8 @@ class DashboardView(LoginRequiredMixin, ListView):
             author=self.request.user.profile)
         context['commissions_created'] = Commission.objects.filter(
             author=self.request.user.profile)
-        context['commissions_joined'] = commissions_joined
+        context['commissions_applied'] = JobApplication.objects.filter(
+            applicant=self.request.user.profile)
         return context
 
 

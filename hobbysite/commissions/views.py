@@ -14,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 
 class CommissionListView(ListView):
@@ -193,6 +194,9 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
             if job_form.is_valid():
                 job = job_form.save(commit=False)
                 job.save()
+                if job.manpower_required > 0 and job.status == "open":
+                    job.commission.status = "open"
+                    job.commission.save()
                 return redirect(job.commission.get_absolute_url())
             else:
                 job_form.add_error(None,
@@ -220,8 +224,15 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
 
         job_applications = []
         for job in jobs:
-            applications = JobApplication.objects.filter(job=job)
+            applications = JobApplication.objects.filter(
+                job=job).ordered_by_status()
             job_applications.append((job, applications))
 
         context['job_applications'] = job_applications
         return context
+    
+    def dispatch(self, request, *args, **kwargs):
+        commission = self.get_object()
+        if commission.author.user != request.user:
+            raise PermissionDenied("You are not allowed to edit this.")
+        return super().dispatch(request, *args, **kwargs)
