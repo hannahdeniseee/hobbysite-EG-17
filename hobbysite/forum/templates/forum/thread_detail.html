@@ -37,7 +37,7 @@ This section specifies the content of the page.
             {% if thread.image %}
                 <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
             {% endif %}
-            <p>{{ thread.entry }}</p>
+            <p>{{ thread.entry|linebreaksbr }}</p>
             {% if request.user.is_authenticated and request.user.profile == thread.author %}
                 <a href="{% url 'forum:thread-edit' thread.pk %}" class="edit-button">
                     <p>Update Thread</p>
