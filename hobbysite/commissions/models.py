@@ -20,13 +20,13 @@ class Commission(models.Model):
     ]
     title = models.CharField(max_length=255)
     author = models.ForeignKey(
-        Profile, 
+        Profile,
         on_delete=models.CASCADE,
         related_name='commission'
     )
     description = models.TextField(null=True)
     status = models.CharField(
-        max_length=20, 
+        max_length=20,
         choices=STATUS_CHOICES,
         default='open'
     )
@@ -38,7 +38,7 @@ class Commission(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
         return reverse('commissions:commission-detail',
                        args=[str(self.pk)])
@@ -72,7 +72,7 @@ class Job(models.Model):
 
     def __str__(self):
         return self.role
-    
+
 
 class JobApplication(models.Model):
     """
@@ -84,12 +84,12 @@ class JobApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
     job = models.ForeignKey(
-        Job, 
+        Job,
         on_delete=models.CASCADE,
         related_name='applicant'
     )
     applicant = models.ForeignKey(
-        Profile, 
+        Profile,
         on_delete=models.CASCADE,
         related_name='job'
     )
