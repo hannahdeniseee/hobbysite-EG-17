@@ -97,12 +97,11 @@ DATABASES = {
 from urllib.parse import urlparse
 
 DATABASE_URL = os.getenv('DATABASE_URL')
-
 db_info = urlparse(DATABASE_URL)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psychopg2',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'database',
         'USER': db_info.username,
         'PASSWORD': db_info.password,
