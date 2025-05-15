@@ -114,7 +114,6 @@ class ProductDetailView(DetailView):
             if quantity <= 0:
                 messages.error(request, "Please enter a valid amount.")
                 return self.get(request, *args, **kwargs)
-        
             if quantity > product.stock:
                 messages.error(request, "Not enough stock available.")
                 return self.get(request, *args, **kwargs)
@@ -122,7 +121,6 @@ class ProductDetailView(DetailView):
             product.stock -= quantity
             if product.stock == 0:
                 product.status = 'Out of stock'
-                product.save()
 
             product.save()
             transaction.save()
@@ -156,6 +154,8 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
         print("Profile: ", profile)
         form.instance.owner = profile
+        if form.instance.stock == 0:
+            form.instance.status = 'Out of stock'
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -184,7 +184,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         if form.instance.stock == 0:
             form.instance.status = 'Out of Stock'
         else:
-            form.instance.status = 'Available'
+            if form.instance.status == 'Out of Stock':
+                form.instance.status = 'Available'
         return super().form_valid(form)
 
 
@@ -231,7 +232,7 @@ class TransactionListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         """
-        Lists user's products that were purchased by other users.
+        Lists user's products that were purchased by other users. 
         """
         context = super().get_context_data(**kwargs)
         try:

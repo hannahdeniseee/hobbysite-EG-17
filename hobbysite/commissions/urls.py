@@ -7,7 +7,7 @@ and creating and updating the commissions.
 """
 
 from django.urls import path
-from .views import (CommissionListView, CommissionDetailView, 
+from .views import (CommissionListView, CommissionDetailView,
                     CommissionCreateView, CommissionUpdateView)
 
 

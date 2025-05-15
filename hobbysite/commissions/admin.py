@@ -30,7 +30,7 @@ class JobApplicationAdmin(admin.ModelAdmin):
 
 class CommissionAdmin(admin.ModelAdmin):
     """
-    Creates the commission admin panel and specifies search fields, 
+    Creates the commission admin panel and specifies search fields,
     list display, and list filter. Uses job inline.
     """
     model = Commission
