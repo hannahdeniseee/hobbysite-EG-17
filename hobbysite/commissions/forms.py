@@ -11,8 +11,8 @@ class CommissionForm(forms.ModelForm):
     """
     Form for creating and updating a new commission.
 
-    It only includes fields for title, description, and status 
-    because the other fields are automatically set. The css for 
+    It only includes fields for title, description, and status
+    because the other fields are automatically set. The css for
     this form is also set here.
     """
     class Meta:
@@ -33,7 +33,7 @@ class JobApplicationForm(forms.ModelForm):
     """
     Form for creating a new job application.
 
-    It has no fields because its fields are automatically 
+    It has no fields because its fields are automatically
     determined by the HTML post values.
     """
     class Meta:

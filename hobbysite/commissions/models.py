@@ -40,7 +40,7 @@ class Commission(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('commissions:commission-detail', 
+        return reverse('commissions:commission-detail',
                        args=[str(self.pk)])
 
 
@@ -60,8 +60,8 @@ class Job(models.Model):
     role = models.CharField(max_length=255)
     manpower_required = models.PositiveIntegerField()
     status = models.CharField(
-        max_length=20, 
-        choices=STATUS_CHOICES, 
+        max_length=20,
+        choices=STATUS_CHOICES,
         default='open'
     )
     created_on = models.DateTimeField(auto_now_add=True)
@@ -94,8 +94,8 @@ class JobApplication(models.Model):
         related_name='job'
     )
     status = models.CharField(
-        max_length=20, 
-        choices=STATUS_CHOICES, 
+        max_length=20,
+        choices=STATUS_CHOICES,
         default='pending'
     )
     applied_on = models.DateTimeField(auto_now_add=True)

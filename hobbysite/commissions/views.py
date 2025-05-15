@@ -39,8 +39,8 @@ class CommissionListView(ListView):
             for application in job_applications:
                 applied_commissions.append(application.job.commission)
             for commission in Commission.objects.all():
-                if ((commission not in created_commissions) 
-                    and (commission not in applied_commissions)):
+                if ((commission not in created_commissions) and
+                   (commission not in applied_commissions)):
                     other_commissions.append(commission)
 
             context['created_commissions'] = created_commissions
@@ -64,7 +64,6 @@ class CommissionDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         commission = self.object
         user = self.request.user
-        
         if user.is_authenticated:
             user_profile = user.profile
         else:
@@ -112,7 +111,7 @@ class CommissionDetailView(DetailView):
             context['form'] = JobApplicationForm()
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         commission = self.object
@@ -150,7 +149,7 @@ class CommissionDetailView(DetailView):
             if accepted_applicants.count() >= job.manpower_required:
                 job.status = 'full'
                 job.save()
-            
+
             job.save()
             commission.save()
 
@@ -159,7 +158,7 @@ class CommissionDetailView(DetailView):
 
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
-    
+
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):
     """
@@ -185,7 +184,7 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 commission = commission_form.save(commit=False)
                 commission.author = request.user.profile
                 commission.save()
-                return redirect('commissions:commission-add')  
+                return redirect('commissions:commission-add')
 
         elif 'add_job' in request.POST:
             job_form = JobForm(request.POST)
@@ -224,7 +223,7 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
         job_applications = []
         for job in jobs:
             applications = JobApplication.objects.filter(job=job)
-            job_applications.append((job,applications))
+            job_applications.append((job, applications))
 
         context['job_applications'] = job_applications
         return context
