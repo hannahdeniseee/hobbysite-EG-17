@@ -157,8 +157,8 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400'
 }
 
-AWS_MEDIA_LOCATION = 'media'
-PUBLIC_MEDIA_LOCATION = 'media'
+AWS_MEDIA_LOCATION = 'hobbysite'
+PUBLIC_MEDIA_LOCATION = 'hobbysite'
 MEDIA_URL = '%s%s' % (AWS_S3_ENDPOINT_URL, AWS_MEDIA_LOCATION)
 DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
 
