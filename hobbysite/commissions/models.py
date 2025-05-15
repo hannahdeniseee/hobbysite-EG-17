@@ -4,8 +4,24 @@ for the different models used in the Commissions app.
 """
 
 from django.db import models
+from django.db.models import Case, When, IntegerField
 from django.urls import reverse
 from user_management.models import Profile
+
+
+class CommissionQuerySet(models.QuerySet):
+    """
+    Used for custom ordering of commissions.
+    """
+    def ordered_by_status(self):
+        custom_order = ['open', 'full', 'completed', 'discontinued']
+        return self.annotate(
+            status_priority=Case(
+                *[When(status=val, then=idx) for idx, val in enumerate(
+                    custom_order)],
+                output_field=IntegerField()
+            )
+        ).order_by('status_priority', '-created_on')
 
 
 class Commission(models.Model):
@@ -32,9 +48,7 @@ class Commission(models.Model):
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-status', 'created_on']
+    objects = CommissionQuerySet.as_manager()
 
     def __str__(self):
         return self.title
@@ -74,6 +88,21 @@ class Job(models.Model):
         return self.role
 
 
+class ApplicationQuerySet(models.QuerySet):
+    """
+    Used for custom ordering of applications.
+    """
+    def ordered_by_status(self):
+        custom_order = ['pending', 'accepted', 'rejectd',]
+        return self.annotate(
+            status_priority=Case(
+                *[When(status=val, then=idx) for idx, val in enumerate(
+                    custom_order)],
+                output_field=IntegerField()
+            )
+        ).order_by('status_priority', '-applied_on')
+
+
 class JobApplication(models.Model):
     """
     Model for a job application.
@@ -99,9 +128,7 @@ class JobApplication(models.Model):
         default='pending'
     )
     applied_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['-status', '-applied_on']
+    objects = ApplicationQuerySet.as_manager()
 
     def __str__(self):
         return f'{self.job.role} - {self.applicant.display_name}'

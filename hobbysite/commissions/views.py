@@ -30,7 +30,7 @@ class CommissionListView(ListView):
 
         if user.is_authenticated:
             created_commissions = Commission.objects.filter(
-                author=user.profile)
+                author=user.profile).ordered_by_status()
             job_applications = JobApplication.objects.filter(
                 applicant=user.profile
             )
@@ -38,7 +38,7 @@ class CommissionListView(ListView):
             other_commissions = []
             for application in job_applications:
                 applied_commissions.append(application.job.commission)
-            for commission in Commission.objects.all():
+            for commission in Commission.objects.ordered_by_status():
                 if ((commission not in created_commissions) and
                    (commission not in applied_commissions)):
                     other_commissions.append(commission)
@@ -137,7 +137,7 @@ class CommissionDetailView(DetailView):
                 job = Job.objects.get(id=job_id)
             except Job.DoesNotExist:
                 messages.error(request, "The selected job does not exist.")
-                return redirect('commissions:commission-detail', 
+                return redirect('commissions:commission-detail',
                                 pk=self.object.pk)
             job_application.job = job
             job_application.save()
@@ -164,14 +164,16 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     """
     Displays the create form for adding a new commission.
 
-    Allows creation of jobs within the commission.
+    Allows creation of jobs for commissions created by the user.
     """
     template_name = 'commissions_form.html'
 
     def get(self, request):
+        commission_form = CommissionForm()      
+        job_form = JobForm(user=request.user)       
         return render(request, self.template_name, {
-            "commission_form": CommissionForm(),
-            "job_form": JobForm(),
+            "commission_form": commission_form,
+            "job_form": job_form,
         })
 
     def post(self, request):
@@ -187,18 +189,14 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 return redirect('commissions:commission-add')
 
         elif 'add_job' in request.POST:
-            job_form = JobForm(request.POST)
+            job_form = JobForm(request.POST, user=request.user)
             if job_form.is_valid():
                 job = job_form.save(commit=False)
-                latest_commission = Commission.objects.filter(
-                    author=request.user.profile).last()
-                if latest_commission:
-                    job.commission = latest_commission
-                    job.save()
-                    return redirect('commissions:commission-add')
-                else:
-                    job_form.add_error(
-                        None, "No commission found to link this job to.")
+                job.save()
+                return redirect('commissions:commission-add')
+            else:
+                job_form.add_error(None, 
+                                   "There was a problem creating the job.")
 
         return render(request, self.template_name, {
             "commission_form": commission_form,

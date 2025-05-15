@@ -22,11 +22,19 @@ class CommissionForm(forms.ModelForm):
 
 class JobForm(forms.ModelForm):
     """
-    Form for creating a new job per commission.
+    Form for creating a new job per commission. Only commissions
+    by the logged-in user are accessible.
     """
     class Meta:
         model = Job
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None) 
+        super().__init__(*args, **kwargs)
+        if user is not None:
+            self.fields['commission'].queryset = Commission.objects.filter(
+                author=user.profile)
 
 
 class JobApplicationForm(forms.ModelForm):
