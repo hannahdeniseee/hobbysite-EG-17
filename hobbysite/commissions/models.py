@@ -55,7 +55,7 @@ class Commission(models.Model):
 
     def get_absolute_url(self):
         return reverse('commissions:commission-detail',
-                       args=[str(self.pk)])
+                       kwargs={'pk': self.pk})
 
 
 class Job(models.Model):

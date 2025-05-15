@@ -186,14 +186,14 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 commission = commission_form.save(commit=False)
                 commission.author = request.user.profile
                 commission.save()
-                return redirect('commissions:commission-add')
+                return redirect(commission.get_absolute_url())
 
         elif 'add_job' in request.POST:
             job_form = JobForm(request.POST, user=request.user)
             if job_form.is_valid():
                 job = job_form.save(commit=False)
                 job.save()
-                return redirect('commissions:commission-add')
+                return redirect(job.commission.get_absolute_url())
             else:
                 job_form.add_error(None,
                                    "There was a problem creating the job.")
