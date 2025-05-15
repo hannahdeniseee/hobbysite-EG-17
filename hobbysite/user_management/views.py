@@ -39,8 +39,9 @@ class DashboardView(LoginRequiredMixin, ListView):
         commissions_joined = []
         for application in job_applications:
             commissions_joined.append(application.job.commission)
-        context['products_sold'] = Transaction.objects.filter(
-            owner=self.request.user.profile)
+        context['products_sold'] = Product.objects.filter(
+            owner=self.request.user.profile,
+            transactions__isnull=False)
         context['products_bought'] = Transaction.objects.filter(
             buyer=self.request.user.profile).distinct()
         context['blog_articles'] = Article.objects.filter(
