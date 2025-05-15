@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['hobbysite-cluster-2vqum.ondigitalocean.app']
 
@@ -162,4 +162,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = '/'
+
+# handles the email backend for resetting password
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'zandalee.labrador@student.ateneo.edu'
+EMAIL_HOST_PASSWORD = 'qnvy bdpy xmxo sjgb'
