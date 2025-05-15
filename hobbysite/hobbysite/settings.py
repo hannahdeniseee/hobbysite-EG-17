@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog',
     'commissions',
     'user_management',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -143,8 +144,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'DO00CNCCGJ2QTDYZZZLP'
+AWS_SECRET_ACCESS_KEY = 'YV2W/eA3yYrYrsS81IslBur13/X2S4Rnup9Z/0/aCEM'
+AWS_STORAGE_BUCKET_NAME = 'hobbysite'
+AWS_S3_ENDPOINT_URL = 'https://hobbysite.sgp1.digitaloceanspaces.com'  # Replace `nyc3` with your region
+AWS_S3_CUSTOM_DOMAIN = f'https://hobbysite.sgp1.cdn.digitaloceanspaces.com'  # CDN URL
+MEDIA_URL = f'https://hobbysite.sgp1.cdn.digitaloceanspaces.com/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
