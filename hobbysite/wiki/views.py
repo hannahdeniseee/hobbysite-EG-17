@@ -95,7 +95,9 @@ class ArticleDetailView(DetailView):
             comment.author = self.request.user.profile
             comment.save()
 
-        return redirect(f"{self.object.get_absolute_url()}#comment_section") #this will redirect to the comment section
+        return redirect(
+            f"{self.object.get_absolute_url()}#comment_section"
+        )  # this will redirect to the comment section
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):

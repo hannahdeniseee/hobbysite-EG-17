@@ -10,7 +10,7 @@ class ArticleForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'title-box', }),
             'category': forms.Select(attrs={'class': 'categ-box', }),
             'entry': forms.Textarea(attrs={'class': 'comment-box', }),
-            'image': forms.ClearableFileInput(), #allows deletion of image
+            'image': forms.ClearableFileInput(),  # allows deletion of image
         }
 
 

@@ -7,7 +7,7 @@ from .views import (
 )
 
 
-urlpatterns = [ #needed url links, as specified in the specs
+urlpatterns = [  # needed url links, as specified in the specs
     path(
         'articles',
         ArticleListView.as_view(),
