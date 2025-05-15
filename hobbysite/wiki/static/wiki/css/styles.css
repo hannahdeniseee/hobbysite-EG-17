@@ -191,6 +191,10 @@ button:hover {
     display: block;
 }
 
+.header-img {
+    margin: 0;
+}
+
 /*for article detail*/
 
 .header-image {
