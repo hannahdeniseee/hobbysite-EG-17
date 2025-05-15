@@ -1,5 +1,14 @@
+"""
+URL configuration for the Commissions app.
+
+Maps URL patterns to class-based views.
+Includes routes for commissions list, commission detail view,
+and creating and updating the commissions.
+"""
+
 from django.urls import path
-from .views import CommissionListView, CommissionDetailView, CommissionCreateView, CommissionUpdateView
+from .views import (CommissionListView, CommissionDetailView, 
+                    CommissionCreateView, CommissionUpdateView)
 
 
 urlpatterns = [

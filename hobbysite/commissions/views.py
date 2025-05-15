@@ -1,5 +1,10 @@
-from django.shortcuts import render
+"""
+This is the views file to create and specify the views for the Commissions app.
+This includes the list view, detail view, create view, and
+update view for commissions.
+"""
 
+from django.shortcuts import render
 from .forms import CommissionForm, JobForm, JobApplicationForm
 from .models import Commission, Job, JobApplication
 from user_management.models import Profile
@@ -8,11 +13,13 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
-from django.urls import reverse
 from django.contrib import messages
 
 
 class CommissionListView(ListView):
+    """
+    Displays a list of all commissions.
+    """
     model = Commission
     template_name = 'commissions_list.html'
     context_object_name = 'commissions'
@@ -20,10 +27,10 @@ class CommissionListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-    
 
         if user.is_authenticated:
-            created_commissions = Commission.objects.filter(author=user.profile)
+            created_commissions = Commission.objects.filter(
+                author=user.profile)
             job_applications = JobApplication.objects.filter(
                 applicant=user.profile
             )
@@ -32,7 +39,8 @@ class CommissionListView(ListView):
             for application in job_applications:
                 applied_commissions.append(application.job.commission)
             for commission in Commission.objects.all():
-                if commission not in created_commissions and commission not in applied_commissions:
+                if ((commission not in created_commissions) 
+                    and (commission not in applied_commissions)):
                     other_commissions.append(commission)
 
             context['created_commissions'] = created_commissions
@@ -43,6 +51,11 @@ class CommissionListView(ListView):
 
 
 class CommissionDetailView(DetailView):
+    """
+    Displays the content of each commission and its jobs.
+
+    Allows the user to apply to open jobs.
+    """
     model = Commission
     template_name = 'commissions_detail.html'
     context_object_name = 'commission'
@@ -70,7 +83,8 @@ class CommissionDetailView(DetailView):
         all_jobs_full = True
         for job in jobs:
             total_manpower += job.manpower_required
-            accepted_applicants_job = accepted_applicants.filter(job=job)
+            accepted_applicants_job = accepted_applicants.filter(
+                job=job)
             accepted_manpower = accepted_applicants_job.count()
             open_manpower = job.manpower_required - accepted_manpower
             total_open_manpower += open_manpower
@@ -124,7 +138,8 @@ class CommissionDetailView(DetailView):
                 job = Job.objects.get(id=job_id)
             except Job.DoesNotExist:
                 messages.error(request, "The selected job does not exist.")
-                return redirect('commissions:commission-detail', pk=self.object.pk)
+                return redirect('commissions:commission-detail', 
+                                pk=self.object.pk)
             job_application.job = job
             job_application.save()
 
@@ -139,13 +154,19 @@ class CommissionDetailView(DetailView):
             job.save()
             commission.save()
 
-            return redirect('commissions:commission-detail', pk=self.object.pk)
+            return redirect('commissions:commission-detail', 
+                            pk=self.object.pk)
 
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
     
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):
+    """
+    Displays the create form for adding a new commission.
+
+    Allows creation of jobs within the commission.
+    """
     template_name = 'commissions_form.html'
 
     def get(self, request):
@@ -170,13 +191,15 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
             job_form = JobForm(request.POST)
             if job_form.is_valid():
                 job = job_form.save(commit=False)
-                latest_commission = Commission.objects.filter(author=request.user.profile).last()
+                latest_commission = Commission.objects.filter(
+                    author=request.user.profile).last()
                 if latest_commission:
                     job.commission = latest_commission
                     job.save()
                     return redirect('commissions:commission-add')
                 else:
-                    job_form.add_error(None, "No commission found to link this job to.")
+                    job_form.add_error(
+                        None, "No commission found to link this job to.")
 
         return render(request, self.template_name, {
             "commission_form": commission_form,
@@ -185,6 +208,9 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
 
 
 class CommissionUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Displays the update form for editing a commission.
+    """
     model = Commission
     form_class = CommissionForm
     template_name = 'commissions_update.html'

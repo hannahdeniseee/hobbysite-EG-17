@@ -1,10 +1,17 @@
+"""
+This is the models file to specify the fields, ordering, and related methods
+for the different models used in the Commissions app.
+"""
+
 from django.db import models
 from django.urls import reverse
-
 from user_management.models import Profile
 
 
 class Commission(models.Model):
+    """
+    Model for a commission.
+    """
     STATUS_CHOICES = [
         ('open', 'Open'),
         ('full', 'Full'),
@@ -38,6 +45,9 @@ class Commission(models.Model):
 
 
 class Job(models.Model):
+    """
+    Model for a job.
+    """
     STATUS_CHOICES = [
         ('open', 'Open'),
         ('full', 'Full')
@@ -65,6 +75,9 @@ class Job(models.Model):
     
 
 class JobApplication(models.Model):
+    """
+    Model for a job application.
+    """
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
