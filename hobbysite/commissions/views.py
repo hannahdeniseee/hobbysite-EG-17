@@ -94,8 +94,11 @@ class CommissionDetailView(DetailView):
                 job.status = 'full'
                 job.save()
             job_current_manpower.append((job, open_manpower, job_appliable))
-            if accepted_manpower > 0:
+            if open_manpower > 0:
                 all_jobs_full = False
+        if all_jobs_full:
+            commission.status = 'full'
+            commission.save()
         context['jobs'] = jobs
         context['total_manpower'] = total_manpower
         context['total_open_manpower'] = total_open_manpower
@@ -107,9 +110,6 @@ class CommissionDetailView(DetailView):
         )
         if context['can_apply']:
             context['form'] = JobApplicationForm()
-        if all_jobs_full:
-            commission.status = 'full'
-            commission.save()
 
         return context
     
