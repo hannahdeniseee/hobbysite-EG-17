@@ -1,156 +1,161 @@
 body, html {
     background-color: #f1ece6;
+    color: #383735;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
     margin: 0;
     padding: 0;
 }
-
 *{
     box-sizing: border-box;
 }
-
-.card a {
-    color: black; 
-    text-decoration: none; 
-}
-
-.card a:visited {
-    color: black; 
-}
-
-.product-image {
-    width: 50%; 
-    height: auto; 
-    object-fit: contain; 
-    display: block;
-    margin: 0 auto;
-}
-
-.detail-container {
-    display: flex; 
-    align-items: center;  
-    gap: 5%;  
-    padding: 5%;
-}
-
-.detail-image {
-    width: 30%;
-    height: 30% ;
-}
-
-.detail.info{
-    width: 70%;
-    object-fit: contain;
-    flex: 1;  
-    max-width: 70%; 
-}
-
-.header-image {
-    max-height: auto; 
-    width: 100%;
-    display: block;
-    margin: 0 auto; 
-}
-.header-strip {
-    background-color: #ddad1e;
-    padding: 1.5% 0;
+.commissions-header {
+    background-color: #ebbe52;
+    color: #f1ece6;
+    padding-top: 1%;
+    padding-bottom: 1%;
     width: 100%;
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    font-style: italic;
-    color: #f1ece6;
-    margin: 0;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 100;
+    margin: 0%;
 }
-
-
-.card:hover {
-    transform: scale(1.20); 
-    background-color: #b17721;
-    color: #f1ece6;
-}
-.card {
-    position: relative;
-    border-color: #ddad1e;
-    border-style: solid;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    width: 20%;  
-    height: 40%;
-    padding: 1%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    margin-left: 1.5%;
-    margin-right: 1.5%;
-    margin-top: 3%;
-    border-radius: 5%;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;  
-    align-items: center;    
-    justify-content: center; 
-    text-align: center;      
-    width: 20%;
-    padding: 1%;
-    border: 1% solid #559456;
-    border-radius: 5%;
-}
-
-.card-info {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    color: #b17721;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-.card:hover .card-info {
-    opacity: 1;
-    visibility: visible;
-}
-
-.cardslayout{
+.commissions-personal {
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
     padding-bottom: 3%;
 }
-
-.back-button-container {
-    display: flex;
-    justify-content: right; 
-    margin-top: 1%;
-    margin-right: 1%;
-}
-
-.back-button {
-    display: inline-block;
-    background-color: #559456; 
-    border-color: #264326;
+.commissions-button {
+    background-color: #ebbe52;
+    color: #f1ece6;
+    display: block;
+    padding: .5%;
+    text-decoration: none;
+    text-align: center;
+    width: 15%;
+    border-radius: 20px;
     border-style: solid;
-    color: #f1ece6; 
+    border-color: #ebbe52;
+    margin-top: 3%;
+}
+.commissions-card {
+    display: block;
+    padding: 2%;
+    width: 90%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #ebbe52;
+    margin-top: 3%;
+}
+.commissions-all {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.bottom-margin {
+    margin-bottom: 4.5%;
+}
+.category-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    width: 100%;
+    margin-top: 4.5%;
+}
+.detail-box {
+    display: block;
+    padding: 2%;
+    width: 90%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #ebbe52;
+    margin-top: 3%;
+}
+.line {
+    height: 2px;
+    background-color: #ebbe52;
+    margin-top: 3%;
+    border-style: solid;
+}
+.custom-comment-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#37499e;
+    padding: 2%;
+    width: 100%;
+    resize: vertical;
+    height: 100px;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #ebbe52;
+    border-style: solid;
+    background-color: #f1ece6;
+}
+.custom-title-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#ebbe52;
+    width: 50%;
+    border-radius: 20px;
+    border-width: 2px;
+    border-color: #ebbe52;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+.custom-categ-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+    color:#ebbe52;
+    width: 30%;
+    border-radius: 20px;
+    border-width: 2px;  
+    border-color: #ebbe52;
+    border-style: solid;
+    background-color: #f1ece6;
+    padding-left: 1%;
+}
+.submit-button {
+    display: block;
+    background-color: #f1ece6;
+    color:#ebbe52;
     padding: 1%;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #ebbe52;
+    margin-top: 1%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+}
+.edit-button {
+    display: flex;
+    color:#ebbe52;
+    height: 50px;
+    width: 10%;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    transition: background-color 0.3s ease-in-out;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #ebbe52;
+    margin-top: 3%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    font-size: medium;
+}
+.centered-text {
+    text-align: center;
+}
+.thread-image {
+    max-width: 50%;
+    max-height: 500px;
+}
+.comments-margin {
+    margin-top: 3%;
+}
+.thread-link {
+    color: #37499e;
 }
 
-.back-button:hover {
-    background-color: #41703e; 
-}
 

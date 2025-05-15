@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'commissions/styles.css' %}">
 {% endblock %}
 
-{% block title %}Edit Commission{% endblock %}
+{% block title %}Update Commission{% endblock %}
 
 {% block content %}
     <h2>Edit Commission</h2>
@@ -14,5 +14,17 @@
             {{ form.as_p }}
             <button type="submit">Update Commission</button>
         </form>
+    <h3>Jobs</h3>
+    {% for job, applications in job_applications %}
+        <h3>{{ job.role }} ({{ job.manpower_required }})</h3>
+
+        <ul>
+        {% for application in applications %}
+            <li>{{ application.applicant.user.username }} - Status: {{ application.status }}</li>
+        {% empty %}
+            <li>No applications yet.</li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
     <a href="{% url 'commissions:commission-detail' commission.pk %}" class="back-button">Back to Commission</a>
 {% endblock %}

@@ -63,4 +63,20 @@ by the logged in user.
                 </div>
             {% endfor %}
         </div>
+    <h1 class="home-header">COMMISSIONS CREATED</h1>
+        <div class="layout-personal">
+            {% for commission in commissions_created %}
+                <div class="dashboard-card">
+                    <a href="{{ commission.get_absolute_url }}" class="link"><h3>{{ commission.title }}</h3></a>
+                </div>
+            {% endfor %}
+        </div>
+    <h1 class="home-header">COMMISSIONS APPLIED</h1>
+        <div class="layout-personal">
+            {% for commission in commissions_applied %}
+                <div class="dashboard-card">
+                    <a href="{{ commission.get_absolute_url }}" class="link"><h3>{{ commission.title }}</h3></a>
+                </div>
+            {% endfor %}
+        </div>
 {% endblock %}

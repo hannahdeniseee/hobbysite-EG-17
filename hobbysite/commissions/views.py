@@ -20,15 +20,24 @@ class CommissionListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+    
 
         if user.is_authenticated:
             created_commissions = Commission.objects.filter(author=user.profile)
-            applied_commissions = JobApplication.objects.filter(
+            job_applications = JobApplication.objects.filter(
                 applicant=user.profile
-            ).distinct()
+            )
+            applied_commissions = []
+            other_commissions = []
+            for application in job_applications:
+                applied_commissions.append(application.job.commission)
+            for commission in Commission.objects.all():
+                if commission not in created_commissions and commission not in applied_commissions:
+                    other_commissions.append(commission)
 
             context['created_commissions'] = created_commissions
             context['applied_commissions'] = applied_commissions
+            context['other_commissions'] = other_commissions
 
         return context
 
@@ -56,21 +65,35 @@ class CommissionDetailView(DetailView):
             job__in=jobs
         )
         total_manpower = 0
-        total_accepted_applicants = accepted_applicants.count()
+        total_open_manpower = 0
+        job_current_manpower = []
+        all_jobs_full = True
         for job in jobs:
             total_manpower += job.manpower_required
-        total_open_manpower = total_manpower - total_accepted_applicants
+            accepted_applicants_job = accepted_applicants.filter(job=job)
+            accepted_manpower = accepted_applicants_job.count()
+            open_manpower = job.manpower_required - accepted_manpower
+            total_open_manpower += open_manpower
+            job_appliable = True
+            if accepted_manpower == job.manpower_required:
+                job_appliable = False
+                job.status = 'full'
+                job.save()
+            job_current_manpower.append((job, open_manpower, job_appliable))
+            if accepted_manpower > 0:
+                all_jobs_full = False
         context['jobs'] = jobs
         context['total_manpower'] = total_manpower
         context['total_open_manpower'] = total_open_manpower
+        context['job_current_manpower'] = job_current_manpower
         context['is_owner'] = commission.author == user_profile
         context['can_apply'] = (
-            total_open_manpower != 0 and
+            not all_jobs_full and
             commission.author != user_profile
         )
         if context['can_apply']:
-            context['form'] = JobApplicationForm(commission=commission)
-        if total_open_manpower == 0:
+            context['form'] = JobApplicationForm()
+        if all_jobs_full:
             commission.status = 'full'
             commission.save()
 
@@ -91,14 +114,20 @@ class CommissionDetailView(DetailView):
             )
             return redirect('accounts:register')
 
-        form = JobApplicationForm(request.POST, commission=commission)
+        form = JobApplicationForm(request.POST)
         if form.is_valid():
             job_application = form.save(commit=False)
             job_application.commission = commission
             job_application.applicant = applicant
+            job_id = request.POST.get('job')
+            try:
+                job = Job.objects.get(id=job_id)
+            except Job.DoesNotExist:
+                messages.error(request, "The selected job does not exist.")
+                return redirect('commissions:commission-detail', pk=self.object.pk)
+            job_application.job = job
             job_application.save()
 
-            job = job_application.job
             accepted_applicants = JobApplication.objects.filter(
                 status='accepted',
                 job=job
@@ -135,7 +164,7 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 commission = commission_form.save(commit=False)
                 commission.author = request.user.profile
                 commission.save()
-                return redirect('commissions:commission-create')  
+                return redirect('commissions:commission-add')  
 
         elif 'add_job' in request.POST:
             job_form = JobForm(request.POST)
@@ -145,7 +174,7 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 if latest_commission:
                     job.commission = latest_commission
                     job.save()
-                    return redirect('commissions:commission-create')
+                    return redirect('commissions:commission-add')
                 else:
                     job_form.add_error(None, "No commission found to link this job to.")
 
@@ -159,4 +188,17 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
     model = Commission
     form_class = CommissionForm
     template_name = 'commissions_update.html'
+    context_object_name = 'commission'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        commission = self.object
+        jobs = Job.objects.filter(commission=commission)
+
+        job_applications = []
+        for job in jobs:
+            applications = JobApplication.objects.filter(job=job)
+            job_applications.append((job,applications))
+
+        context['job_applications'] = job_applications
+        return context

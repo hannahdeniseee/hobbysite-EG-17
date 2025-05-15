@@ -8,37 +8,39 @@
 {% block title %}{{ commission.title }}{% endblock %}
 
 {% block content %}
-    <div class="cardslayout">
-        <h1 class="header-strip">{{ commission.title }}</h1>
-        <h3 style="text-align: center;">Created on: {{ commission.created_on }} | Updated on: {{ commission.updated_on }}</h3>
+    <div class="commissions-personal">
+        <div class="detail-box">
+            <h1 class="commissions-header">{{ commission.title }}</h1>
+            <h3 class="centered-text">Status: {{ commission.status }} | Created on: {{ commission.created_on }} | Updated on: {{ commission.updated_on }}</h3>
+            <p> {{ commission.description }} </p>
+            {% if request.user.is_authenticated and is_owner %}
+            <a href="{% url 'commissions:commission-edit' commission.pk %}" class="edit-button">
+                <p>Update Commission</p>
+            </a>
+            {% endif %}
+
+            <hr class="line">
+
+            <h3>Jobs</h3>
+            {% for job, open, appliable in job_current_manpower %}
+                <li>{{ job.role }} : Max {{ job.manpower_required }} | Needs {{ open }} more</li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="job" value="{{ job.id }}">
+                        {% if appliable %}
+                            <button type="submit">Apply to Job</button>
+                        {% else %}
+                            <button type="submit" disabled>Job Full</button>
+                        {% endif %}
+                    </form>
+                    <h4 class="comments-margin"></h4>
+            {% endfor %}
+            <h3>Total Manpower Needed : {{ total_manpower }}</h3>
+            <h3>Total Open Manpower: {{ total_open_manpower }}</h3>
+            <a href="{% url 'commissions:commissions-list' %}" class="commissions-button">
+                <p>Back to Commissions List</p>
+            </a>
+        </div>
     </div>
-    <div class="header-strip">
-        <img src="https://picsum.photos/300/300" alt="Commission">
-    </div>
-    {% if request.user.is_authenticated and is_owner %}
-        <a href="{% url 'commissions:commission-edit' commission.pk %}" class="button">
-        <p>Edit Commission</p>
-    </a>
-    {% endif %}
-    <h2>Status : {{ commission.status }}</h2>
-    <p> {{ commission.description }} </p>
-    <h3>Jobs:</h3>
-    <ul>
-        {% for job in jobs %}
-        <li>{{ job.role }} : Requires {{ job.manpower_required }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Total Manpower Needed : {{ total_manpower }}</h2>
-    <h2>Open Manpower : {{ total_open_manpower }}</h2>
-    {% if request.user.is_authenticated and can_apply %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.job.label_tag }}
-            {{ form.job }}
-            <button type="submit">Apply to Job</button>
-        </form>
-    {% endif %}
-    <a href="{% url 'commissions:commissions-list' %}" class="button">
-        <p>Back to Commissions List</p>
-    </a>
+    
 {% endblock %}
