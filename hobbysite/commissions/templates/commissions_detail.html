@@ -22,8 +22,8 @@
             <hr class="line">
 
             <h3>Jobs</h3>
-            {% for job, current, appliable in job_current_manpower %}
-                <li>{{ job.role }} : Max {{ job.manpower_required }} | Current {{ current }}</li>
+            {% for job, open, appliable in job_current_manpower %}
+                <li>{{ job.role }} : Max {{ job.manpower_required }} | Needs {{ open }} more</li>
                     <form method="post">
                         {% csrf_token %}
                         <input type="hidden" name="job" value="{{ job.id }}">
@@ -36,6 +36,7 @@
                     <h4 class="comments-margin"></h4>
             {% endfor %}
             <h3>Total Manpower Needed : {{ total_manpower }}</h3>
+            <h3>Total Open Manpower: {{ total_open_manpower }}</h3>
             <a href="{% url 'commissions:commissions-list' %}" class="commissions-button">
                 <p>Back to Commissions List</p>
             </a>

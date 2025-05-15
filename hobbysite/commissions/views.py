@@ -65,22 +65,26 @@ class CommissionDetailView(DetailView):
             job__in=jobs
         )
         total_manpower = 0
+        total_open_manpower = 0
         job_current_manpower = []
         all_jobs_full = True
         for job in jobs:
             total_manpower += job.manpower_required
             accepted_applicants_job = accepted_applicants.filter(job=job)
-            open_manpower = accepted_applicants_job.count()
+            accepted_manpower = accepted_applicants_job.count()
+            open_manpower = job.manpower_required - accepted_manpower
+            total_open_manpower += open_manpower
             job_appliable = True
-            if open_manpower == job.manpower_required:
+            if accepted_manpower == job.manpower_required:
                 job_appliable = False
                 job.status = 'full'
                 job.save()
             job_current_manpower.append((job, open_manpower, job_appliable))
-            if open_manpower > 0:
+            if accepted_manpower > 0:
                 all_jobs_full = False
         context['jobs'] = jobs
         context['total_manpower'] = total_manpower
+        context['total_open_manpower'] = total_open_manpower
         context['job_current_manpower'] = job_current_manpower
         context['is_owner'] = commission.author == user_profile
         context['can_apply'] = (
