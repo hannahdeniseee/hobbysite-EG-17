@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
 from .models import Article, ArticleCategory, Comment
 from .forms import ArticleForm, UpdateForm, CommentForm
+from user_management import Profile
 
 
 class ArticleListView(ListView):
@@ -18,9 +19,13 @@ class ArticleListView(ListView):
         categories = ArticleCategory.objects.all()
 
         if user.is_authenticated:
+            try:
+                profile = user.profile
+            except Profile.DoesNotExist:
+                profile = Profile.objects.create(user=user)
             # Separate your articles and others'
-            user_articles = Article.objects.filter(author=user.profile)
-            other_articles = Article.objects.exclude(author=user.profile)
+            user_articles = Article.objects.filter(author=profile)
+            other_articles = Article.objects.exclude(author=profile)
 
             # Group each by category
             grouped_user_articles = []
