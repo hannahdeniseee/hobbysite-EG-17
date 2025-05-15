@@ -159,7 +159,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_MEDIA_LOCATION = 'media'
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = '%s%s' % (AWS_S3_ENDPOINT_URL, AWS_MEDIA_LOCATION)
-DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediStorage'
+DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
