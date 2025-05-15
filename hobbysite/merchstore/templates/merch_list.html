@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load modulo %}
 
 {% comment %}
 This is the merch list template that lists all products.
@@ -30,7 +29,7 @@ This portion lists the user's products.
       {% for product in user_products %}
         <div class="merch-card">
           <a href="{% url 'merchstore:merch-detail' product.pk %}">
-            <img src="{% static 'merchstore/images/product-' %}{{ product.id|modulo:8 }}.png"
+            <img src="{% static 'merchstore/images/product-' %}{{ product.id}}.png"
                  alt="{{ product.name }}" class="product-image">
             <p class="product-title">{{ product.name }}</p>
           </a>
