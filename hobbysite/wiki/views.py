@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import redirect
 from .models import Article, ArticleCategory, Comment
 from .forms import ArticleForm, UpdateForm, CommentForm
-from user_management import Profile
+from user_management.models import Profile
 
 
 class ArticleListView(ListView):
