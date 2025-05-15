@@ -153,7 +153,7 @@ class CommissionDetailView(DetailView):
             job.save()
             commission.save()
 
-            return redirect('commissions:commission-detail', 
+            return redirect('commissions:commission-detail',
                             pk=self.object.pk)
 
         context = self.get_context_data(form=form)
@@ -169,8 +169,8 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     template_name = 'commissions_form.html'
 
     def get(self, request):
-        commission_form = CommissionForm()      
-        job_form = JobForm(user=request.user)       
+        commission_form = CommissionForm()
+        job_form = JobForm(user=request.user)
         return render(request, self.template_name, {
             "commission_form": commission_form,
             "job_form": job_form,
@@ -195,7 +195,7 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
                 job.save()
                 return redirect('commissions:commission-add')
             else:
-                job_form.add_error(None, 
+                job_form.add_error(None,
                                    "There was a problem creating the job.")
 
         return render(request, self.template_name, {
