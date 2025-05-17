@@ -38,7 +38,6 @@
         <h3 class="subheader">Comments</h3>
         <div class="comment-section" id="comment_section">
         {% if user.is_authenticated %}
-            <p>Leave a Comment</p>
             <form method="post">
                 {% csrf_token %}
                 {{ comment_form.as_p }}

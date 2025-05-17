@@ -19,7 +19,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['entry', ]
         widgets = {
-            'entry': forms.Textarea(attrs={'class': 'comment-box', })
+            'entry': forms.Textarea(label="Leave a comment:", attrs={'class': 'comment-box', })
         }
 
 
