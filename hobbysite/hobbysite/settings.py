@@ -52,7 +52,10 @@ try:
 except Exception as e:
     print("❌ Error importing MediaStorage:", e)
 
-DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "hobbysite.storage_backends.MediaStorage",
+    },}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
