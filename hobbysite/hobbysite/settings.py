@@ -147,7 +147,7 @@ STATIC_URL = '/static/'
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'    
 AWS_ACCESS_KEY_ID = 'DO00CNCCGJ2QTDYZZZLP'
 AWS_SECRET_ACCESS_KEY = 'YV2W/eA3yYrYrsS81IslBur13/X2S4Rnup9Z/0/aCEM'
 AWS_STORAGE_BUCKET_NAME = 'hobbysite'
@@ -161,7 +161,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_MEDIA_LOCATION = 'media'
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.sgp1.digitaloceanspaces.com/{AWS_MEDIA_LOCATION}/"
-DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
