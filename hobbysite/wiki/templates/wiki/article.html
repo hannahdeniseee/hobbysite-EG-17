@@ -17,7 +17,7 @@
         <div class="article-container">
 
             <h1 class="article-title">{{ article.title }}</h1>
-            <p class="article-meta">written by {{ article.author }} <br> Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
+            <p class="article-meta">written by <strong>{{ article.author }}</strong> <br> Created on {{ article.created_on }} | Updated on {{ article.updated_on }}</p>
 
             {% if article.image %}
                 <img src="{{ article.image.url }}" alt="{{ article.title }} image" style="max-height: 300px; width: auto;">
