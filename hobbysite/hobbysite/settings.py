@@ -183,6 +183,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
+try:
+    from hobbysite.storage_backends import MediaStorage
+    print("✅ MediaStorage successfully imported")
+except Exception as e:
+    print("❌ Error importing MediaStorage:", e)
+
+DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
+
+
 import logging
 from django.core.files.storage import default_storage
 
