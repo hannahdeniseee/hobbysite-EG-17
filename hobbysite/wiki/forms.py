@@ -15,12 +15,14 @@ class ArticleForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    entry = forms.CharField(
+        label="Leave a comment:",
+        widget=forms.Textarea(attrs={'class': 'comment-box'})
+    )
+
     class Meta:
         model = Comment
         fields = ['entry', ]
-        widgets = {
-            'entry': forms.Textarea(label="Leave a comment:", attrs={'class': 'comment-box', })
-        }
 
 
 class UpdateForm(forms.ModelForm):
