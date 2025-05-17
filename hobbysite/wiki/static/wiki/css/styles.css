@@ -99,7 +99,7 @@ button:hover {
     padding: 15px;
     text-align: center;
     place-items: center;
-    background-color: #efe1e1; 
+    background-color: #f1e6e6; 
     border-radius: 8px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
