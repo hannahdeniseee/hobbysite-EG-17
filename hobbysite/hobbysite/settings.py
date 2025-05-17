@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog',
     'commissions',
     'user_management',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -159,7 +160,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 AWS_MEDIA_LOCATION = 'media'
 PUBLIC_MEDIA_LOCATION = 'media'
-MEDIA_URL = 'https://hobbysite.sgp1.digitaloceanspaces.com/media'
+MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/"
 DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
