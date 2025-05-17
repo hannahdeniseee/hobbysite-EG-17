@@ -99,7 +99,7 @@ button:hover {
     padding: 15px;
     text-align: center;
     place-items: center;
-    background-color: #ffcdcd; 
+    background-color: #ffe4e4; 
     border-radius: 8px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -215,6 +215,7 @@ button:hover {
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #8b0707;
 }
 
 .article-meta {
