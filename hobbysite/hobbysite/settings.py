@@ -148,8 +148,8 @@ STATIC_URL = '/static/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'    
-AWS_ACCESS_KEY_ID = 'DO00CNCCGJ2QTDYZZZLP'
-AWS_SECRET_ACCESS_KEY = 'YV2W/eA3yYrYrsS81IslBur13/X2S4Rnup9Z/0/aCEM'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'hobbysite'
 AWS_S3_ENDPOINT_URL = 'https://sgp1.digitaloceanspaces.com'
 AWS_DEFAULT_ACL = 'public-read'
@@ -180,6 +180,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+import logging
+from django.core.files.storage import default_storage
+
+logging.warning(f"[DEBUG] Storage class at startup: {default_storage.__class__}")
