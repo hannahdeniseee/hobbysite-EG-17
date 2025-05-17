@@ -24,7 +24,7 @@ It contains some basic css styles and the navigation bar.
     {% endcomment %}
     <header class="navbar">
         <nav>
-            <img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo">
+            <a href="{% url 'homepage' %}"><img src="{% static 'images/logo.png' %}" alt="Site Logo" class="navbar-logo"></a>
             {% if user.is_authenticated %}
                 <span>Welcome, {{ user.profile.display_name }}!</span>
                 <a href="{% url 'homepage' %}">Home</a>
