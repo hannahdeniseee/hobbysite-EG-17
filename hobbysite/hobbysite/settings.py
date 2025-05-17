@@ -55,7 +55,11 @@ except Exception as e:
 STORAGES = {
     "default": {
         "BACKEND": "hobbysite.storage_backends.MediaStorage",
-    },}
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+    }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
