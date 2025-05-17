@@ -46,12 +46,6 @@ INSTALLED_APPS = [
     'storages'
 ]
 
-try:
-    from hobbysite.storage_backends import MediaStorage
-    print("✅ MediaStorage successfully imported")
-except Exception as e:
-    print("❌ Error importing MediaStorage:", e)
-
 STORAGES = {
     "default": {
         "BACKEND": "hobbysite.storage_backends.MediaStorage",
@@ -59,7 +53,7 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
-    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -157,18 +151,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = '/static/'
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-DEFAULT_FILE_STORAGE = 'hobbysite.storage_backends.MediaStorage'    
+#media storage handling
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'hobbysite'
 AWS_S3_ENDPOINT_URL = 'https://sgp1.digitaloceanspaces.com'
 AWS_DEFAULT_ACL = 'public-read'
-#AWS_S3_CUSTOM_DOMAIN = f'hobbysite.sgp1.cdn.digitaloceanspaces.com'  # CDN URL
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400'
 }
@@ -177,11 +171,6 @@ AWS_MEDIA_LOCATION = 'media'
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.sgp1.digitaloceanspaces.com/{AWS_MEDIA_LOCATION}/"
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -197,11 +186,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-
-
-
-import logging
-from django.core.files.storage import default_storage
-
-logging.warning(f"[DEBUG] Storage class at startup: {default_storage.__class__}")
