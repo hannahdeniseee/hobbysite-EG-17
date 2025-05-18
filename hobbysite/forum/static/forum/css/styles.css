@@ -164,7 +164,7 @@ body, html {
 .image-wrapper {
     display: flex;
     justify-content: center;
-    padding-bottom: 10%;
+    padding-bottom: 10px;
 }
 .comments-margin {
     margin-top: 3%;
