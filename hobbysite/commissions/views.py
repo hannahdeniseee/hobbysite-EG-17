@@ -140,6 +140,11 @@ class CommissionDetailView(DetailView):
                 messages.error(request, "The selected job does not exist.")
                 return redirect('commissions:commission-detail',
                                 pk=self.object.pk)
+            if JobApplication.objects.filter(
+                applicant=applicant,job=job).exists():
+                messages.error(request, "You've already applied to this job.")
+                return redirect('commissions:commission-detail',
+                                pk=self.object.pk)
             job_application.job = job
             job_application.save()
 
