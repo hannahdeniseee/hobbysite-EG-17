@@ -159,7 +159,7 @@ body, html {
 }
 .thread-image {
     max-width: 75%;
-    max-height: 100px;
+    max-height: 300px;
 }
 .image-wrapper {
     display: flex;
