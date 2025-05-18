@@ -39,6 +39,10 @@
         <p style="text-align: center;"> You have not written any articles.</p>
     {% endif %}
 
+    <div style="text-align: center; margin: 2%;">
+        <a href="{% url 'wiki:article_create' %}"><button>Create an Article</button></a>
+    </div>   
+
     <!--this shows other articles not by the author, grouped by category-->
     <h2 class="boxdiv2">Other Articles</h2>
     {% if has_other_articles %}
@@ -85,11 +89,6 @@
         {% endif %}
 {% endif %}
 
-{% if user.is_authenticated %}
-    <div style="text-align: center; margin: 2%;">
-        <a href="{% url 'wiki:article_create' %}"><button>Create an Article</button></a>
-    </div>   
-{% endif %}
 </main>
 </body>
 {% endblock %}
