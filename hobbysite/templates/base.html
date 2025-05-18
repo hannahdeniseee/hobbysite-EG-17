@@ -79,6 +79,12 @@ It contains some basic css styles and the navigation bar.
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
             {% else %}
+                <a href="{% url 'homepage' %}">Home</a>
+                <a href="{% url 'merchstore:merch-list' %}">Merchandise Store</a>
+                <a href="{% url 'wiki:articles' %}">Wiki</a>
+                <a href="{% url 'blog:article_list' %}">Blog</a>
+                <a href="{% url 'forum:threads-list' %}">Forum</a>
+                <a href="{% url 'commissions:commissions-list' %}">Commissions</a>
                 <a href="{% url 'accounts:login' %}">Login</a>
                 <a href="{% url 'accounts:register' %}">Sign Up</a>
             {% endif %}
