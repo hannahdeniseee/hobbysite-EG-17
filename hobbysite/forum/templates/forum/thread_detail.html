@@ -35,7 +35,9 @@ This section specifies the content of the page.
             <h1 class="forum-header">[{{ thread.category }}] {{ thread }}</h1>
             <h3 class="centered-text">{{ thread.author }} | Created on: {{ thread.created_on }} | Updated on: {{ thread.updated_on }}</h3>
             {% if thread.image %}
-                <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
+                <div class="image-wrapper">
+                    <img src="{{ thread.image.url }}" alt="{{ thread }} image" class="thread-image">
+                </div>
             {% endif %}
             <p>{{ thread.entry|linebreaksbr }}</p>
             {% if request.user.is_authenticated and request.user.profile == thread.author %}
