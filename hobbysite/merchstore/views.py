@@ -190,7 +190,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             if form.instance.status == 'Out of Stock':
                 form.instance.status = 'Available'
         return super().form_valid(form)
-    
+
     def dispatch(self, request, *args, **kwargs):
         product = self.get_object()
         if product.owner.user != request.user:

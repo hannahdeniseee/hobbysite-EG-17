@@ -98,7 +98,7 @@ class ThreadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'forum/thread_form.html'
 
     def dispatch(self, request, *args, **kwargs):
-        thread= self.get_object()
+        thread = self.get_object()
         if thread.author.user != request.user:
             raise PermissionDenied("You are not allowed to edit this.")
         return super().dispatch(request, *args, **kwargs)

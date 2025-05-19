@@ -51,7 +51,7 @@
             {% endfor %}
             </div>
         {% else %}
-            <h1 class="commissions-header">ALL COMMISSIONS</h2>
+            <h2 class="commissions-header">ALL COMMISSIONS</h2>
             <div class="commissions-personal">
                 {% for commission in all_commissions %}
                     <a href="{{ commission.get_absolute_url }}" class="card">

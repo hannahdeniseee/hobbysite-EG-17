@@ -142,8 +142,8 @@ class CommissionDetailView(DetailView):
                 messages.error(request, "The selected job does not exist.")
                 return redirect('commissions:commission-detail',
                                 pk=self.object.pk)
-            if JobApplication.objects.filter(
-                applicant=applicant,job=job).exists():
+            if JobApplication.objects.filter(applicant=applicant, job=job
+                                             ).exists():
                 messages.error(request, "You've already applied to this job.")
                 return redirect('commissions:commission-detail',
                                 pk=self.object.pk)
@@ -237,7 +237,7 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
 
         context['job_applications'] = job_applications
         return context
-    
+
     def dispatch(self, request, *args, **kwargs):
         commission = self.get_object()
         if commission.author.user != request.user:
