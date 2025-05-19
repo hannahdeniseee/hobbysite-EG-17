@@ -67,10 +67,12 @@
     </div>
 
     <div>
-        <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ gallery_form.as_p }}
-        <button type="submit">Upload Images</button>
+        {% if user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ gallery_form.as_p }}
+            <button type="submit">Upload Images</button>
+        {% endif %}
     </form>
     </div>
 
