@@ -96,7 +96,7 @@ class CommissionDetailView(DetailView):
             job_current_manpower.append((job, open_manpower, job_appliable))
             if open_manpower > 0:
                 all_jobs_full = False
-        if all_jobs_full:
+        if all_jobs_full and commission.status == 'open':
             commission.status = 'full'
             commission.save()
         context['jobs'] = jobs
