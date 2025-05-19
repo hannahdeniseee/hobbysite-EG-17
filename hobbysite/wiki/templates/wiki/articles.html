@@ -41,7 +41,7 @@
 
     <div style="text-align: center; margin: 2%;">
         <a href="{% url 'wiki:article_create' %}"><button>Create an Article</button></a>
-    </div>   
+    </div>
 
     <!--this shows other articles not by the author, grouped by category-->
     <h2 class="boxdiv2">Other Articles</h2>
@@ -68,6 +68,9 @@
 <!--this shows all the articles for those not logged in, grouped by category-->
 {% else %}
     <h2 class="boxdiv2">All Articles</h2>
+    <div style="text-align: center; margin: 2%;">
+        <a href="{% url 'wiki:article_create' %}"><button>Create an Article</button></a>
+    </div>
     {% if has_all_articles %}
         {% for group in grouped_all_articles %}
             {% if group.articles %}
