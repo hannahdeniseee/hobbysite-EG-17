@@ -62,4 +62,4 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['created_on']  # Sort comments by date (oldest first)
+        ordering = ['-created_on']  # Sort comments by date (oldest first)
