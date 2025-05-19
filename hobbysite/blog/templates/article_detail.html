@@ -76,7 +76,7 @@
     </form>
     </div>
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and article.author.user == request.user %}
         <h2 class="subheader">MORE FROM THIS AUTHOR</h2>
         <div class="cardslayout">
             {% for article in articles %}
