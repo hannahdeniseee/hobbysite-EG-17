@@ -47,7 +47,9 @@ class CommissionListView(ListView):
             context['created_commissions'] = created_commissions
             context['applied_commissions'] = applied_commissions
             context['other_commissions'] = other_commissions
-
+        else:
+            all_commissions = Commission.objects.ordered_by_status()
+            context['all_commissions'] = all_commissions
         return context
 
 

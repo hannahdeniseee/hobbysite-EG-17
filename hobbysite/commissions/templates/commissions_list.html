@@ -53,7 +53,7 @@
         {% else %}
             <h1 class="commissions-header">ALL COMMISSIONS</h2>
             <div class="commissions-personal">
-                {% for commission in commissions %}
+                {% for commission in all_commissions %}
                     <a href="{{ commission.get_absolute_url }}" class="card">
                         <h2>{{ commission.title }}</h2>
                         <p>Status: {{ commission.status }}</p>
