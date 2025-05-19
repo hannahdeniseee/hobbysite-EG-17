@@ -58,9 +58,10 @@ class ArticleDetailView(DetailView):
             comment.author = self.request.user.profile
             comment.save()
 
-        images = request.FILES.getlist('image')
-        for img in images:
-            Gallery.objects.create(article=self.object, image=img)
+        if self.object.author.user == request.user:
+            images = request.FILES.getlist('image')
+            for img in images:
+                Gallery.objects.create(article=self.object, image=img)
 
         remove_image = request.POST.get('remove_image')
         if remove_image:
