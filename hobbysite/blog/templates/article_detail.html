@@ -67,7 +67,7 @@
     </div>
 
     <div>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and article.author.user == request.user %}
             <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ gallery_form.as_p }}
@@ -76,18 +76,16 @@
     </form>
     </div>
 
-    {% if request.user.is_authenticated and article.author.user == request.user %}
-        <h2 class="subheader">MORE FROM THIS AUTHOR</h2>
-        <div class="cardslayout">
-            {% for article in articles %}
-            <div class="thread-card">
-                <a href="{{ article.get_absolute_url }}">
-                    <h2>{{ article.title }}</h2>
-                </a>
-            </div>
-        {% endfor %}
+    <h2 class="subheader">MORE FROM THIS AUTHOR</h2>
+    <div class="cardslayout">
+        {% for article in articles %}
+        <div class="thread-card">
+            <a href="{{ article.get_absolute_url }}">
+                <h2>{{ article.title }}</h2>
+            </a>
         </div>
-    {% endif %}
+    {% endfor %}
+    </div>
 
     <a href="{% url 'blog:article_list' %}"><button>Back to Article List</button></a>
 </body>
