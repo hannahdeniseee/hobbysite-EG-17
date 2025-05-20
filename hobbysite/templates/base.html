@@ -74,14 +74,15 @@ It contains some basic css styles and the navigation bar.
                     </div>
                 </div>
 
+
+                <div class="dropdown">
+                    <a href="{% url 'profile:profile-update' %}" class="dropbtn">Edit Profile </a>
+                </div>
+                
+
                 <form method="POST" action="{% url 'accounts:logout' %}" class="inline-display">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
-                </form>
-                      <form method="POST" action="{% url 'profile:profile-update' %}" class="inline-display">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">Edit Profile</button>
-                </form>
             {% else %}
                 <a href="{% url 'accounts:login' %}">Login</a>
                 <a href="{% url 'accounts:register' %}">Sign Up</a>
