@@ -78,7 +78,7 @@ It contains some basic css styles and the navigation bar.
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
-                      <form method="POST" action="{% url 'profile:user.profile.username' %}" class="inline-display">
+                      <form method="POST" action="{% url 'profile:profile.display_name' %}" class="inline-display">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Edit Profile</button>
                 </form>
